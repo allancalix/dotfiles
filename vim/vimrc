@@ -95,7 +95,7 @@ set noshowmode                                                  "vim-lightline
 
 let g:solarized_contrast="high"                                 "vim-colors-solarized
 set background=dark
-" set t_Co=256                                                  "vim-colors-solarized
+set t_Co=256                                                  "vim-colors-solarized
 colorscheme solarized                                           "vim-colors-solorized
 
 
