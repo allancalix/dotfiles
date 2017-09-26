@@ -34,9 +34,11 @@ set backspace=indent,eol,start
 
 " to autosave buffer (useful when switching between buffer)
 set autowrite
+set incsearch
 
 " show line numbers
-set number
+" set number
+set ruler
 
 " configure the invisible chars
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
@@ -44,6 +46,8 @@ set listchars=tab:>.,trail:.,extends:#,nbsp:.
 " ignore case if search pattern is all lowercase,
 "    case-sensitive otherwise (both smartcase and ignorecase needed)
 set smartcase
+set autoindent
+set smarttab
 set ignorecase
 
 " to keep backup and swap files in my home dir
@@ -66,9 +70,6 @@ set listchars=tab:▸\ ,eol:¬
 " set list " To enable by default
 " Or use your leader key + l to toggle on/off
 map <leader>l :set list!<CR> " Toggle tabs and EOL
-
-" Netrw
-
 
 " absolute width of netrw window
 let g:netrw_winsize = -28
@@ -97,7 +98,6 @@ let g:solarized_contrast="high"                                 "vim-colors-sola
 set background=dark
 set t_Co=256                                                  "vim-colors-solarized
 colorscheme solarized                                           "vim-colors-solorized
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editorconfig
@@ -190,3 +190,7 @@ nnoremap <silent> <Leader>bu :set modifiable<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader G prefix is for SCM (mainly git) related mappings
+
+" Settings in Test
+set wildmenu
+set autoread
