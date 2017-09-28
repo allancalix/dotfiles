@@ -1,10 +1,29 @@
+#define S_yellow        #b58900
+#define S_orange        #cb4b16
+#define S_red           #dc322f
+#define S_magenta       #d33682
+#define S_violet        #6c71c4
+#define S_blue          #268bd2
+#define S_cyan          #2aa198
+#define S_green #859900
+
+! Dark
+#define S_base03        #002b36
+#define S_base02        #073642
+#define S_base01        #586e75
+#define S_base00        #657b83
+#define S_base0         #839496
+#define S_base1         #93a1a1
+#define S_base2         #eee8d5
+#define S_base3 #fdf6e3
+
 ! urxvt
 URxvt*buffered: true
 URxvt*iconFile: /usr/share/icons/Numix-Circle/48/apps/xterm-color.svg
 
 ! Cursor
 URxvt*cursorBlink: true
-URxvt.cursorUnderline: 1
+URxvt.cursorUnderline: 2
 URxvt.cursorColor: #657b83
 
 ! Pointer
@@ -12,12 +31,13 @@ URxvt.pointerBlank: true
 
 ! Font
 URxvt*underlineColor: yellow
-URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:pixelsize=13
+URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:size=10
 URxvt*letterSpace: -1
 
 ! Terminal Window Appearance
 URxvt.depth: 32 
-URxvt.background: [90]#002B36 
+URxvt.background: #002b36
+! Slick Blue Color [90]#002B36 
 
 URxvt*borderless: 1
 URxvt*scrollBar: false
@@ -25,33 +45,66 @@ URxvt*loginShell: true
 Urxvt*secondaryScroll:  true    # Enable Shift-PageUp/Down in screen
 URxvt*saveLines: 5000
 URxvt*termName: rxvt-unicode
-URxvt.perl-ext-common: default,matcher
+! URxvt.perl-ext-common: default,matcher
 URxvt.urlLauncher: firefox
 URxvt.matcher.button: 1
 
-URxvt.foreground: #E7EFF0
-URxvt.color0:     #2E3436
-URxvt.color1:     #CC0000
-URxvt.color2:     #4E9A06
-URxvt.color3:     #C4A000
-URxvt.color4:     #3465A4
-URxvt.color5:     #75507B
-URxvt.color6:     #06989A
-URxvt.color7:     #D3D7CF
-URxvt.color8:     #555753
-URxvt.color9:     #EF2929
-URxvt.color10:    #8AE234
-URxvt.color11:    #FCE94F
-URxvt.color12:    #729FCF
-URxvt.color13:    #AD7FA8
-URxvt.color14:    #34E2E2
-URxvt.color15:    #EEEEEC
+! URxvt.foreground: #E7EFF0
+! URxvt.color0:     #2E3436
+! URxvt.color1:     #CC0000
+! URxvt.color2:     #4E9A06
+! URxvt.color3:     #C4A000
+! URxvt.color4:     #3465A4
+! URxvt.color5:     #75507B
+! URxvt.color6:     #06989A
+! URxvt.color7:     #D3D7CF
+! URxvt.color8:     #555753
+! URxvt.color9:     #EF2929
+! URxvt.color10:    #8AE234
+! URxvt.color11:    #FCE94F
+! URxvt.color12:    #729FCF
+! URxvt.color13:    #AD7FA8
+! URxvt.color14:    #34E2E2
+! URxvt.color15:    #EEEEEC
+
+*background:              S_base03
+*foreground:              S_base0
+*fading:                  40
+*fadeColor:               S_base03
+*cursorColor:             S_base1
+*pointerColorBackground:  S_base01
+*pointerColorForeground:  S_base1
+
+*color0:                  S_base02
+*color1:                  S_red
+*color2:                  S_green
+*color3:                  S_yellow
+*color4:                  S_blue
+*color5:                  S_magenta
+*color6:                  S_cyan
+*color7:                  S_base2
+*color9:                  S_orange
+*color8:                  S_base03
+*color10:                 S_base01
+*color11:                 S_base00
+*color12:                 S_base0
+*color13:                 S_violet
+*color14:                 S_base1
+*color15: S_base3
 
 !-------------!
 ! XFT Settings!
 !-------------!
-Xft.dpi:                    96
+Xft.dpi:                    220 
 Xft.antialias:              true
 Xft.rgba:                   rgb
 Xft.hinting:                true
 Xft.hintstyle: hintslight
+
+!--------------!
+!  Extensions  !
+!--------------!
+
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.iso14755: False
+URxvt.perl-ext-common: default,clipboard
