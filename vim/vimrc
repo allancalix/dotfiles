@@ -52,7 +52,6 @@ set ignorecase
 set backupdir=~/.vim/tmp/                   " for the backup files
 set directory=~/.vim/tmp/                   " for the swap files
 
-" Whitespace
 " set wrap
 set textwidth=79
 set formatoptions=tcqrn1
@@ -164,6 +163,8 @@ cmap w!! %!sudo tee > /dev/null %
 
 noremap <silent> <Leader>cc          :TComment<CR>              "tcomment_vim
 
+" Hotkey for removing any trailing whitespace in a file
+noremap <silent> <Leader>cw          :%s/[ \t]*$//g<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader F prefix is for file related mappings (open, browse...)
