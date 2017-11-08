@@ -31,7 +31,10 @@ URxvt.pointerBlank: true
 
 ! Font
 URxvt*underlineColor: yellow
-URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:size=10
+! 1080p screen setting
+URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:pixelsize=13
+! 4k Screen setting
+! URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:size=10
 URxvt*letterSpace: -1
 
 ! Terminal Window Appearance
