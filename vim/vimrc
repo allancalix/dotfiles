@@ -4,15 +4,14 @@ set nocompatible
 filetype off
 
 " specify a directory for plugins
-"
-" - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
-"  you will load your plugin here
-"  make sure you use single quotes
 Plug 'tomtom/tcomment_vim'
-Plug 'ctrlpvim/ctrlp.vim'
+" Deprecate soon?
+" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'altercation/vim-colors-solarized'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'editorconfig/editorconfig-vim'
@@ -36,7 +35,6 @@ set backspace=indent,eol,start
 set autowrite
 set incsearch
 
-" show line numbers
 " set number
 set ruler
 
@@ -71,6 +69,7 @@ set listchars=tab:▸\ ,eol:¬
 " Or use your leader key + l to toggle on/off
 map <leader>l :set list!<CR> " Toggle tabs and EOL
 
+let g:netrw_banner = 0
 " absolute width of netrw window
 let g:netrw_winsize = -28
 
@@ -87,7 +86,7 @@ let g:netrw_browse_split = 3
 " Lightline
 
 let g:lightline = { 'colorscheme': 'solarized', }               "vim-lightline
-set laststatus=2                                                "vim-lightline
+set laststatus=2                                               "vim-lightline
 set noshowmode                                                  "vim-lightline
 
 
@@ -102,9 +101,8 @@ colorscheme solarized                                           "vim-colors-solo
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editorconfig
 
-" don't have vim compiled with python => use external editorconfig
 " let g:EditorConfig_core_mode = 'external_command'               "editorconfig-vim
-
+command! -bang -nargs=* Find call fzf#vim#grep('rg --pretty --fixed-strings --ignore-case --hidden --follow --no-heading --glob "!.git/*" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic
 
@@ -170,16 +168,16 @@ noremap <silent> <Leader>cc          :TComment<CR>              "tcomment_vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader F prefix is for file related mappings (open, browse...)
 
-nnoremap <silent> <Leader>f :CtrlP<CR>                          "ctrlp.vim
-nnoremap <silent> <Leader>fm :CtrlPMRU<CR>                      "ctrlp.vim
+nnoremap <silent> <Leader>f :Files<CR>                          "ctrlp.vim
+" nnoremap <silent> <Leader>fm :CtrlPMRU<CR>                      "ctrlp.vim
 
 " don't need NerdTree, Netrw is enough for me
-nnoremap <silent> <Leader>fe :Lexplore <CR>
+nnoremap <silent> <Leader>fe :Explore <CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader B prefix is for buffer related mappings
 
-nnoremap <silent> <Leader>b  :CtrlPBuffer<CR>                   "ctrlp.vim
+" nnoremap <silent> <Leader>b  :CtrlPBuffer<CR>                   "ctrlp.vim
 nnoremap <silent> <Leader>bb :bn<CR>
 nnoremap <silent> <Leader>bd :bdelete<CR>
 
