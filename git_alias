@@ -9,6 +9,8 @@ git config --global alias.so "show --pretty='parent %Cred%p%Creset commit
 git config --global alias.st "status --short --branch"
 git config --global alias.cma "commit --all -m"
 git config --global alias.dp "diff --word-diff --unified=10"
+git config --global alias.append '!git cherry-pick $(git merge-base HEAD
+$1)..$1'
 
 # Settings
 git config --global core.pager "less -RFX"
