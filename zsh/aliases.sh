@@ -14,13 +14,10 @@ alias ll='ls -lh'
 alias la='ls -a'
 alias lal='ls -lah'
 alias less='less -R'
+alias home='cd $HOME'
 
 cd() {
   builtin cd "$@" && ls
-}
-
-p() {
-  cd "$(find ~/code ~/projects -type d -maxdepth 3 -name .git | sed -e 's/\/\.git$//' | selecta)"
 }
 
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
