@@ -1,0 +1,17 @@
+{
+    "editor.fontFamily": "Fira Code, DejaVu Sans Mono, Source Code Pro",
+    "editor.tabSize": 2,
+    "editor.rulers": [
+        80
+    ],
+    "editor.fontLigatures": true,
+    "workbench.colorTheme": "Monokai Dimmed",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/node_modules": true
+    }
+}

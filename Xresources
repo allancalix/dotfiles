@@ -99,6 +99,7 @@ URxvt.matcher.button: 1
 ! XFT Settings!
 !-------------!
 Xft.dpi:                    220 
+! 1080p resolution Xft.dpi:                    96
 Xft.antialias:              true
 Xft.rgba:                   rgb
 Xft.hinting:                true
