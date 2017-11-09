@@ -16,7 +16,7 @@ alias ga='git add -A'
 alias gap='ga -p'
 alias gau='git add -u'
 alias gbr='git branch -v'
-alias gc!='git commit -v --all'
+alias gc!='git commit -v'
 gc() {
   git diff --cached | grep '\btap[ph]\b' >/dev/null &&
     echo "\e[0;31;29mOops, there's a #tapp or similar in that diff.\e[0m" ||
@@ -29,7 +29,7 @@ gca() {
 }
 alias gcam='gca --amend'
 alias gch='git cherry-pick'
-alias gcm='git commit -v --all --amend'
+alias gcm='git commit -v --amend'
 alias gco='git checkout'
 alias gcop='gco -p'
 alias gd='git diff -M'

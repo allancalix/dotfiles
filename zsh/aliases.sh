@@ -4,6 +4,8 @@ if [ `uname` = 'Darwin' ]; then
 else
   alias ls='ls --color=auto'
   alias du='du -k --max-depth=1 $argv'
+  alias pbcopy='xclip -selection clipboard'
+  alias pbpaste='xclip -selection clipboard -o'
 fi
 
 alias df='df -kh $argv'
@@ -12,8 +14,6 @@ alias ll='ls -lh'
 alias la='ls -a'
 alias lal='ls -lah'
 alias less='less -R'
-alias b='bundle exec'
-alias z='zeus'
 
 cd() {
   builtin cd "$@" && ls
@@ -22,4 +22,3 @@ cd() {
 p() {
   cd "$(find ~/code ~/projects -type d -maxdepth 3 -name .git | sed -e 's/\/\.git$//' | selecta)"
 }
-
