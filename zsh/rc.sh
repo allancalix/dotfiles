@@ -1,4 +1,5 @@
 export ZSH=$HOME/.oh-my-zsh
+export GIT_EDITOR="vim"
 CUST_ZSH=$HOME/.zsh
 ZSH_THEME="spaceship"
 
