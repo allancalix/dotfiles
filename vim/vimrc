@@ -7,8 +7,7 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
 Plug 'tomtom/tcomment_vim'
-" Deprecate soon?
-" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'bronson/vim-trailing-whitespace'
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -24,9 +23,9 @@ call plug#end()
 " activate filetype detection now that plugins are loaded
 filetype plugin on
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   SETTINGS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " make backspaces delete sensibly
 set backspace=indent,eol,start
@@ -53,7 +52,8 @@ set backupdir=~/.vim/tmp/                   " for the backup files
 set directory=~/.vim/tmp/                   " for the swap files
 
 " set wrap
-set textwidth=79
+set textwidth=80
+set colorcolumn=81
 set formatoptions=tcqrn1
 set tabstop=2
 set shiftwidth=2
@@ -81,28 +81,30 @@ let g:netrw_sort_sequence = '[\/]$,*'
 " open file in a new tab
 " let g:netrw_browse_split = 3
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lightline
 
-let g:lightline = { 'colorscheme': 'solarized', }               "vim-lightline
+let g:lightline = { 'colorscheme': 'seoul256', }               "vim-lightline
 set laststatus=2                                               "vim-lightline
 set noshowmode                                                  "vim-lightline
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Solarized
-
-let g:solarized_contrast="high"                                 "vim-colors-solarized
-set background=dark
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Themes
 set t_Co=256                                                  "vim-colors-solarized
-colorscheme solarized                                           "vim-colors-solorized
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Solarized
+" let g:solarized_contrast="high"                                 "vim-colors-solarized
+" set background=dark
+" colorscheme solarized                                           "vim-colors-solorized
+
+colorscheme xoria256
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editorconfig
 
 " let g:EditorConfig_core_mode = 'external_command'               "editorconfig-vim
 command! -bang -nargs=* Find call fzf#vim#grep('rg --pretty --fixed-strings --ignore-case --hidden --follow --no-heading --glob "!.git/*" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic
 
 set statusline+=%#warningmsg#                                   "syntastic
@@ -115,7 +117,7 @@ let g:syntastic_check_on_open = 1                               "syntastic
 let g:syntastic_check_on_wq = 0                                 "syntastic
 let g:syntastic_javascript_checkers = ['eslint']                "syntastic
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tabular
 
 " Align on equal sign
@@ -126,17 +128,17 @@ vnoremap <silent> <Leader>cet    :Tabularize /#<CR>             "tabular
 vnoremap <silent> <Leader>ce     :Tabularize /
 "
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim-markdown-previw
 
 let vim_markdown_preview_toggle=3
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   KEYS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General
 
 let mapleader = ','
@@ -158,7 +160,7 @@ imap <F1> <Esc>
 cmap w!! %!sudo tee > /dev/null %
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader C prefix is for code related mappings (completion, tidy, documentation...)
 
 noremap <silent> <Leader>cc          :TComment<CR>              "tcomment_vim
@@ -166,16 +168,13 @@ noremap <silent> <Leader>cc          :TComment<CR>              "tcomment_vim
 " Hotkey for removing any trailing whitespace in a file
 noremap <silent> <Leader>cw          :%s/[ \t]*$//g<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader F prefix is for file related mappings (open, browse...)
 
-nnoremap <silent> <Leader>f :Files<CR>                          "ctrlp.vim
-" nnoremap <silent> <Leader>fm :CtrlPMRU<CR>                      "ctrlp.vim
-
-" don't need NerdTree, Netrw is enough for me
+nnoremap <silent> <Leader>f :Files<CR>
 nnoremap <silent> <Leader>fe :Explore <CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader B prefix is for buffer related mappings
 
 " nnoremap <silent> <Leader>b  :CtrlPBuffer<CR>                   "ctrlp.vim
@@ -187,7 +186,7 @@ nnoremap <silent> <Leader>bl :set nomodifiable<CR>
 nnoremap <silent> <Leader>bu :set modifiable<CR>
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader G prefix is for SCM (mainly git) related mappings
 
 " Settings in Test

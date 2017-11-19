@@ -38,9 +38,9 @@ URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:pixelsize=13
 URxvt*letterSpace: -1
 
 ! Terminal Window Appearance
-URxvt.depth: 32 
+URxvt.depth: 32
 URxvt.background: #002b36
-! Slick Blue Color [90]#002B36 
+! Slick Blue Color [90]#002B36
 
 URxvt*borderless: 1
 URxvt*scrollBar: false
@@ -98,7 +98,7 @@ URxvt.matcher.button: 1
 !-------------!
 ! XFT Settings!
 !-------------!
-Xft.dpi:                    220 
+Xft.dpi:                    220
 ! 1080p resolution Xft.dpi:                    96
 Xft.antialias:              true
 Xft.rgba:                   rgb
