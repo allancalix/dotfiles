@@ -7,6 +7,7 @@ filetype off
 call plug#begin('~/.vim/plugged')
 
 Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-surround'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
