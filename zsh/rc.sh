@@ -1,4 +1,6 @@
 export ZSH=$HOME/.oh-my-zsh
+export VISUAL="vim"
+export EDITOR="$VISUAL"
 export GIT_EDITOR="vim"
 
 CUST_ZSH=$HOME/.zsh
