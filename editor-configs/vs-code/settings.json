@@ -1,17 +1,23 @@
 {
-    "editor.fontFamily": "Fira Code, DejaVu Sans Mono, Source Code Pro",
+    "files.trimTrailingWhitespace": true,
+    "editor.fontFamily": "Fira Code, DejaVu Sans, Source Code Pro",
+    "editor.fontLigatures": true,
     "editor.tabSize": 2,
+    "editor.insertSpaces": true,
     "editor.rulers": [
         80
     ],
-    "editor.fontLigatures": true,
-    "workbench.colorTheme": "Monokai Dimmed",
-    "files.exclude": {
-        "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/CVS": true,
-        "**/.DS_Store": true,
-        "**/node_modules": true
-    }
+    "workbench.startupEditor": "none",
+    "window.zoomLevel": 0,
+    "workbench.colorTheme": "Tomorrow Night",
+    "vim.incsearch": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.insertModeKeyBindings": [
+        {
+            "before": ["j", "j"],
+            "after": ["<ESC>"]
+        }
+    ]
 }
