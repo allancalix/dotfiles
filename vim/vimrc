@@ -183,4 +183,3 @@ nnoremap <silent> <Leader>bu :set modifiable<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader G prefix is for SCM (mainly git) related mappings
-set wildmenu
