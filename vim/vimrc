@@ -1,13 +1,15 @@
 set nocompatible
-
-" no need filetype to load plugins
 filetype off
 
-" specify a directory for plugins
+if has('syntax') && !exists('g:syntax_on')
+  syntax enable
+endif
+
 call plug#begin('~/.vim/plugged')
 
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'altercation/vim-colors-solarized'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -18,41 +20,39 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'vim-syntastic/syntastic'
 Plug 'godlygeek/tabular'
 
-" initialize plugin system
 call plug#end()
-
-" activate filetype detection now that plugins are loaded
 filetype plugin on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" make backspaces delete sensibly
+" GENERAL "
 set backspace=indent,eol,start
-
-" to autosave buffer (useful when switching between buffer)
-set autowrite
-set incsearch
-
-" set number
 set ruler
+set wildmenu
+
+set autowrite
+set autoread
+
+" SEARCH "
+set incsearch
+set hlsearch
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
 
 " configure the invisible chars
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
-" ignore case if search pattern is all lowercase,
-"    case-sensitive otherwise (both smartcase and ignorecase needed)
 set smartcase
-set autoindent
 set smarttab
+set autoindent
 set ignorecase
 
-" to keep backup and swap files in my home dir
 set backupdir=~/.vim/tmp/                   " for the backup files
 set directory=~/.vim/tmp/                   " for the swap files
 
-" set wrap
 set textwidth=80
 set colorcolumn=81
 set formatoptions=tcqrn1
@@ -62,25 +62,13 @@ set softtabstop=2
 set expandtab
 set noshiftround
 
-" Visualize tabs and newlines
-set listchars=tab:▸\ ,eol:¬
-" Uncomment this to enable by default:
-" set list " To enable by default
-" Or use your leader key + l to toggle on/off
-map <leader>l :set list!<CR> " Toggle tabs and EOL
-
+" FILE EXPLORER "
 let g:netrw_banner = 0
-" absolute width of netrw window
-let g:netrw_winsize = -28
-
-" tree-view
 let g:netrw_liststyle = 3
-
-" sort is affecting only: directories on the top, files below
 let g:netrw_sort_sequence = '[\/]$,*'
-
-" open file in a new tab
+" let g:netrw_winsize = -28
 " let g:netrw_browse_split = 3
+"
 :set number relativenumber
 
 :augroup numbertoggle
@@ -110,7 +98,7 @@ colorscheme xoria256
 " Editorconfig
 
 " let g:EditorConfig_core_mode = 'external_command'               "editorconfig-vim
-command! -bang -nargs=* Find call fzf#vim#grep('rg --pretty --fixed-strings --ignore-case --hidden --follow --no-heading --glob "!.git/*" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+command! -bang -nargs=* Find call fzf#vim#grep('rg --pretty --fixed-strings --ignore-case --follow --no-heading --glob "!.git/*" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Syntastic
 
@@ -195,7 +183,4 @@ nnoremap <silent> <Leader>bu :set modifiable<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader G prefix is for SCM (mainly git) related mappings
-
-" Settings in Test
 set wildmenu
-set autoread
