@@ -25,6 +25,7 @@ bindkey -s '^f' 'fe\n'
 bindkey -s '^e' 'cdf\n'
 
 export NVM_DIR="$HOME/.nvm"
+source $NVM_DIR/nvm.sh
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
