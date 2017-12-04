@@ -15,7 +15,7 @@ URxvt*letterSpace: -1
 ! 1080p screen setting
 ! URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:pixelsize=13
 ! 4k Screen setting
-URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:size=10
+URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:pizelsize=10
 
 ! Terminal Window Appearance
 URxvt.depth: 32
@@ -44,8 +44,7 @@ Xft.hintstyle: hintslight
 
 URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 URxvt.iso14755: False
-URxvt.perl-ext-common: default,clipboard
-URxvt.perl-ext-common: default,matcher
+URxvt.perl-ext-common: default,clipboard,matcher
 
 !----------------!
 ! xoria256 theme !
