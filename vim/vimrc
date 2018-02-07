@@ -16,9 +16,11 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'sheerun/vim-polyglot'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
 Plug 'godlygeek/tabular'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'fatih/vim-go'
 
 call plug#end()
 filetype plugin on
@@ -26,6 +28,22 @@ filetype plugin on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+let g:fzf_layout = { 'down': '~35%' }
 
 " GENERAL "
 set backspace=indent,eol,start
@@ -64,11 +82,8 @@ set noshiftround
 
 " FILE EXPLORER "
 let g:netrw_banner = 0
-let g:netrw_liststyle = 3
 let g:netrw_sort_sequence = '[\/]$,*'
-" let g:netrw_winsize = -28
-" let g:netrw_browse_split = 3
-"
+
 :set number relativenumber
 
 :augroup numbertoggle
@@ -97,20 +112,9 @@ colorscheme xoria256
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editorconfig
 
-" let g:EditorConfig_core_mode = 'external_command'               "editorconfig-vim
 command! -bang -nargs=* Find call fzf#vim#grep("rg --pretty --fixed-strings --ignore-case --no-heading -g '!.git/' ".shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Syntastic
-
-set statusline+=%#warningmsg#                                   "syntastic
-set statusline+=%{SyntasticStatuslineFlag()}                    "syntastic
-set statusline+=%*                                              "syntastic
-
-let g:syntastic_always_populate_loc_list = 1                    "syntastic
-let g:syntastic_auto_loc_list = 1                               "syntastic
-let g:syntastic_check_on_open = 1                               "syntastic
-let g:syntastic_check_on_wq = 0                                 "syntastic
-let g:syntastic_javascript_checkers = ['eslint']                "syntastic
+let g:UltiSnipsUsePythonVersion = 2
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tabular
@@ -121,7 +125,6 @@ vnoremap <silent> <Leader>cee    :Tabularize /=<CR>              "tabular
 vnoremap <silent> <Leader>cet    :Tabularize /#<CR>             "tabular
 " Align (no sign)
 vnoremap <silent> <Leader>ce     :Tabularize /
-"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim-markdown-previw
@@ -131,11 +134,6 @@ let vim_markdown_preview_toggle=3
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   KEYS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" General
-
 let mapleader = ','
 
 " use jj to quickly escape to normal mode while typing <- AWESOME tip
@@ -179,7 +177,3 @@ nnoremap <silent> <Leader>bd :bdelete<CR>
 " (un)lock the current buffer to prevent modification
 nnoremap <silent> <Leader>bl :set nomodifiable<CR>
 nnoremap <silent> <Leader>bu :set modifiable<CR>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Leader G prefix is for SCM (mainly git) related mappings
