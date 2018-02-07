@@ -1,7 +1,7 @@
 export ZSH=$HOME/.oh-my-zsh
-export VISUAL="vim"
+export VISUAL="nvim"
 export EDITOR="$VISUAL"
-export GIT_EDITOR="vim"
+export GIT_EDITOR="nvim"
 
 CUST_ZSH=$HOME/.zsh
 ZSH_THEME="spaceship"

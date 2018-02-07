@@ -18,13 +18,13 @@ alias gau='git add -u'
 alias gbr='git branch -v'
 alias gc!='git commit -v'
 gc() {
-  git diff --cached | grep '\btap[ph]\b' >/dev/null &&
-    echo "\e[0;31;29mOops, there's a #tapp or similar in that diff.\e[0m" ||
+    git diff --cached | rg '^<{7}$|^>{7}$|^={7}$' >/dev/null &&
+      echo "\e[0;31;29mOops, you left merge commit errors in you doof.\e[0m" ||
     git commit -v "$@"
 }
 gca() {
-  (git diff; git diff --cached) | grep '\btap[ph]\b' >/dev/null &&
-    echo "\e[0;31;29mOops, there's a #tapp or similar in that diff.\e[0m" ||
+  (git diff; git diff --cached) | rg '^<{7}$|^>{7}$|^={7}$' >/dev/null &&
+    echo "\e[0;31;29mOops, you left merge commit errors in you doof.\e[0m" ||
     git commit -v -a "$@"
 }
 alias gcam='gca --amend'
