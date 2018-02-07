@@ -1,0 +1,35 @@
+#!/bin/bash
+
+mkdir $HOME/tmp
+tmp_dir=$HOME/tmp
+
+if [[ -f $HOME/.zshrc ]]; then
+  mv $HOME/.zshrc $tmp_dir/zshrc.bak
+fi
+
+if [[ -f $HOME/.Xresources ]]; then
+  mv $HOME/.Xresources $tmp_dir/.Xresources.bak
+fi
+
+if [[ -f $HOME/.vimrc ]]; then
+  mv $HOME/.vimrc $tmp_dir/.vimrc.bak
+fi
+
+if [[ -f $HOME/.tmux.conf ]]; then
+  mv $HOME/.tmux.conf $tmp_dir/.tmux.conf.bak
+fi
+
+if [[ -d $HOME/.vim ]]; then
+  mv $HOME/.vim $tmp_dir/.vim
+fi
+
+if [[ -d $HOME/.zsh ]]; then
+  mv $HOME/.zsh $tmp_dir/.zsh.bak
+fi
+
+ln -s $PWD/zshrc $HOME/.zshrc
+ln -s $PWD/rxvt/Xresources.xoria $HOME/.Xresources
+ln -s $PWD/vim/vimrc $HOME/.vimrc
+ln -s $PWD/tmux.conf $HOME/.tmux.conf
+ln -s $PWD/vim $HOME/.vim
+ln -s $PWD/zsh $HOME/.zsh
