@@ -12,6 +12,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'altercation/vim-colors-solarized'
+Plug 'junegunn/seoul256.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
@@ -114,7 +115,9 @@ set t_Co=256                                                  "vim-colors-solari
 " set background=dark
 " colorscheme solarized                                           "vim-colors-solorized
 
-colorscheme xoria256
+let g:seoul256_background = 234
+colo seoul256
+" colorscheme xoria256
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editorconfig
 
