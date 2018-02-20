@@ -15,8 +15,7 @@ URxvt*letterSpace: -1
 ! 1080p screen setting
 ! URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:pixelsize=13
 ! 4k Screen setting
-URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:pizelsize=10
-
+URxvt*font: xft:Source\ Code\ Pro\ for\ Powerline:pixelsize=30
 ! Terminal Window Appearance
 URxvt.depth: 32
 

@@ -19,6 +19,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'w0rp/ale'
 Plug 'godlygeek/tabular'
 Plug 'SirVer/ultisnips'
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+endif
 Plug 'honza/vim-snippets'
 Plug 'fatih/vim-go'
 
@@ -28,6 +32,8 @@ filetype plugin on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:deoplete#enable_at_startup = 1
+
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
