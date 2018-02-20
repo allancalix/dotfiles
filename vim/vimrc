@@ -120,9 +120,6 @@ colorscheme xoria256
 
 command! -bang -nargs=* Find call fzf#vim#grep("rg --pretty --fixed-strings --ignore-case --no-heading -g '!.git/' ".shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:UltiSnipsUsePythonVersion = 2
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Tabular
 
 " Align on equal sign
