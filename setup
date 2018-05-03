@@ -1,35 +1,53 @@
 #!/bin/bash
+set -eo pipefail
 
-mkdir $HOME/tmp
-tmp_dir=$HOME/tmp
+readonly TMP_DIR=$(mktemp -d)
+readonly CONFIGS=".zshrc
+  .Xresources
+  .vimrc
+  .tmux.conf
+  .vim
+  .zsh"
 
-if [[ -f $HOME/.zshrc ]]; then
-  mv $HOME/.zshrc $tmp_dir/zshrc.bak
-fi
 
-if [[ -f $HOME/.Xresources ]]; then
-  mv $HOME/.Xresources $tmp_dir/.Xresources.bak
-fi
+copy_to_backup() {
+  mv "${HOME}/${1}" "${TMP_DIR}/${1}"
+}
 
-if [[ -f $HOME/.vimrc ]]; then
-  mv $HOME/.vimrc $tmp_dir/.vimrc.bak
-fi
 
-if [[ -f $HOME/.tmux.conf ]]; then
-  mv $HOME/.tmux.conf $tmp_dir/.tmux.conf.bak
-fi
+backup_configs() {
+  local backup_required=false
 
-if [[ -d $HOME/.vim ]]; then
-  mv $HOME/.vim $tmp_dir/.vim
-fi
+  for config in $(echo "$CONFIGS"); do
+    local path="${HOME}/${config}"
+    if [[ -f "$path" ]] || [[ -d "$path" ]]; then
+      copy_to_backup "$config"
+      backup_required=true
+    fi
+  done
 
-if [[ -d $HOME/.zsh ]]; then
-  mv $HOME/.zsh $tmp_dir/.zsh.bak
-fi
+  if [[ backup_required ]]; then
+    echo "Created a backup at ${TMP_DIR}"
+  else
+    rm -rf "$TMPDIR"
+  fi
+}
 
-ln -s $PWD/zshrc $HOME/.zshrc
-ln -s $PWD/rxvt/Xresources.xoria $HOME/.Xresources
-ln -s $PWD/vim/vimrc $HOME/.vimrc
-ln -s $PWD/tmux.conf $HOME/.tmux.conf
-ln -s $PWD/vim $HOME/.vim
-ln -s $PWD/zsh $HOME/.zsh
+link_configs() {
+  ln -s $PWD/zshrc $HOME/.zshrc
+  ln -s $PWD/rxvt/Xresources.xoria $HOME/.Xresources
+  ln -s $PWD/vim/vimrc $HOME/.vimrc
+  ln -s $PWD/tmux.conf $HOME/.tmux.conf
+  ln -s $PWD/vim $HOME/.vim
+  ln -s $PWD/zsh $HOME/.zsh
+}
+
+
+main() {
+  backup_configs
+  link_configs
+
+  exit 0
+}
+
+main
