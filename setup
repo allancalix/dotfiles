@@ -1,25 +1,36 @@
-#!/bin/bash
-set -eo pipefail
+#!/usr/bin/env bash
+set -euo pipefail
+shopt -s nullglob globstar
 
 readonly TMP_DIR=$(mktemp -d)
-readonly CONFIGS=".zshrc
+readonly CONFIGS=(
+  .zshrc
   .Xresources
   .vimrc
   .tmux.conf
   .vim
-  .zsh"
+  .zsh
+)
 
+declare -A config_paths
+config_paths=(
+  [".zshrc"]=zshrc
+  [".Xresources"]=rxvt/Xresources.xoria
+  [".vimrc"]=vim/vimrc
+  [".tmux.conf"]=tmux.conf
+  [".vim"]=vim
+  [".zsh"]=zsh
+)
 
 copy_to_backup() {
   mv "${HOME}/${1}" "${TMP_DIR}/${1}"
 }
 
-
 backup_configs() {
   local backup_required=false
 
-  for config in $(echo "$CONFIGS"); do
-    local path="${HOME}/${config}"
+  for config in "${CONFIGS[@]}"; do
+    local path="${HOME}/$config"
     if [[ -f "$path" ]] || [[ -d "$path" ]]; then
       copy_to_backup "$config"
       backup_required=true
@@ -34,12 +45,9 @@ backup_configs() {
 }
 
 link_configs() {
-  ln -s $PWD/zshrc $HOME/.zshrc
-  ln -s $PWD/rxvt/Xresources.xoria $HOME/.Xresources
-  ln -s $PWD/vim/vimrc $HOME/.vimrc
-  ln -s $PWD/tmux.conf $HOME/.tmux.conf
-  ln -s $PWD/vim $HOME/.vim
-  ln -s $PWD/zsh $HOME/.zsh
+  for config in "${CONFIGS[@]}"; do
+    ln -s "$PWD""/""${config_paths[$config]}" "$HOME""/""$config"
+  done
 }
 
 
