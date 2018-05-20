@@ -5,7 +5,6 @@ shopt -s nullglob globstar
 readonly TMP_DIR=$(mktemp -d)
 readonly CONFIGS=(
   .zshrc
-  .Xresources
   .vimrc
   .tmux.conf
   .vim
@@ -15,7 +14,6 @@ readonly CONFIGS=(
 declare -A config_paths
 config_paths=(
   [".zshrc"]=zshrc
-  [".Xresources"]=rxvt/Xresources.xoria
   [".vimrc"]=vim/vimrc
   [".tmux.conf"]=tmux.conf
   [".vim"]=vim
