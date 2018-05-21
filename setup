@@ -2,6 +2,8 @@
 set -euo pipefail
 shopt -s nullglob globstar
 
+source ./git/configure.sh
+
 readonly TMP_DIR=$(mktemp -d)
 readonly CONFIGS=(
   .zshrc
@@ -50,8 +52,12 @@ link_configs() {
 
 
 main() {
+  echo "Linking configs to home directory..."
   backup_configs
   link_configs
+  echo "Creating git aliases..."
+  configure_git
+  echo "Done."
 
   exit 0
 }
