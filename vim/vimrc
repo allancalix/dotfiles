@@ -1,40 +1,41 @@
-set nocompatible
-filetype off
+if &compatible
+  set nocompatible
+endif
 
 if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
-packadd minpac
-call minpac#init()
-command! PackUpdate call minpac#update()
-command! PackClean call minpac#clean()
+command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'do': 'quit'})
+command! PackClean packadd minpac | source $MYVIMRC | call minpac#clean('', {'do': 'quit'})
 
-call minpac#add('tomtom/tcomment_vim')
-call minpac#add('tpope/vim-surround')
-call minpac#add('tpope/vim-fugitive')
-call minpac#add('tpope/vim-unimpaired')
-call minpac#add('bronson/vim-trailing-whitespace')
-call minpac#add('altercation/vim-colors-solarized')
-call minpac#add('junegunn/seoul256.vim')
-call minpac#add('junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'})
-call minpac#add('junegunn/fzf.vim')
-call minpac#add('itchyny/lightline.vim')
-call minpac#add('sheerun/vim-polyglot')
-call minpac#add('w0rp/ale')
-call minpac#add('godlygeek/tabular')
-call minpac#add('SirVer/ultisnips')
-call minpac#add('honza/vim-snippets')
-call minpac#add('fatih/vim-go', {'type': 'opt'})
+if exists('*minpac#init')
+  call minpac#init()
 
-if has('nvim')
-  call minpac#add('Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'})
-  call minpac#add('zchee/deoplete-jedi')
-  call minpac#add('Shougo/deoplete.nvim')
-  call minpac#add('zchee/deoplete-go', {'do': 'make'})
+  call minpac#add('tomtom/tcomment_vim')
+  call minpac#add('tpope/vim-surround')
+  call minpac#add('tpope/vim-fugitive')
+  call minpac#add('tpope/vim-unimpaired')
+  call minpac#add('bronson/vim-trailing-whitespace')
+  call minpac#add('altercation/vim-colors-solarized')
+  call minpac#add('junegunn/seoul256.vim')
+  call minpac#add('junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'})
+  call minpac#add('junegunn/fzf.vim')
+  call minpac#add('itchyny/lightline.vim')
+  call minpac#add('sheerun/vim-polyglot')
+  call minpac#add('w0rp/ale')
+  call minpac#add('godlygeek/tabular')
+  call minpac#add('SirVer/ultisnips')
+  call minpac#add('honza/vim-snippets')
+  call minpac#add('fatih/vim-go', {'type': 'opt'})
+
+  if has('nvim')
+    call minpac#add('Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'})
+    call minpac#add('zchee/deoplete-jedi')
+    call minpac#add('Shougo/deoplete.nvim')
+    call minpac#add('zchee/deoplete-go', {'do': 'make'})
+  endif
 endif
-
-filetype plugin on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   SETTINGS
