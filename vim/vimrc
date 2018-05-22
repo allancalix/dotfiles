@@ -133,6 +133,10 @@ let g:seoul256_background = 233
 
 command! -bang -nargs=* Find call fzf#vim#grep("rg --pretty --fixed-strings --ignore-case --no-heading -g '!.git/' ".shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 
+"=================DEOPLETE==================
+let g:deoplete#enable_at_startup = 1
+set completeopt-=preview
+
 "=================TABULAR==================
 
 " Align on equal sign
