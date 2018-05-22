@@ -5,29 +5,35 @@ if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
-call plug#begin('~/.vim/plugged')
+packadd minpac
+call minpac#init()
+command! PackUpdate call minpac#update()
+command! PackClean call minpac#clean()
 
-Plug 'tomtom/tcomment_vim'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'altercation/vim-colors-solarized'
-Plug 'junegunn/seoul256.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'itchyny/lightline.vim'
-Plug 'sheerun/vim-polyglot'
-Plug 'w0rp/ale'
-Plug 'godlygeek/tabular'
-Plug 'SirVer/ultisnips'
+call minpac#add('tomtom/tcomment_vim')
+call minpac#add('tpope/vim-surround')
+call minpac#add('tpope/vim-fugitive')
+call minpac#add('tpope/vim-unimpaired')
+call minpac#add('bronson/vim-trailing-whitespace')
+call minpac#add('altercation/vim-colors-solarized')
+call minpac#add('junegunn/seoul256.vim')
+call minpac#add('junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'})
+call minpac#add('junegunn/fzf.vim')
+call minpac#add('itchyny/lightline.vim')
+call minpac#add('sheerun/vim-polyglot')
+call minpac#add('w0rp/ale')
+call minpac#add('godlygeek/tabular')
+call minpac#add('SirVer/ultisnips')
+call minpac#add('honza/vim-snippets')
+call minpac#add('fatih/vim-go', {'type': 'opt'})
 
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  call minpac#add('Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'})
+  call minpac#add('zchee/deoplete-jedi')
+  call minpac#add('Shougo/deoplete.nvim')
+  call minpac#add('zchee/deoplete-go', {'do': 'make'})
 endif
-Plug 'honza/vim-snippets'
-Plug 'fatih/vim-go'
 
-call plug#end()
 filetype plugin on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -52,7 +58,7 @@ let g:fzf_colors =
 
 let g:fzf_layout = { 'down': '~35%' }
 
-" GENERAL "
+" GENERAL
 set backspace=indent,eol,start
 set ruler
 set wildmenu
@@ -60,7 +66,7 @@ set wildmenu
 set autowrite
 set autoread
 
-" SEARCH "
+" SEARCH
 set incsearch
 set hlsearch
 if maparg('<C-L>', 'n') ==# ''
@@ -87,7 +93,7 @@ set softtabstop=2
 set expandtab
 set noshiftround
 
-" FILE EXPLORER "
+" FILE EXPLORER
 let g:netrw_banner = 0
 let g:netrw_sort_sequence = '[\/]$,*'
 
@@ -98,32 +104,35 @@ let g:netrw_sort_sequence = '[\/]$,*'
 :  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Lightline
 
-let g:lightline = { 'colorscheme': 'seoul256', }               "vim-lightline
-set laststatus=2                                               "vim-lightline
-set noshowmode                                                  "vim-lightline
+"==============LIGHTLINE=================
 
+let g:lightline = {'colorscheme': 'seoul256',}
+set laststatus=2
+set noshowmode
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Themes
+"================THEMES==================
 set t_Co=256                                                  "vim-colors-solarized
 
 " Solarized
 " let g:solarized_contrast="high"                                 "vim-colors-solarized
 " set background=dark
 " colorscheme solarized                                           "vim-colors-solorized
-
-let g:seoul256_background = 234
-colo seoul256
+"
 " colorscheme xoria256
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+colo seoul256
+set background=dark
+let g:seoul256_background = 233
+
+" set background=light
+" let g:seoul256_background = 255
+
 " Editorconfig
 
 command! -bang -nargs=* Find call fzf#vim#grep("rg --pretty --fixed-strings --ignore-case --no-heading -g '!.git/' ".shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Tabular
+
+"=================TABULAR==================
 
 " Align on equal sign
 vnoremap <silent> <Leader>cee    :Tabularize /=<CR>              "tabular
@@ -132,14 +141,7 @@ vnoremap <silent> <Leader>cet    :Tabularize /#<CR>             "tabular
 " Align (no sign)
 vnoremap <silent> <Leader>ce     :Tabularize /
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Vim-markdown-previw
-
-let vim_markdown_preview_toggle=3
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                   KEYS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"==================KEYS====================
 let mapleader = ','
 
 " use jj to quickly escape to normal mode while typing <- AWESOME tip
@@ -149,34 +151,26 @@ inoremap jj <ESC>
 map <CR> o<Esc>k
 
 " reloads .vimrc -- making all changes active
-map <silent> <Leader>v :source ~/.vim/vimrc<CR>:PlugInstall<CR>:bdelete<CR>:exe ":echo 'vimrc reloaded'"<CR>
-
-" ~revent the annoying help screen when missing esc on my laptop keyboard
 map <F1> <Esc>
 imap <F1> <Esc>
 
-" the write sudo trick made easy (for those, like me, who always forget the syntax)
-cmap w!! %!sudo tee > /dev/null %
-
-
+" Leader C prefix is for code related mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Leader C prefix is for code related mappings (completion, tidy, documentation...)
 
 noremap <silent> <Leader>cc          :TComment<CR>              "tcomment_vim
 
-" Hotkey for removing any trailing whitespace in a file
+" Hotkey for removing trailing whitespace in a file
 noremap <silent> <Leader>cw          :%s/[ \t]*$//g<CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader F prefix is for file related mappings (open, browse...)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 nnoremap <silent> <Leader>f :Files<CR>
 nnoremap <silent> <Leader>fe :Explore <CR>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Leader B prefix is for buffer related mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" nnoremap <silent> <Leader>b  :CtrlPBuffer<CR>                   "ctrlp.vim
 nnoremap <silent> <Leader>bb :bn<CR>
 nnoremap <silent> <Leader>bd :bdelete<CR>
 
