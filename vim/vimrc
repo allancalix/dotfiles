@@ -30,9 +30,8 @@ if exists('*minpac#init')
   call minpac#add('fatih/vim-go', {'type': 'opt'})
 
   if has('nvim')
-    call minpac#add('Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'})
+    call minpac#add('Shougo/deoplete.nvim', {'do': 'UpdateRemotePlugins'})
     call minpac#add('zchee/deoplete-jedi')
-    call minpac#add('Shougo/deoplete.nvim')
     call minpac#add('zchee/deoplete-go', {'do': 'make'})
   endif
 endif
