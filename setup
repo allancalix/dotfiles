@@ -2,64 +2,31 @@
 set -euo pipefail
 shopt -s nullglob globstar
 
-source ./git/configure.sh
-source ./vim/init-vim.sh
+git pull origin master
 
-readonly TMP_DIR=$(mktemp -d)
-readonly CONFIGS=(
-  .zshrc
-  .vimrc
-  .tmux.conf
-  .vim
-  .zsh
-)
+readonly POST_INSTALL="POST_INSTALL.sh"
 
-declare -A config_paths
-config_paths=(
-  [".zshrc"]=zshrc
-  [".vimrc"]=vim/vimrc
-  [".tmux.conf"]=tmux.conf
-  [".vim"]=vim
-  [".zsh"]=zsh
-)
-
-copy_to_backup() {
-  mv "${HOME}/${1}" "${TMP_DIR}/${1}"
+sync_configs() {
+  rsync --exclude ".git/" \
+    --exclude ".gitignore" \
+    --exclude ".DS_Store" \
+    --exclude "setup" \
+    --exclude "README.md" \
+    -avh --no-perms . ~;
 }
 
-backup_configs() {
-  local backup_required=false
-
-  for config in "${CONFIGS[@]}"; do
-    local path="${HOME}/$config"
-    if [[ -f "$path" ]] || [[ -d "$path" ]]; then
-      copy_to_backup "$config"
-      backup_required=true
-    fi
-  done
-
-  if [[ backup_required ]]; then
-    echo "Created a backup at ${TMP_DIR}"
-  else
-    rm -rf "$TMPDIR"
-  fi
-}
-
-link_configs() {
-  for config in "${CONFIGS[@]}"; do
-    ln -s "$PWD""/""${config_paths[$config]}" "$HOME""/""$config"
+source_install_scripts() {
+  for script in scripts/*.sh; do
+    source "$script"
   done
 }
-
 
 main() {
-  echo "Linking configs to home directory..."
-  backup_configs
-  link_configs
-  echo "Creating git aliases..."
-  configure_git
-  echo "Initializing vim..."
-  init_vim
+  echo "Configuring additional scripts"
+  source_install_scripts
+  echo "Bootstrapping..."
+  sync_configs
+  [[ -r "$POST_INSTALL" ]] && [[ -f "$POST_INSTALL" ]] && source "$POST_INSTALL"
   echo "Done."
 
   exit 0

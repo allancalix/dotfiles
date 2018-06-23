@@ -2,3 +2,4 @@ pack/
 tmp/*
 .net*
 *.swp
+POST-INSTALL.sh

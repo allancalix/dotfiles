@@ -1,0 +1,13 @@
+[alias]
+	co = checkout
+	subup = submodule update --recursive --remote
+	lg = log --pretty='%Cred%h%Creset | %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(cyan)[%an]%Creset' --graph
+	so = show --pretty='parent %Cred%p%Creset commit\n  %Cred%h%Creset%C(yellow)%d%Creset%n%n%w(72,2,2)%s%n%n%w(72,0,0)%C(cyan)%an%Creset\n  %Cgreen%ar%Creset'
+	st = status --short --branch
+	cma = commit --all -m
+	dp = diff --word-diff --unified=10
+	append = !git cherry-pick $(git merge-base HEAD\n  $1)..$1
+[core]
+	pager = less -RFX
+[diff]
+	algorithm = histogram
