@@ -1,24 +1,20 @@
 # allancalix Dotfiles
-_A repository for storing workspace configurations_
+_Configurations for popular development applications_
 
+__| VIM | ZSH | TMUX | CODE |__
 
-**Tmux | Vim | ZSH**
-
-## Install
----
-__Move configs to home directory__
-
-For convenience, run the script in the root directory to link the dotfiles into the current user's home directory.
-
-_Note: If a file already exists, it moves to a tmp directory just incase you need to retrieve it. Safety first!_
-
+# Installation
 `./setup`
 
 ---
-__Initialize vim plugins__
 
-`vim +PlugInstall`
+**NOTE:**
+For convenience, the setup script sources an optional `POST-INSTALL.sh` script after install. This is a place where device specific configuations can be added.
 
----
+An example might be:
+```
+git config --user.name "Jane Doe"
+git config --user-email "jane.doe@mailinator.com"
+```
 
 __Enjoy!__
