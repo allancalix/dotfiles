@@ -4,14 +4,15 @@ shopt -s nullglob globstar
 
 git pull origin master
 
-readonly POST_INSTALL="POST_INSTALL.sh"
+readonly POST_INSTALL="POST-INSTALL.sh"
 
 sync_configs() {
   rsync --exclude ".git/" \
     --exclude ".gitignore" \
     --exclude ".DS_Store" \
-    --exclude "setup" \
     --exclude "README.md" \
+    --exclude "POST-INSTALL.sh" \
+    --exclude "setup" \
     -avh --no-perms . ~;
 }
 
