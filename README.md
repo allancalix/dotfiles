@@ -4,7 +4,9 @@ _Configurations for popular development applications_
 __| VIM | ZSH | TMUX | CODE |__
 
 # Installation
-`./setup`
+```
+./setup
+```
 
 ---
 
@@ -17,4 +19,10 @@ git config --user.name "Jane Doe"
 git config --user-email "jane.doe@mailinator.com"
 ```
 
+# Homebrew/Linuxbrew Setup
+```
+./brew
+```
+
+------
 __Enjoy!__

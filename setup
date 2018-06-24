@@ -13,6 +13,7 @@ sync_configs() {
     --exclude "README.md" \
     --exclude "POST-INSTALL.sh" \
     --exclude "setup" \
+    --exclude "brew" \
     -avh --no-perms . ~;
 }
 
