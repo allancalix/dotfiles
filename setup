@@ -13,6 +13,7 @@ sync_configs() {
     --exclude ".DS_Store" \
     --exclude "README.md" \
     --exclude "POST-INSTALL.sh" \
+    --exclude "scripts/" \
     --exclude "setup" \
     --exclude "brew" \
     -avh --no-perms . ~;
