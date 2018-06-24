@@ -27,10 +27,8 @@ fi
 bindkey -s '^f' 'fe\n'
 bindkey -s '^e' 'cdf\n'
 
+source "$NVM_DIR/nvm.sh"
+
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
-fi
-
-if command -v nvm 1>/dev/null 2>&1; then
-  source "$NVM_DIR/nvm.sh"
 fi
