@@ -26,6 +26,7 @@ brew install fzf
 brew install git
 brew install ssh-copy-id
 brew install imagemagick --with-webp
+brew install --HEAD universal-ctags/universal-ctags/universal-ctags
 
 # Remove outdated versions
 brew cleanup
