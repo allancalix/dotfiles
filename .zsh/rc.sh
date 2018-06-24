@@ -16,8 +16,6 @@ source "$CUST_ZSH/aliases.sh"
 source "$CUST_ZSH/git.sh"
 source "$CUST_ZSH/fzf.zsh"
 
-source "$NVM_DIR/nvm.sh"
-
 # Allow for different env variables depending on system
 if [ $(uname -s) = 'Darwin' ]; then
   export PATH="$HOME/bin:$HOME/bin/cargo:$HOME/go/bin:usr/local/bin:$PYENV_ROOT/bin:$PATH"
@@ -31,4 +29,8 @@ bindkey -s '^e' 'cdf\n'
 
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
+fi
+
+if command -v nvm 1>/dev/null 2>&1; then
+  source "$NVM_DIR/nvm.sh"
 fi
