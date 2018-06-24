@@ -1,4 +1,3 @@
-export ZSH=$HOME/.oh-my-zsh
 export VISUAL="nvim"
 export EDITOR="$VISUAL"
 export GIT_EDITOR="nvim"
@@ -6,9 +5,6 @@ export PYENV_ROOT="$HOME/.pyenv"
 export NVM_DIR="$HOME/.nvm"
 
 CUST_ZSH=$HOME/.zsh
-ZSH_THEME="spaceship"
-
-source $ZSH/oh-my-zsh.sh
 
 source "$CUST_ZSH/options.sh"
 source "$CUST_ZSH/completion.sh"

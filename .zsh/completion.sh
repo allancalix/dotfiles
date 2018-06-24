@@ -8,4 +8,3 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|[._-]=* r:|=*' 'l:|=* r:
 fpath=(~/.zsh/completion.d $fpath)
 autoload -Uz compinit
 compinit -u
-

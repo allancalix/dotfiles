@@ -16,3 +16,14 @@ bindkey "^[[3~" delete-char # Forward-delete properly instead of echoing '~'.
 export WORDCHARS='*?[]~=&;!#$%^(){}'
 bindkey "\e\e[C" forward-word
 bindkey "\e\e[D" backward-word
+
+# Enable vi mode and reduce escape time
+bindkey -v
+export KEYTIMEOUT=1
+
+# Themes
+if [[ -d ~/.zsh/themes ]]; then
+  fpath=(~/.zsh/themes $fpath)
+  autoload -U promptinit; promptinit
+  prompt spaceship
+fi
