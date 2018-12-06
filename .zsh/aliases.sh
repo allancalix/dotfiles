@@ -15,7 +15,6 @@ alias la='ls -a'
 alias lal='ls -lah'
 alias less='less -R'
 alias home='cd $HOME'
-alias vim='nvim'
 
 cd() {
   builtin cd "$@" && ls
