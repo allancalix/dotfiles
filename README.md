@@ -15,8 +15,8 @@ For convenience, the setup script sources an optional `POST-INSTALL.sh` script a
 
 An example might be:
 ```
-git config --user.name "Jane Doe"
-git config --user-email "jane.doe@mailinator.com"
+git config --global user.name "Jane Doe"
+git config --global user.email "jane.doe@mailinator.com"
 ```
 
 # Homebrew/Linuxbrew Setup
