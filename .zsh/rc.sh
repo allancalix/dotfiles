@@ -1,6 +1,6 @@
-export VISUAL="nvim"
+export VISUAL="vim"
 export EDITOR="$VISUAL"
-export GIT_EDITOR="nvim"
+export GIT_EDITOR="vim"
 export PYENV_ROOT="$HOME/.pyenv"
 export NVM_DIR="$HOME/.nvm"
 
