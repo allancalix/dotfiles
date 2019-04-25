@@ -6,6 +6,10 @@ for script in lib/*.sh; do
   . "$script"
 done
 
+while IFS= read -r binary; do
+  verify_dependency "$binary"
+done < "REQUIREMENTS"
+
 readonly POST_INSTALL="POST-INSTALL.sh"
 
 sync_configs() {

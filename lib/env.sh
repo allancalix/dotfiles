@@ -10,6 +10,18 @@ get_platform() {
   fi
 }
 
+# Verify a binary is available globally. If binary is not found,
+# this function exits execution with error;
+# Arguments:
+#   1. binary_name
+verify_dependency() {
+  if [[ -z $(command -v "$1") ]]; then
+    echo "$1 is required but not found."
+    # Exit with error
+    exit 1
+  fi
+}
+
 # Get the user directory for VS Code configuration
 # Arguments:
 #   1. platform
