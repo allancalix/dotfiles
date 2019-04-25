@@ -13,18 +13,7 @@ done < "REQUIREMENTS"
 readonly POST_INSTALL="POST-INSTALL.sh"
 
 sync_configs() {
-  rsync --exclude ".git/" \
-    --exclude ".gitignore" \
-    --exclude ".DS_Store" \
-    --exclude "README.md" \
-    --exclude "POST-INSTALL.sh" \
-    --exclude "extra" \
-    --exclude "scripts/" \
-    --exclude "setup.sh" \
-    --exclude "REQUIREMENTS" \
-    --exclude "brew.sh" \
-    --exclude "macos.sh" \
-    -avh --no-perms . ~;
+  rsync -avh --no-perms dotfiles/ "$HOME";
 
   # This _will_ override an existing config
   ln -sf "$PWD"/extra/vscode-settings.json "$VS_CODE_DEST"
