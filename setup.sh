@@ -2,19 +2,24 @@
 set -euo pipefail
 shopt -s nullglob globstar
 
+. lib/*.sh
+
 readonly POST_INSTALL="POST-INSTALL.sh"
 
 sync_configs() {
-  # Does not remove extraneous files
   rsync --exclude ".git/" \
     --exclude ".gitignore" \
     --exclude ".DS_Store" \
     --exclude "README.md" \
     --exclude "POST-INSTALL.sh" \
+    --exclude "extra-configs" \
     --exclude "scripts/" \
     --exclude "setup.sh" \
     --exclude "brew" \
     -avh --no-perms . ~;
+
+  # This _will_ override an existing config
+  ln -sf "$PWD"/extra-configs/vscode-settings.json "$VS_CODE_DEST"
 }
 
 source_install_scripts() {
@@ -25,7 +30,7 @@ source_install_scripts() {
 
 main() {
   echo "Configuring additional scripts"
-  source_install_scripts
+  # source_install_scripts
   echo "Bootstrapping..."
   sync_configs
   [[ -r "$POST_INSTALL" ]] && [[ -f "$POST_INSTALL" ]] && source "$POST_INSTALL"
