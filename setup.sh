@@ -29,10 +29,10 @@ source_install_scripts() {
 }
 
 main() {
-  echo "Configuring additional scripts"
-  # source_install_scripts
-  echo "Bootstrapping..."
+  echo "Syncing configs..."
   sync_configs
+  echo "Installing additional dependencies..."
+  source_install_scripts
   [[ -r "$POST_INSTALL" ]] && [[ -f "$POST_INSTALL" ]] && source "$POST_INSTALL"
   echo "Done."
 

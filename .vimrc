@@ -6,41 +6,49 @@ if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
-command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('', {'do': 'quit'})
-command! PackClean packadd minpac | source $MYVIMRC | call minpac#clean('', {'do': 'quit'})
+command! PackInit packadd minpac | source $MYVIMRC | call minpac#update('', { 'do': 'quit'})
+command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('')
+command! PackClean packadd minpac | source $MYVIMRC | call minpac#clean('')
 
 if exists('*minpac#init')
   call minpac#init()
 
+  " RUST PLUGINS
+  call minpac#add('rust-lang/rust.vim')
+
+  " GENERIC FORMATTER
+  call minpac#add('google/vim-maktaba')
+  call minpac#add('google/vim-codefmt')
+
+  " VUE PLUGINS
+  call minpac#add('posva/vim-vue')
+
   call minpac#add('tomtom/tcomment_vim')
   call minpac#add('tpope/vim-surround')
-  call minpac#add('tpope/vim-fugitive')
-  call minpac#add('tpope/vim-unimpaired')
   call minpac#add('bronson/vim-trailing-whitespace')
-  call minpac#add('altercation/vim-colors-solarized')
   call minpac#add('junegunn/seoul256.vim')
   call minpac#add('junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'})
   call minpac#add('junegunn/fzf.vim')
   call minpac#add('itchyny/lightline.vim')
-  call minpac#add('sheerun/vim-polyglot')
   call minpac#add('w0rp/ale')
   call minpac#add('godlygeek/tabular')
-  call minpac#add('SirVer/ultisnips')
-  call minpac#add('honza/vim-snippets')
-  call minpac#add('fatih/vim-go', {'type': 'opt'})
-
   if has('nvim')
-    call minpac#add('Shougo/deoplete.nvim', {'do': 'UpdateRemotePlugins'})
-    call minpac#add('zchee/deoplete-jedi')
-    call minpac#add('zchee/deoplete-go', {'do': 'make'})
+    call minpac#add('Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' })
   endif
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COMPLETION CONFIGURATION
 let g:deoplete#enable_at_startup = 1
 
+" Enables types in completion
+let g:racer_experimental_completer = 1
+
+let g:rustc_path = "/Users/allancalix/.cargo/bin/rustc"
+let g:rustfmt_command = "/Users/allancalix/.cargo/bin/rustfmt"
+" COMPLETION CONFIGURATION END
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -112,18 +120,14 @@ set laststatus=2
 set noshowmode
 
 "================THEMES==================
-set t_Co=256
+set t_Co=257
 
 " Range: 233-256. Default 237
 let g:seoul256_background = 235
-colo seoul256
+silent! colo seoul256
 
 " Editorconfig
-command! -bang -nargs=* Find call fzf#vim#grep("rg --pretty --fixed-strings --ignore-case --no-heading -g '!.git/' ".shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
-
-"=================DEOPLETE==================
-let g:deoplete#enable_at_startup = 1
-set completeopt-=preview
+command! -bang -nargs=* Find call fzf#vim#grep("rg --pretty --fixed-strings --ignore-case --no-heading -g '!.git/' -g '!target/'".shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 
 "=================TABULAR==================
 
@@ -158,8 +162,10 @@ noremap <silent> <Leader>cw          :%s/[ \t]*$//g<CR>
 " Leader F prefix is for file related mappings (open, browse...)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <silent> <Leader>f :Files<CR>
-nnoremap <silent> <Leader>fe :Explore <CR>
+command! LocalFiles call fzf#run(fzf#wrap(
+  \{'source': "rg --files -g '!target/'", 'sink': 'e'}))
+nnoremap <silent> <Leader>ff :LocalFiles<CR>
+nnoremap <silent> <Leader>fe :Explore<CR>
 
 " Leader B prefix is for buffer related mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

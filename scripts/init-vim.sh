@@ -9,9 +9,14 @@ install_package_manager() {
   git clone "$pkg_manager" "$pkg_path""/minpac"
 }
 
+install_packages() {
+  vim +PackInit
+}
+
 init_vim() {
   rm -rf .vim/pack
   install_package_manager
+  install_packages
 }
 
 init_vim
