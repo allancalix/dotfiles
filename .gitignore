@@ -1,4 +1,7 @@
 pack/
+vendor/
+.zsh-local
+**/.zsh/themes/**
 tmp/*
 .net*
 *.swp

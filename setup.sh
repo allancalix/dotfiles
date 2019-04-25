@@ -21,6 +21,7 @@ sync_configs() {
 
 main() {
   Vim_install_package_manager
+  Zsh_install_prompt
 
   echo "Syncing configs..."
   sync_configs
