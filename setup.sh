@@ -21,7 +21,9 @@ sync_configs() {
     --exclude "extra" \
     --exclude "scripts/" \
     --exclude "setup.sh" \
-    --exclude "brew" \
+    --exclude "REQUIREMENTS" \
+    --exclude "brew.sh" \
+    --exclude "macos.sh" \
     -avh --no-perms . ~;
 
   # This _will_ override an existing config
