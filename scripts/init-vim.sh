@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
 
 readonly pkg_manager="https://github.com/k-takata/minpac.git"
 
@@ -10,14 +9,9 @@ install_package_manager() {
   git clone "$pkg_manager" "$pkg_path""/minpac"
 }
 
-install_plugins() {
-  vim +PackUpdate
-}
-
 init_vim() {
   rm -rf .vim/pack
   install_package_manager
-  install_plugins
 }
 
 init_vim
