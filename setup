@@ -2,8 +2,6 @@
 set -euo pipefail
 shopt -s nullglob globstar
 
-git pull origin master
-
 readonly POST_INSTALL="POST-INSTALL.sh"
 
 sync_configs() {
