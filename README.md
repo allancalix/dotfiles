@@ -5,7 +5,7 @@ __| VIM | ZSH | TMUX | CODE |__
 
 # Installation
 ```
-./setup
+./setup.sh
 ```
 
 ---
