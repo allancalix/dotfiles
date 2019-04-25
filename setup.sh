@@ -2,7 +2,9 @@
 set -euo pipefail
 shopt -s nullglob globstar
 
-. lib/*.sh
+for script in lib/*.sh; do
+  . "$script"
+done
 
 readonly POST_INSTALL="POST-INSTALL.sh"
 
@@ -12,27 +14,23 @@ sync_configs() {
     --exclude ".DS_Store" \
     --exclude "README.md" \
     --exclude "POST-INSTALL.sh" \
-    --exclude "extra-configs" \
+    --exclude "extra" \
     --exclude "scripts/" \
     --exclude "setup.sh" \
     --exclude "brew" \
     -avh --no-perms . ~;
 
   # This _will_ override an existing config
-  ln -sf "$PWD"/extra-configs/vscode-settings.json "$VS_CODE_DEST"
-}
-
-source_install_scripts() {
-  for script in scripts/*.sh; do
-    source "$script"
-  done
+  ln -sf "$PWD"/extra/vscode-settings.json "$VS_CODE_DEST"
 }
 
 main() {
+  Vim_install_package_manager
+
   echo "Syncing configs..."
   sync_configs
   echo "Installing additional dependencies..."
-  source_install_scripts
+  Vim_install_packages
   [[ -r "$POST_INSTALL" ]] && [[ -f "$POST_INSTALL" ]] && source "$POST_INSTALL"
   echo "Done."
 
