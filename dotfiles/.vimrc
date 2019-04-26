@@ -143,6 +143,7 @@ let mapleader = ','
 
 " use jj to quickly escape to normal mode while typing <- AWESOME tip
 inoremap jj <ESC>
+inoremap <C-L> <ESC>
 
 " insert newline without entering insert mode
 map <CR> o<Esc>k

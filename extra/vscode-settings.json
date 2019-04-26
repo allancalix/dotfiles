@@ -20,6 +20,7 @@
     // Vim for VS Code settings
     "vim.useCtrlKeys": true,
     "vim.useSystemClipboard": true,
+    "vim.timeout": 100,
 
     // Vim Settings
     "vim.incsearch": true,
@@ -32,6 +33,10 @@
     "vim.insertModeKeyBindings": [
         {
             "before": ["j", "j"],
+            "after": ["<ESC>"],
+        },
+        {
+            "before": ["<C-l>"],
             "after": ["<ESC>"],
         },
     ],
