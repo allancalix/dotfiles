@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
-shopt -s nullglob globstar
-
-for script in lib/*.sh; do
-  . "$script"
-done
+source lib/lib.sh || exit
 
 while IFS= read -r binary; do
   env::verify_dependency "$binary"
