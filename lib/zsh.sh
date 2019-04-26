@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-Zsh_install_prompt() {
+zsh::install_prompt() {
   local spaceship="https://github.com/denysdovhan/spaceship-prompt"
   local zsh_root="dotfiles/.zsh"
   local spaceship_path="$PWD/vendor/spaceship-prompt"

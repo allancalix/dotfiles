@@ -2,7 +2,7 @@
 #
 # Provide information about the system under configuration.
 
-get_platform() {
+env::get_platform() {
   if [[ $(uname -s) == 'Darwin' ]]; then
     echo "MAC"
   else
@@ -14,7 +14,7 @@ get_platform() {
 # this function exits execution with error;
 # Arguments:
 #   1. binary_name
-verify_dependency() {
+env::verify_dependency() {
   if [[ -z $(command -v "$1") ]]; then
     echo "$1 is required but not found."
     # Exit with error
@@ -25,7 +25,7 @@ verify_dependency() {
 # Get the user directory for VS Code configuration
 # Arguments:
 #   1. platform
-get_vscode_config_dest() {
+env::get_vscode_config_dest() {
   if [[ "$1" == "MAC" ]]; then
     echo "$HOME/Library/Application Support/Code/User/settings.json"
   else
@@ -34,5 +34,5 @@ get_vscode_config_dest() {
 }
 
 # Exports
-readonly PLATFORM=$(get_platform)
-readonly VS_CODE_DEST=$(get_vscode_config_dest "$PLATFORM")
+readonly PLATFORM=$(env::get_platform)
+readonly VS_CODE_DEST=$(env::get_vscode_config_dest "$PLATFORM")

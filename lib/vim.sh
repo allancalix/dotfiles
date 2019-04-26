@@ -2,7 +2,7 @@
 
 readonly pkg_manager="https://github.com/k-takata/minpac.git"
 
-Vim_install_package_manager() {
+vim::install_package_manager() {
   local vim_root="dotfiles/.vim"
   # Remove existing package manager
   rm -rf "$vim_root/pack"
@@ -13,6 +13,6 @@ Vim_install_package_manager() {
   git clone "$pkg_manager" "$pkg_path""/minpac"
 }
 
-Vim_install_packages() {
+vim::install_packages() {
   nvim +PackInit
 }
