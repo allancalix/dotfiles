@@ -31,6 +31,6 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
-if [[ -f ~/.zsh-local ]]; then
+if [[ -f ~/.zsh.local ]]; then
   . ~/.zsh.local
 fi
