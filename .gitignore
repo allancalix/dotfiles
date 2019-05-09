@@ -1,6 +1,6 @@
 pack/
 vendor/
-.zsh-local
+.zsh.local
 **/.zsh/themes/**
 tmp/*
 .net*
