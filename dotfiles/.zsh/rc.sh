@@ -14,11 +14,9 @@ source "$CUST_ZSH/fzf.zsh"
 
 # Allow for different env variables depending on system
 if [ $(uname -s) = 'Darwin' ]; then
-  export PATH="$HOME/.bin:$HOME/.cargo/.bin:/usr/local/bin:$PYENV_ROOT/bin:$PATH"
+  export PATH="$HOME/bin:$HOME/.cargo/bin:/usr/local/bin:$PYENV_ROOT/bin:$PATH"
 else
-  export PATH="$HOME/.bin:$HOME/.cargo/.bin:/usr/local/bin:$PYENV_ROOT/bin:$PATH"
-  # Add linux brew binaries to path
-  export PATH='/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin':"$PATH"
+  export PATH="$HOME/bin:$HOME/.cargo/bin:/usr/local/bin:$PYENV_ROOT/bin:$PATH"
 fi
 
 # Custom Keybindings
@@ -29,6 +27,10 @@ source "$NVM_DIR/nvm.sh"
 
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
+fi
+
+if [[ -d ${HOME}/.cargo/env ]]; then
+  source ${HOME}/.cargo/env
 fi
 
 if [[ -f ~/.zsh.local ]]; then
