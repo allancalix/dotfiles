@@ -3,6 +3,7 @@ export EDITOR="$VISUAL"
 export GIT_EDITOR="nvim"
 export PYENV_ROOT="$HOME/.pyenv"
 export NVM_DIR="$HOME/.nvm"
+export TERMCOLOR="truecolor"
 
 CUST_ZSH=$HOME/.zsh
 
