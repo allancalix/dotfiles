@@ -13,6 +13,13 @@ command! PackClean packadd minpac | source $MYVIMRC | call minpac#clean('')
 if exists('*minpac#init')
   call minpac#init()
 
+  " LSP
+  call minpac#add('autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': {-> system('bash install.sh')} })
+
+  " COMPLETION
+  call minpac#add('ncm2/ncm2')
+  call minpac#add('roxma/nvim-yarp')
+
   " RUST PLUGINS
   call minpac#add('rust-lang/rust.vim')
 
@@ -30,18 +37,25 @@ if exists('*minpac#init')
   call minpac#add('junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'})
   call minpac#add('junegunn/fzf.vim')
   call minpac#add('itchyny/lightline.vim')
-  call minpac#add('w0rp/ale')
   call minpac#add('godlygeek/tabular')
-  if has('nvim')
-    call minpac#add('Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' })
-  endif
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" LSP
+set hidden
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ }
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+
 " COMPLETION CONFIGURATION
-let g:deoplete#enable_at_startup = 1
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
 
 " Enables types in completion
 let g:racer_experimental_completer = 1
