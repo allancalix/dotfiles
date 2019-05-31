@@ -47,18 +47,16 @@ endif
 set hidden
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'rust': ['rls'],
     \ }
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+let g:LanguageClient_useVirtualText = 0
 
 " COMPLETION CONFIGURATION
 autocmd BufEnter * call ncm2#enable_for_buffer()
+set shortmess+=c
 
 " IMPORTANT: :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
-
-" Enables types in completion
-let g:racer_experimental_completer = 1
 
 let g:rustc_path = "/Users/allancalix/.cargo/bin/rustc"
 let g:rustfmt_command = "/Users/allancalix/.cargo/bin/rustfmt"
@@ -168,6 +166,10 @@ imap <F1> <Esc>
 
 " Leader C prefix is for code related mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+noremap <F5> :call LanguageClient_contextMenu()<CR>
+noremap <silent> <Leader>c? :call LanguageClient#textDocument_hover()<CR>
+noremap <silent> <Leader>cd :call LanguageClient#textDocument_definition()<CR>
+noremap <silent> <Leader>cr :call LanguageClient#textDocument_rename()<CR>
 
 noremap <silent> <Leader>cc          :TComment<CR>              "tcomment_vim
 
