@@ -47,7 +47,8 @@ endif
 set hidden
 
 let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rls'],
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'go': ['gopls'],
     \ }
 let g:LanguageClient_useVirtualText = 0
 

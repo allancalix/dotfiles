@@ -16,8 +16,10 @@ source "$CUST_ZSH/fzf.zsh"
 # Allow for different env variables depending on system
 if [ $(uname -s) = 'Darwin' ]; then
   export PATH="$HOME/bin:$HOME/.cargo/bin:/usr/local/bin:$PYENV_ROOT/bin:$PATH"
+  export PATH="$HOME/go/bin:$PATH"
 else
   export PATH="$HOME/bin:$HOME/.cargo/bin:/usr/local/bin:$PYENV_ROOT/bin:$PATH"
+  export PATH="$HOME/go/bin:$PATH"
 fi
 
 # Custom Keybindings
