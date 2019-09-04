@@ -8,7 +8,8 @@ done < "REQUIREMENTS"
 readonly POST_INSTALL="POST-INSTALL.sh"
 
 sync_configs() {
-  rsync -avh --no-perms dotfiles/ "$HOME";
+  rsync -avh --no-perms --exclude=".zsh.local" dotfiles/ "$HOME";
+  rsync -avh --no-perms --ignore-existing dotfiles/.zsh.local "$HOME";
 
   # This _will_ override an existing config
   ln -sf "$PWD"/extra/vscode-settings.json "$VS_CODE_DEST"
