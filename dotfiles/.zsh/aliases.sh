@@ -16,6 +16,13 @@ alias lal='ls -lah'
 alias less='less -R'
 alias home='cd $HOME'
 
+alias k="kubectl"
+alias kg="kubectl get"
+alias kl="kubectl logs"
+alias kd="kubectl delete"
+alias kde="kubectl describe"
+alias ka="kubectl apply"
+
 cd() {
   builtin cd "$@" && ls
 }
