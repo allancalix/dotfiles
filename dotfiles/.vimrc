@@ -117,6 +117,8 @@ set noshiftround
 " FILE EXPLORER
 let g:netrw_banner = 0
 let g:netrw_sort_sequence = '[\/]$,*'
+let g:netrw_list_hide = '^bazel-.*$,^node_modules'
+let g:netrw_hide = 1
 
 :set number relativenumber
 
