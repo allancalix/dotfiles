@@ -30,6 +30,10 @@ if exists('*minpac#init')
   " VUE PLUGINS
   call minpac#add('posva/vim-vue')
 
+  " Terraform Plugins
+  call minpac#add('hashivim/vim-terraform')
+
+  " GENERAL PLUGINS
   call minpac#add('tomtom/tcomment_vim')
   call minpac#add('tpope/vim-surround')
   call minpac#add('bronson/vim-trailing-whitespace')
