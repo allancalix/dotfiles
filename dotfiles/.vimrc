@@ -54,7 +54,6 @@ let g:LanguageClient_serverCommands = {
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'go': ['gopls'],
     \ }
-let g:LanguageClient_useVirtualText = 0
 
 " COMPLETION CONFIGURATION
 autocmd BufEnter * call ncm2#enable_for_buffer()
