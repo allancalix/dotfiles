@@ -34,16 +34,16 @@ dpi:
 # Font configuration (changes require restart)
 font:
   normal:
-    family: Fira Code Retina
+    family: "Inconsolata-g"
 
   bold:
-    family: Fira Code Retina
+    family: "Inconsolata-g"
 
   italic:
-    family: Fira Code Retina
+    family: "Inconsolata-g"
 
   # Point size of the font
-  size: 14
+  size: 11
 
   # Offset is the extra space around each character. offset.y can be thought of
   # as modifying the linespacing, and offset.x as modifying the letter spacing.
@@ -164,16 +164,6 @@ cursor:
 
 # Live config reload (changes require restart)
 live_config_reload: true
-
-# Shell
-#
-# You can set shell.program to the path of your favorite shell, e.g. /bin/fish.
-# Entries in shell.args are passed unmodified as arguments to the shell.
-#
-shell:
-  program: /usr/local/bin/zsh
-  args:
-    - --login
 
 # Key bindings
 #
