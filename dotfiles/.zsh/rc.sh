@@ -12,6 +12,7 @@ source "$CUST_ZSH/completion.sh"
 source "$CUST_ZSH/aliases.sh"
 source "$CUST_ZSH/git.sh"
 source "$CUST_ZSH/fzf.zsh"
+source "$CUST_ZSH/github.zsh"
 
 # Allow for different env variables depending on system
 if [ $(uname -s) = 'Darwin' ]; then
