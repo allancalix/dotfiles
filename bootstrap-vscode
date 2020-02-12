@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+
+import subprocess
+
+extension_list = "VSCODE_EXTENSIONS"
+
+def install_extensions():
+    with open(extension_list) as f:
+        for line in filter(lambda x: x != "", f.read().split()):
+            subprocess.call(["code", "--install-extension", line])
+
+if __name__ == "__main__":
+    install_extensions()
