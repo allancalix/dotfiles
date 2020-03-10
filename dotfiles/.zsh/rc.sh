@@ -13,7 +13,6 @@ source "$CUST_ZSH/aliases.sh"
 source "$CUST_ZSH/git.sh"
 source "$CUST_ZSH/fzf.zsh"
 source "$CUST_ZSH/github.sh"
-source "$CUST_ZSH/vscode.sh"
 
 # Allow for different env variables depending on system
 if [ $(uname -s) = 'Darwin' ]; then
