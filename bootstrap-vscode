@@ -6,6 +6,8 @@ import platform
 
 extension_list = "VSCODE_EXTENSIONS"
 
+# Default settings locations found in:
+# https://vscode.readthedocs.io/en/latest/getstarted/settings/#settings-file-locations
 CONFIG_PATHS = {
         "WINDOWS": path.expandvars(r"%APPDATA%\Code\User"),
         "DARWIN": path.expandvars(r"$HOME/Library/Application Support/Code/User"),
