@@ -8,6 +8,8 @@
 	dp = diff --word-diff --unified=10
 	append = !git cherry-pick $(git merge-base HEAD\n  $1)..$1
 [core]
-	pager = less -RFX
+  pager = delta --dark --plus-color="#012800" --minus-color="#340001" --theme="base16"
 [diff]
 	algorithm = histogram
+[interactive]
+    diffFilter = delta --color-only

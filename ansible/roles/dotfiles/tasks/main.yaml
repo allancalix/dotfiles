@@ -1,0 +1,10 @@
+---
+- name: Sync dotfiles
+  synchronize:
+    src: dotfiles/
+    dest: "{{ ansible_env.HOME }}"
+    perms: false
+    recursive: true
+    rsync_opts:
+        - "--exclude=.zsh.local"
+
