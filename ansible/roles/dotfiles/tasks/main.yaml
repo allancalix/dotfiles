@@ -1,10 +1,18 @@
 ---
 - name: Sync dotfiles
   synchronize:
+    delete: false
     src: dotfiles/
     dest: "{{ ansible_env.HOME }}"
     perms: false
     recursive: true
     rsync_opts:
         - "--exclude=.zsh.local"
+
+- name: Copy VS Code options
+  synchronize:
+    delete: false
+    src: vscode/
+    # TODO(allancalix): Make this work on linux.
+    dest: "{{ ansible_env.HOME }}/Library/Application Support/Code/User/"
 

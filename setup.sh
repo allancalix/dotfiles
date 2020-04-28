@@ -7,11 +7,6 @@ done < "REQUIREMENTS"
 
 readonly POST_INSTALL="POST-INSTALL.sh"
 
-sync_configs() {
-  # This _will_ override an existing config
-  ln -sf "$PWD"/extra/vscode-settings.json "$VS_CODE_DEST"
-}
-
 main() {
   vim::install_package_manager
   zsh::install_prompt
