@@ -14,3 +14,7 @@
     name: ripgrep
     state: latest
 
+- name: Install xsv
+  homebrew:
+    name: xsv
+    state: latest
