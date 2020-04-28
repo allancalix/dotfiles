@@ -6,21 +6,6 @@ import platform
 
 extension_list = "VSCODE_EXTENSIONS"
 
-# Default settings locations found in:
-# https://vscode.readthedocs.io/en/latest/getstarted/settings/#settings-file-locations
-CONFIG_PATHS = {
-        "WINDOWS": path.expandvars(r"%APPDATA%\Code\User"),
-        "DARWIN": path.expandvars(r"$HOME/Library/Application Support/Code/User"),
-        "LINUX": path.expandvars(r"$HOME/.config/Code/User"),
-}
-
-def get_config_path():
-    return CONFIG_PATHS.get(platform.system().upper(), "")
-
-def sync_configs():
-    conf_path = get_config_path()
-    subprocess.call(["rsync", "-av", "vscode/", conf_path])
-
 def install_extensions():
     with open(extension_list) as f:
         for line in filter(lambda x: x != "", f.read().split()):
