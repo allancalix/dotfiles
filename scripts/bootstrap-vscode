@@ -4,7 +4,7 @@ import subprocess
 from os import path
 import platform
 
-extension_list = "VSCODE_EXTENSIONS"
+extension_list = "./../VSCODE_EXTENSIONS"
 
 def install_extensions():
     with open(extension_list) as f:
