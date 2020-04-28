@@ -7,6 +7,13 @@
 - include_tasks: "services.yaml"
 - include_tasks: "languages.yaml"
 
+- name: Set MacOS system settings
+  become: true
+  shell: "{{ ansible_env.DOTFILES_REPO }}/scripts/macos.sh"
+  tags:
+    - never
+    - install
+
 - name: Install alacritty
   homebrew_cask:
     name: alacritty
