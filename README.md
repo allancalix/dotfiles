@@ -18,6 +18,10 @@ git config --global user.name "Jane Doe"
 git config --global user.email "jane.doe@mailinator.com"
 ```
 
+```sh
+DOTFILES_REPO=$PWD ansible-playbook --ask-become-pass ansible/darwin.yaml
+```
+
 ### Homebrew Installs
 ```bash
 ./brew.sh

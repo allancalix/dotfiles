@@ -21,12 +21,13 @@
 - name: Sync dotfiles
   synchronize:
     delete: false
-    src: dotfiles/
+    src: "{{ ansible_env.DOTFILES_REPO }}/dotfiles/"
     dest: "{{ ansible_env.HOME }}"
     perms: false
     recursive: true
     rsync_opts:
         - "--exclude=.zsh.local"
+  notify: Run post install script
 
 - name: Link spaceship-prompt in zsh themes
   file:
@@ -34,10 +35,21 @@
     dest: "{{ ansible_env.HOME }}/.zsh/themes/prompt_spaceship_setup"
     state: link
 
+- name: Create neovim autoload directory
+  file:
+    path: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload"
+    state: directory
+
+- name: Install neovim package manager
+  get_url:
+    url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    dest: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload/plug.vim"
+    mode: "u=rw-,g=rw-,o=r--"
+
 - name: Copy VS Code options
   synchronize:
     delete: false
-    src: vscode/
+    src: "{{ ansible_env.DOTFILES_REPO }}/vscode/"
     # TODO(allancalix): Make this work on linux.
     dest: "{{ ansible_env.HOME }}/Library/Application Support/Code/User/"
 

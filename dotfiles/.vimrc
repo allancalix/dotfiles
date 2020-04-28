@@ -6,43 +6,39 @@ if has('syntax') && !exists('g:syntax_on')
   syntax enable
 endif
 
-command! PackInit packadd minpac | source $MYVIMRC | call minpac#update('', { 'do': 'quit'})
-command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update('')
-command! PackClean packadd minpac | source $MYVIMRC | call minpac#clean('')
+call plug#begin('~/.config/nvim/plugins')
+" LSP
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': {-> system('bash install.sh')} }
 
-if exists('*minpac#init')
-  call minpac#init()
+" COMPLETION
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
 
-  " LSP
-  call minpac#add('autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': {-> system('bash install.sh')} })
+" RUST PLUGINS
+Plug 'rust-lang/rust.vim'
 
-  " COMPLETION
-  call minpac#add('ncm2/ncm2')
-  call minpac#add('roxma/nvim-yarp')
+" GENERIC FORMATTER
+Plug 'google/vim-maktaba'
+Plug 'google/vim-codefmt'
 
-  " RUST PLUGINS
-  call minpac#add('rust-lang/rust.vim')
+" VUE PLUGINS
+Plug 'posva/vim-vue'
 
-  " GENERIC FORMATTER
-  call minpac#add('google/vim-maktaba')
-  call minpac#add('google/vim-codefmt')
+" Terraform Plugins
+Plug 'hashivim/vim-terraform'
 
-  " VUE PLUGINS
-  call minpac#add('posva/vim-vue')
+" GENERAL PLUGINS
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-surround'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'junegunn/seoul256.vim'
+Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
+Plug 'junegunn/fzf.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'godlygeek/tabular'
 
-  " Terraform Plugins
-  call minpac#add('hashivim/vim-terraform')
-
-  " GENERAL PLUGINS
-  call minpac#add('tomtom/tcomment_vim')
-  call minpac#add('tpope/vim-surround')
-  call minpac#add('bronson/vim-trailing-whitespace')
-  call minpac#add('junegunn/seoul256.vim')
-  call minpac#add('junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'})
-  call minpac#add('junegunn/fzf.vim')
-  call minpac#add('itchyny/lightline.vim')
-  call minpac#add('godlygeek/tabular')
-endif
+" Init Plugins
+call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                   SETTINGS
