@@ -1,0 +1,15 @@
+---
+- name: Install kubectl
+  homebrew:
+    name: kubectl
+    state: latest
+
+- name: Install calicoctl
+  homebrew:
+    name: calicoctl
+    state: latest
+
+- name: Install helm
+  homebrew:
+    name: helm
+    state: latest

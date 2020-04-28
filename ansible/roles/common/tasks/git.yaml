@@ -1,0 +1,20 @@
+---
+- name: Update git
+  homebrew:
+    name: git
+    state: latest
+
+- name: Update git-delta
+  homebrew:
+    name: git-delta
+    state: latest
+
+- name: Update git-absorb
+  homebrew:
+    name: git-absorb
+    state: latest
+
+- name: Update GitHub cli
+  homebrew:
+    name: gh
+    state: latest

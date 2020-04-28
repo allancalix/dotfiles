@@ -1,0 +1,25 @@
+---
+- name: Install pgformatter
+  homebrew:
+    name: pgformatter
+    state: latest
+
+- name: Install tflint
+  homebrew:
+    name: tflint
+    state: latest
+
+- name: Install ansible-lint
+  homebrew:
+    name: ansible-lint
+    state: latest
+
+- name: Install clang-format
+  homebrew:
+    name: clang-format
+    state: latest
+
+- name: Install shellcheck
+  homebrew:
+    name: shellcheck
+    state: latest

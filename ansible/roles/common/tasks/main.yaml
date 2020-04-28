@@ -1,0 +1,38 @@
+---
+- include_tasks: "editor.yaml"
+- include_tasks: "coreutils.yaml"
+- include_tasks: "linters.yaml"
+- include_tasks: "k8s.yaml"
+- include_tasks: "git.yaml"
+- include_tasks: "services.yaml"
+- include_tasks: "languages.yaml"
+
+- name: Install zsh
+  homebrew:
+    name: zsh
+    state: latest
+
+- name: Update bash to latest
+  homebrew:
+    name: bash
+    state: latest
+
+- name: Install openssh
+  homebrew:
+    name: openssh
+    state: latest
+
+- name: Install wget
+  homebrew:
+    name: wget
+    state: latest
+
+- name: Install ssh-copy-id util
+  homebrew:
+    name: ssh-copy-id
+    state: latest
+
+- name: Install fzf
+  homebrew:
+    name: fzf
+    state: latest

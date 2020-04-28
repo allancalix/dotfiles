@@ -1,0 +1,5 @@
+---
+- name: OSX Development Machine
+  hosts: localhost
+  roles:
+    - common

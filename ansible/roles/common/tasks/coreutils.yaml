@@ -1,0 +1,16 @@
+---
+- name: Update coreutils
+  homebrew:
+    name: coreutils
+    state: latest
+
+- name: Install find replacement
+  homebrew:
+    name: fd
+    state: latest
+
+- name: Install ripgrep
+  homebrew:
+    name: ripgrep
+    state: latest
+
