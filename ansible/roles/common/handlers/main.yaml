@@ -1,0 +1,3 @@
+---
+- name: Install vscode-plugins
+  shell: "{{ ansible_env.DOTFILES_REPO }}/bootstrap-vscode"

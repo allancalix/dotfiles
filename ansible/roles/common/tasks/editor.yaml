@@ -13,3 +13,9 @@
   homebrew:
     name: tmuxinator
     state: latest
+
+- name: Install VS Code
+  homebrew_cask:
+    name: visual-studio-code
+    state: latest
+  notify: Install vscode-plugins

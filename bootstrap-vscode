@@ -12,5 +12,4 @@ def install_extensions():
             subprocess.call(["code", "--install-extension", line])
 
 if __name__ == "__main__":
-    sync_configs()
     install_extensions()
