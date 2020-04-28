@@ -1,8 +1,2 @@
-pack/
-vendor/
 .zsh.local
-**/.zsh/themes/**
-tmp/*
-.net*
-*.swp
 POST-INSTALL.sh
