@@ -1,0 +1,75 @@
+---
+- name: Install Alacritty
+  homebrew_cask:
+    name: alacritty
+    state: latest
+
+- name: Install VS Code
+  homebrew_cask:
+    name: visual-studio-code
+    state: latest
+  notify: Install vscode-plugins
+
+- name: Update coreutils
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - coreutils
+    - fd
+    - ripgrep
+    - xsv
+    - bash
+    - zsh
+    - openssh
+    - wget
+    - ssh-copy-id
+
+- name: Install Git
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - git
+    - git-delta
+    - git-absorb
+    - gh # GitHub cli
+
+- name: Install linters
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - pgformatter
+    - tflint
+    - ansible-lint
+    - clang-format
+    - shellcheck
+
+- name: Prepare IDE
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - neovim
+    - tmux
+    - tmuxinator
+    - fzf
+
+- name: Install Kubernetes cli
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - kubectl
+    - calicoctl
+
+- name: Install services
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    - postgresql
+    - vault
+    - terraform
+
