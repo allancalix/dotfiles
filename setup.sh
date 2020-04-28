@@ -9,7 +9,6 @@ readonly POST_INSTALL="POST-INSTALL.sh"
 
 main() {
   vim::install_package_manager
-  zsh::install_prompt
 
   echo "Installing additional dependencies..."
   vim::install_packages

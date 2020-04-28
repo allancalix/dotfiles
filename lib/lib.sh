@@ -8,4 +8,3 @@ PKG_PATH=lib
 # Import modules
 source ${RUNTIME_PATH}/${PKG_PATH}/env.sh || exit
 source ${RUNTIME_PATH}/${PKG_PATH}/vim.sh || exit
-source ${RUNTIME_PATH}/${PKG_PATH}/zsh.sh || exit
