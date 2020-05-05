@@ -8,14 +8,13 @@ endif
 
 call plug#begin('~/.config/nvim/plugins')
 " LSP
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': {-> system('bash install.sh')} }
-
-" COMPLETION
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
+Plug 'dense-analysis/ale'
 
 " RUST PLUGINS
 Plug 'rust-lang/rust.vim'
+
+" Go Plugins
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " GENERIC FORMATTER
 Plug 'google/vim-maktaba'
@@ -47,21 +46,17 @@ call plug#end()
 " LSP
 set hidden
 
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rust-analyzer'],
-    \ 'go': ['gopls'],
-    \ }
-
-" COMPLETION CONFIGURATION
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set shortmess+=c
-
-" IMPORTANT: :help Ncm2PopupOpen for more information
-set completeopt=noinsert,menuone,noselect
+let g:ale_linters = {
+      \ 'rust': ['cargo', 'rls'],
+      \ 'go': ['gofmt', 'golint', 'go vet', 'go build', 'gosimple']
+      \ }
+let g:ale_rust_rls_executable = 'rust-analyzer'
 
 let g:rustc_path = "/Users/allancalix/.cargo/bin/rustc"
 let g:rustfmt_command = "/Users/allancalix/.cargo/bin/rustfmt"
-" COMPLETION CONFIGURATION END
+
+let g:go_def_mode='gopls'
+
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
