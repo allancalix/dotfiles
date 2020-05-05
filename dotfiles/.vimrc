@@ -28,6 +28,7 @@ Plug 'posva/vim-vue'
 Plug 'hashivim/vim-terraform'
 
 " GENERAL PLUGINS
+Plug 'dag/vim-fish'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround'
 Plug 'bronson/vim-trailing-whitespace'
