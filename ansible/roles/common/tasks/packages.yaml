@@ -24,6 +24,8 @@
     - openssh
     - wget
     - ssh-copy-id
+    - fish
+    - exa
 
 - name: Install Git
   homebrew:
