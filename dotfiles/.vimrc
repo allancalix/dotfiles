@@ -16,13 +16,6 @@ Plug 'rust-lang/rust.vim'
 " Go Plugins
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-" GENERIC FORMATTER
-Plug 'google/vim-maktaba'
-Plug 'google/vim-codefmt'
-
-" VUE PLUGINS
-Plug 'posva/vim-vue'
-
 " Terraform Plugins
 Plug 'hashivim/vim-terraform'
 
@@ -133,7 +126,7 @@ set noshowmode
 set t_Co=257
 
 " Range: 233-256. Default 237
-let g:seoul256_background = 235
+let g:seoul256_background = 234
 silent! colo seoul256
 
 " Editorconfig
