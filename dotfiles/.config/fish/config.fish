@@ -12,8 +12,11 @@ abbr -a c cargo
 abbr -a vi nvim
 abbr -a m make
 
-if status --is-interactive
-    tmux ^/dev/null; and exec true
+if command -v tmux >/dev/null
+  abbr -a t 'tmux'
+  abbr -a tst 'tmux switch -t'
+  abbr -a tat 'tmux attach -t'
+  abbr -a tks 'tmux kill-session -t'
 end
 
 if command -v exa >/dev/null
