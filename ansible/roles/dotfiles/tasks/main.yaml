@@ -2,21 +2,21 @@
 - name: Create static directory for readonly source code
   become: true
   file:
-    path: /usr/local/share/source/third_party
+    path: "{{ third_party_src }}"
     state: directory
 
 - name: Install vendor spaceship-prompt
   become: true
   git:
     repo: https://github.com/denysdovhan/spaceship-prompt
-    dest: /usr/local/share/source/third_party/denysdovhan/spaceship-prompt
+    dest: "{{ third_party_src }}/denysdovhan/spaceship-prompt"
     update: true
 
 - name: Inject spaceship-prompt environment variable
   lineinfile:
     state: present
     path: "{{ ansible_env.HOME }}/.zsh.local"
-    line: "export SPACESHIP_ROOT=/usr/local/share/source/third_party/denysdovhan/spaceship-prompt"
+    line: "export SPACESHIP_ROOT={{ third_party_src }}/denysdovhan/spaceship-prompt"
 
 - name: Sync dotfiles
   synchronize:
@@ -26,12 +26,12 @@
     perms: false
     recursive: true
     rsync_opts:
-        - "--exclude=.zsh.local"
+      - "--exclude=.zsh.local"
   notify: Run post install script
 
 - name: Link spaceship-prompt in zsh themes
   file:
-    src: /usr/local/share/source/third_party/denysdovhan/spaceship-prompt/spaceship.zsh
+    src: "{{ third_party_src }}/denysdovhan/spaceship-prompt/spaceship.zsh"
     dest: "{{ ansible_env.HOME }}/.zsh/themes/prompt_spaceship_setup"
     state: link
 
