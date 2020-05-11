@@ -25,7 +25,7 @@ abbr -a gup 'git pull'
 abbr -a gf 'git fetch --prune'
 abbr -a gc 'git commit -v'
 abbr -a gp 'git push'
-abbr -a gpthis 'gp origin (git_current_branch):(git_current_branch)'
+abbr -a gpthis 'git push origin (git_current_branch):(git_current_branch)'
 
 # Kubernetes
 abbr -a k 'kubectl'
