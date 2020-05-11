@@ -70,3 +70,10 @@ end
 # Disable greeting prompt
 function fish_greeting
 end
+
+set GCLOUD_SDK_PATH "$HOME/bin/google-cloud-sdk"
+# Install gcloud toolchain.
+if test -d "$HOME/bin/google-cloud-sdk"
+  source "$HOME/bin/google-cloud-sdk/path.fish.inc"
+end
+
