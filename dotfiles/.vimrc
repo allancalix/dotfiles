@@ -8,13 +8,10 @@ endif
 
 call plug#begin('~/.config/nvim/plugins')
 " LSP
-Plug 'dense-analysis/ale'
+Plug 'neovim/nvim-lsp'
 
 " RUST PLUGINS
 Plug 'rust-lang/rust.vim'
-
-" Go Plugins
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " Terraform Plugins
 Plug 'hashivim/vim-terraform'
@@ -38,17 +35,6 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " LSP
 set hidden
-
-let g:ale_linters = {
-      \ 'rust': ['cargo', 'rls'],
-      \ 'go': ['gofmt', 'golint', 'go vet', 'go build', 'gosimple']
-      \ }
-let g:ale_rust_rls_executable = 'rust-analyzer'
-
-let g:rustc_path = "/Users/allancalix/.cargo/bin/rustc"
-let g:rustfmt_command = "/Users/allancalix/.cargo/bin/rustfmt"
-
-let g:go_def_mode='gopls'
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
