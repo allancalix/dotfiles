@@ -8,7 +8,10 @@ endif
 
 call plug#begin('~/.config/nvim/plugins')
 " LSP
-Plug 'neovim/nvim-lsp'
+Plug 'neovim/nvim-lspconfig'
+" Plugins are installed through neovim to setup completion sources.
+" * CocInstall coc-rust-analyzer
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " RUST PLUGINS
 Plug 'rust-lang/rust.vim'
