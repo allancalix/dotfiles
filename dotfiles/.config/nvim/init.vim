@@ -4,5 +4,6 @@ source ~/.vimrc
 
 lua <<EOF
 require'nvim_lsp'.gopls.setup{}
+require'nvim_lsp'.rust_analyzer.setup{}
 EOF
 
