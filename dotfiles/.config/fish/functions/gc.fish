@@ -1,4 +1,4 @@
 function gc
-  git commit -v -a $argv
+  git commit -Sv -a $argv
 end
 
