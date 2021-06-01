@@ -7,11 +7,19 @@ if has('syntax') && !exists('g:syntax_on')
 endif
 
 call plug#begin('~/.config/nvim/plugins')
-" LSP
+
 Plug 'neovim/nvim-lspconfig'
-" Plugins are installed through neovim to setup completion sources.
-" * CocInstall coc-rust-analyzer
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'hrsh7th/nvim-compe'
+
+" dependencies
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+" telescope
+Plug 'nvim-telescope/telescope.nvim'
+
+Plug 'fatih/vim-go'
+Plug 'rescript-lang/vim-rescript'
 
 " RUST PLUGINS
 Plug 'rust-lang/rust.vim'
@@ -29,6 +37,7 @@ Plug 'junegunn/fzf', {'dir': '~/.fzf', 'do': './install --all'}
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
+Plug 'editorconfig/editorconfig-vim'
 
 " Init Plugins
 call plug#end()
@@ -159,9 +168,7 @@ noremap <silent> <Leader>cw          :%s/[ \t]*$//g<CR>
 " Leader F prefix is for file related mappings (open, browse...)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-command! LocalFiles call fzf#run(fzf#wrap(
-  \{'source': "rg --files -g '!target/'", 'sink': 'e'}))
-nnoremap <silent> <Leader>ff :LocalFiles<CR>
+nnoremap <silent> <Leader>ff :Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<CR>
 nnoremap <silent> <Leader>fe :Explore<CR>
 
 " Leader B prefix is for buffer related mappings
