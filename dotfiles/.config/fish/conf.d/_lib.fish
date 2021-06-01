@@ -9,8 +9,13 @@
 # should __not be named with leading underscores__.
 
 setenv XDG_CONFIG_HOME "$HOME/.config"
+setenv XDG_DATA_HOME "$HOME/.local/share"
+setenv XDG_STATE_HOME "$HOME/.local/state"
+
+setenv USER_BIN "$HOME/bin"
+fish_add_path $USER_BIN
+
 setenv TERMCOLOR "truecolor"
-fish_add_path $HOME/bin $HOME/.cargo/bin $HOME/go/bin
 
 # Verifies a command exists and exits the environment if it doesn't.
 # Example:
