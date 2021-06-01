@@ -21,4 +21,3 @@ end
 # Disable greeting prompt
 function fish_greeting
 end
-

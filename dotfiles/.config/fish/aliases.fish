@@ -15,4 +15,3 @@ abbr -a kg 'kubectl get'
 abbr -a tf 'terraform'
 abbr -a tfa 'terraform apply'
 abbr -a tfp 'terraform plan'
-
