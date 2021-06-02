@@ -1,1 +1,0 @@
-source ~/.zsh/rc.sh
