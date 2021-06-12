@@ -1,3 +1,4 @@
 .DS_Store
 .zsh.local
 POST-INSTALL.sh
+dotfiles/.config/fish/local.fish
