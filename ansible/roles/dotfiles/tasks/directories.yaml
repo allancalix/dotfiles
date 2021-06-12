@@ -1,0 +1,49 @@
+---
+- name: Create static directory for readonly source code
+  file:
+    path: "{{ third_party_src }}"
+    state: directory
+    mode: "0777"
+  tags:
+    - sync
+- name: Create static directory for readonly code artifacts
+  file:
+    path: "{{ third_party_pkg }}"
+    mode: "0777"
+    state: directory
+  tags:
+    - sync
+- name: Create directory for rescript lsp
+  file:
+    path: "{{ third_party_pkg }}/rescript-vscode"
+    mode: "0777"
+    state: directory
+  tags:
+    - sync
+- name: Create directory for user binaries
+  file:
+    path: "{{ ansible_env.HOME }}/bin"
+    mode: "u=rwx,g=---,o=---"
+    state: directory
+  tags:
+    - sync
+- name: Create directory for user source code
+  file:
+    path: "{{ ansible_env.HOME }}/acx/sources"
+    mode: "u=rwx,g=---,o=---"
+    state: directory
+  tags:
+    - sync
+- name: Clones active working directories
+  ansible.builtin.git:
+    repo: "git@github.com:{{ item }}.git"
+    dest: "{{ third_party_src }}/github.com/{{ item }}"
+    single_branch: yes
+    # TODO(allancalix): Normalize upstream branch path to "main."
+    version: master
+  loop:
+     - acx-dev/acx
+     - acx-dev/kratos-ui
+     - allancalix/dotfiles
+  tags:
+    - sync

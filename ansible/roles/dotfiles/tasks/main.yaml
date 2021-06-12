@@ -1,25 +1,4 @@
----
-- name: Create static directory for readonly source code
-  file:
-    path: "{{ third_party_src }}"
-    state: directory
-    mode: "0777"
-  tags:
-    - sync
-- name: Create static directory for readonly code artifacts
-  file:
-    path: "{{ third_party_pkg }}"
-    mode: "0777"
-    state: directory
-  tags:
-    - sync
-- name: Create direrctory for rescript lsp
-  file:
-    path: "{{ third_party_pkg }}/rescript-vscode"
-    mode: "0777"
-    state: directory
-  tags:
-    - sync
+- include: "directories.yaml"
 - name: Create temporary artifact directory
   ansible.builtin.tempfile:
     state: directory
