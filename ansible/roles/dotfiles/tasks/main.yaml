@@ -1,10 +1,45 @@
 ---
 - name: Create static directory for readonly source code
-  become: true
   file:
     path: "{{ third_party_src }}"
     state: directory
-
+    mode: "0777"
+  tags:
+    - sync
+- name: Create static directory for readonly code artifacts
+  file:
+    path: "{{ third_party_pkg }}"
+    mode: "0777"
+    state: directory
+  tags:
+    - sync
+- name: Create direrctory for rescript lsp
+  file:
+    path: "{{ third_party_pkg }}/rescript-vscode"
+    mode: "0777"
+    state: directory
+  tags:
+    - sync
+- name: Create temporary artifact directory
+  ansible.builtin.tempfile:
+    state: directory
+    suffix: artifacts
+  register: temp
+  tags:
+    - sync
+- name: Downloads rescript lsp bundle
+  get_url:
+    url: "{{ rescript_pkg_location }}"
+    dest: "{{ temp.path }}/rescript-vscode.vsix"
+    checksum: md5:a703213c829d2ed7d5e3ab0e760e8cd4
+  tags:
+    - sync
+- name: Extracts extension bundle to artifact directory
+  ansible.builtin.unarchive:
+    src: "{{ temp.path }}/rescript-vscode.vsix"
+    dest: "{{ third_party_pkg }}/rescript-vscode"
+  tags:
+    - sync
 - name: Sync dotfiles
   synchronize:
     delete: false
@@ -13,8 +48,11 @@
     perms: false
     recursive: true
     rsync_opts:
+      - "-v"
       - "--exclude=.zsh.local"
   notify: Run post install script
+  tags:
+    - sync
 
 - name: Create neovim autoload directory
   file:
