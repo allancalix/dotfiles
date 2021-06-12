@@ -49,9 +49,6 @@ DOTFILES_REPO=$PWD ansible-playbook --tags = all,install --ask-become-pass ansib
 # System update (config and dependencies)
 DOTFILES_REPO=$PWD ansible-playbook --ask-become-pass ansible/darwin.yaml
 
-# Config update only
-DOTFILES_REPO=$PWD ansible-playbook --tags = configuration --ask-become-pass ansible/darwin.yaml
-
 # Syncs dotfiles only
 DOTFILES_REPO=$PWD ansible-playbook --tags=sync ansible/darwin.yaml
 ```

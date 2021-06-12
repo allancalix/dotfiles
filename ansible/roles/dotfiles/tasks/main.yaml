@@ -4,21 +4,15 @@
     state: directory
     suffix: artifacts
   register: temp
-  tags:
-    - sync
 - name: Downloads rescript lsp bundle
   get_url:
     url: "{{ rescript_pkg_location }}"
     dest: "{{ temp.path }}/rescript-vscode.vsix"
     checksum: md5:a703213c829d2ed7d5e3ab0e760e8cd4
-  tags:
-    - sync
 - name: Extracts extension bundle to artifact directory
   ansible.builtin.unarchive:
     src: "{{ temp.path }}/rescript-vscode.vsix"
     dest: "{{ third_party_pkg }}/rescript-vscode"
-  tags:
-    - sync
 - name: Sync dotfiles
   synchronize:
     delete: false
@@ -30,24 +24,12 @@
       - "-v"
       - "--exclude=.zsh.local"
   notify: Run post install script
-  tags:
-    - sync
-
 - name: Create neovim autoload directory
   file:
     path: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload"
     state: directory
-
 - name: Install neovim package manager
   get_url:
     url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     dest: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload/plug.vim"
     mode: "u=rw-,g=rw-,o=r--"
-
-- name: Copy VS Code options
-  synchronize:
-    delete: false
-    src: "{{ ansible_env.DOTFILES_REPO }}/vscode/"
-    # TODO(allancalix): Make this work on linux.
-    dest: "{{ ansible_env.HOME }}/Library/Application Support/Code/User/"
-
