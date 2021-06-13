@@ -1,10 +1,12 @@
 # Creates some well known locations for source code and artifacts.
 - name: Create static directory for readonly source code
+  become: true
   file:
     path: "{{ third_party_src }}"
     state: directory
     mode: "0777"
 - name: Create static directory for readonly code artifacts
+  become: true
   file:
     path: "{{ third_party_pkg }}"
     mode: "0777"

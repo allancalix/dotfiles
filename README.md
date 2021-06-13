@@ -5,7 +5,7 @@ Two annoying parts of previous dotfiles directories were:
 1. Minor changes on one system would add up into drift between environments.
 2. Operations that were not idempotent caused me to not update my configurations
    in order to update my system. This also led to drift between environments.
-   
+
 Ansible playbooks are a useful tool for declaratively specifying the state of a system
 and abstracting away how that state is reached. Also, I could make changes to multiple
 systems simultaneously if I were so inclined.
@@ -14,6 +14,12 @@ systems simultaneously if I were so inclined.
 
 1. Homebrew on Mac
 2. [ansible-playbook](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
+2. Neovim 0.5+. Some features like __treesitter__ are only available on newer
+   versions of Neovim.
+
+   On Mac, you can install through homebrew:
+
+   `brew install neovim --HEAD`
 
 ## Per System Configuration
 
@@ -50,6 +56,8 @@ DOTFILES_REPO=$PWD ansible-playbook --tags = all,install --ask-become-pass ansib
 DOTFILES_REPO=$PWD ansible-playbook --ask-become-pass ansible/darwin.yaml
 
 # Syncs dotfiles only
+# Depending on the permissions configured on the `/usr/local/share` directories,
+# this operation may or may not require privilege escalation.
 DOTFILES_REPO=$PWD ansible-playbook --tags=sync ansible/darwin.yaml
 ```
 
