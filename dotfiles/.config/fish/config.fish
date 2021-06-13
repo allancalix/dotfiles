@@ -9,3 +9,5 @@ end
 # Switch to vi style line editing.
 fish_vi_key_bindings
 
+# Required for password loopback on linux.
+setenv GPG_TTY (tty)
