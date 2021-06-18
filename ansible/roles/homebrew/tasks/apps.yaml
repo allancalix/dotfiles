@@ -1,3 +1,4 @@
+# TODO(allancalix): These cask targets don't work on Linux.
 - name: Install Alacritty
   homebrew_cask:
     name: alacritty
@@ -51,7 +52,6 @@
     name: "{{ item }}"
     state: latest
   loop:
-    - neovim
     - tmux
     - tmuxinator
     - fzf
@@ -75,4 +75,11 @@
   loop:
     # Required to use keychain to store GPG key credentials.
     - pinentry-mac
+  when: ansible_facts['os_family'] == "Darwin"
+
+- name: Install Neovim
+  homebrew:
+    name: neovim
+    # Track HEAD for the latest features.
+    state: head
   when: ansible_facts['os_family'] == "Darwin"
