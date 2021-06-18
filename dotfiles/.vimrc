@@ -33,6 +33,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'junegunn/seoul256.vim'
+Plug 'ayu-theme/ayu-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
 Plug 'editorconfig/editorconfig-vim'
@@ -72,7 +73,8 @@ set ignorecase
 set backupdir=~/.vim/tmp/                   " for the backup files
 set directory=~/.vim/tmp/                   " for the swap files
 
-set textwidth=80
+set textwidth=120
+set nowrap " wrapping is really annoying when working with html/jsx files
 set colorcolumn=81
 set formatoptions=tcqrn1
 set tabstop=2
@@ -102,11 +104,9 @@ set laststatus=2
 set noshowmode
 
 "================THEMES==================
-set t_Co=257
-
-" Range: 233-256. Default 237
-let g:seoul256_background = 234
-silent! colo seoul256
+set termguicolors     " enable true colors support
+let ayucolor="mirage" " light | mirage | dark
+colorscheme ayu
 
 "=================TABULAR==================
 
