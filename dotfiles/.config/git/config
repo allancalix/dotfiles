@@ -8,7 +8,13 @@
 	dp = diff --word-diff --unified=10
 	append = !git cherry-pick $(git merge-base HEAD\n  $1)..$1
 [core]
-  pager = delta --dark --plus-color="#012800" --minus-color="#340001" --theme="base16"
+  pager = delta
+[delta]
+  plus-style = "syntax #012800"
+  minus-style = "syntax #340001"
+  syntax-theme = Monokai Extended
+  navigate = true
+  line-numbers = true
 [diff]
 	algorithm = histogram
 [interactive]
