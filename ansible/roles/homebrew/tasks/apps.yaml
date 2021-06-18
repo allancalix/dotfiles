@@ -18,8 +18,7 @@
     - fd
     - ripgrep
     - xsv
-    - bash
-    - zsh
+    - bash # Updates version
     - openssh
     - wget
     - ssh-copy-id
@@ -47,7 +46,7 @@
     - clang-format
     - shellcheck
 
-- name: Prepare IDE
+- name: Install IDE apps
   homebrew:
     name: "{{ item }}"
     state: latest
@@ -57,24 +56,23 @@
     - tmuxinator
     - fzf
 
-- name: Install Kubernetes cli
-  homebrew:
-    name: "{{ item }}"
-    state: latest
-  loop:
-    - kubectl
-
 - name: Install services
   homebrew:
     name: "{{ item }}"
     state: latest
   loop:
+    - kubectl
     - postgresql
     - vault
     - terraform
     - fnm
+    - go
 
-- name: Install Go
+- name: Install MacOS binaries
   homebrew:
-    name: go
+    name: "{{ item }}"
     state: latest
+  loop:
+    # Required to use keychain to store GPG key credentials.
+    - pinentry-mac
+  when: ansible_facts['os_family'] == "Darwin"
