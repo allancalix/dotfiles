@@ -23,6 +23,7 @@
     rsync_opts:
       - "-v"
       - "--exclude=.zsh.local"
+  tags: ["dotfiles-only"]
   notify: Run post install script
 - name: Create neovim autoload directory
   file:
