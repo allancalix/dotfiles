@@ -5,6 +5,7 @@
   roles:
     - common
     - homebrew
+    - rust
     - gnupg
     - role: dotfiles
       tags: [ sync ]

@@ -1,3 +1,5 @@
+# Directory for user specific binaries.
+user_bin: "{{ ansible_env.HOME }}/bin"
 # Directory for read only third party source code.
 third_party_src: /usr/local/share/acx/sources/third_party
 # Directory for read only third party artifacts.

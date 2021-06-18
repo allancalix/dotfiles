@@ -1,0 +1,24 @@
+- name: Create temporary install directory
+  tempfile:
+    state: directory
+    suffix: .install
+  register: temp_install_dir
+  changed_when: false
+
+- name: Install RustUp
+  shell: |
+    set -o pipefail
+    curl https://sh.rustup.rs -sSf | sh -s -- -y
+  args:
+    executable: /bin/bash
+    creates: "{{ ansible_env.XDG_CONFIG_HOME }}/cargo/bin/rustup"
+  environment:
+    TMPDIR: '{{ temp_install_dir.path }}'
+    CARGO_HOME: "{{ ansible_env.XDG_CONFIG_HOME }}/cargo"
+    RUSTUP_HOME: "{{ ansible_env.XDG_CONFIG_HOME }}/rustup"
+
+- name: Clenaup temp directory
+  file:
+    path: "{{ temp_install_dir.path }}"
+    state: absent
+  changed_when: false
