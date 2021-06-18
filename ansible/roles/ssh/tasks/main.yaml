@@ -1,0 +1,22 @@
+- name: Generate an OpenSSH keypair
+  community.crypto.openssh_keypair:
+    path: "{{ ansible_env.HOME }}/.ssh/acx_rsa"
+    comment: "{{ user_email }}"
+  register: ssh_key
+
+- name: Authorize key with GitHub
+  local_action:
+    module: github_key
+    name: "Host - {{ ansible_facts['hostname'] }}, OS -  {{ ansible_facts['os_family'] }}"
+    token: "{{ ansible_env.GH_TOKEN }}"
+    pubkey: '{{ ssh_key.public_key }}'
+
+- name: Copies SSH configuration
+  template: src="config" dest="{{ ansible_env.HOME }}/.ssh/config"
+
+# TODO(allancalix): Implement Linux variant.
+- name: Restart sshd
+  community.general.launchd:
+    name: com.openssh.ssh-agent
+    state: restarted
+  when: ansible_facts['os_family'] == "Darwin"

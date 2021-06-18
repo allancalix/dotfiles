@@ -2,6 +2,8 @@
   hosts: localhost
   vars_files:
     - vars/common.yaml
+    # Must be created before executing.
+    - vars/user.yaml
   roles:
     - common
     - homebrew
@@ -10,3 +12,4 @@
     - dotfiles
     - role: darwin
       when: ansible_facts['os_family'] == "Darwin"
+    - ssh
