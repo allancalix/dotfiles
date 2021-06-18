@@ -7,7 +7,6 @@
     - homebrew
     - rust
     - gnupg
-    - role: dotfiles
-      tags: [ sync ]
+    - dotfiles
     - role: darwin
       when: ansible_facts['os_family'] == "Darwin"

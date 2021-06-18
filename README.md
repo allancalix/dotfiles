@@ -50,12 +50,10 @@ From the repository root directory.
 
 ```sh
 # Fresh install
-DOTFILES_REPO=$PWD ansible-playbook --tags = all,install,sync --ask-become-pass ansible/darwin.yaml
+DOTFILES_REPO=$PWD ansible-playbook --tags=all,init --ask-become-pass ansible/devmachine.yaml
 
 # Syncs dotfiles only
-# Depending on the permissions configured on the `/usr/local/share` directories,
-# this operation may or may not require privilege escalation.
-DOTFILES_REPO=$PWD ansible-playbook --tags=dotfiles-only ansible/darwin.yaml
+DOTFILES_REPO=$PWD ansible-playbook --tags=dotfiles-only ansible/devmachine.yaml
 ```
 
 ## Some Good Dotfiles
