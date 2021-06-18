@@ -64,7 +64,6 @@
     state: latest
   loop:
     - kubectl
-    - calicoctl
 
 - name: Install services
   homebrew:
@@ -74,3 +73,4 @@
     - postgresql
     - vault
     - terraform
+    - fnm
