@@ -1,0 +1,4 @@
+# Directory for read only third party source code.
+third_party_src: /usr/local/share/acx/sources/third_party
+# Directory for read only third party artifacts.
+third_party_pkg: /usr/local/share/acx/pkg/third_party

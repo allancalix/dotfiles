@@ -64,7 +64,6 @@
     state: latest
   loop:
     - kubectl
-    - kustomize
     - calicoctl
 
 - name: Install services
@@ -75,4 +74,3 @@
     - postgresql
     - vault
     - terraform
-

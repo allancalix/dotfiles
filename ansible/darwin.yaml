@@ -1,8 +1,11 @@
----
 - name: Development Machine
   hosts: localhost
+  vars_files:
+    - vars/common.yaml
   roles:
     - common
+    - gnupg
     - role: dotfiles
       tags: [ sync ]
-
+    - role: darwin
+      when: ansible_facts['os_family'] == "Darwin"

@@ -3,8 +3,3 @@
   homebrew:
     name: go
     state: latest
-
-- name: Install Node Version Manager (NVM)
-  homebrew:
-    name: nvm
-    state: latest

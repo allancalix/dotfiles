@@ -1,0 +1,7 @@
+- name: Copies platform specific GPG configs
+  template: src="{{ ansible_os_family }}_{{ item }}" dest="/tmp/gpg/{{ item }}"
+  loop:
+    - gpg.conf
+    - scdaemon.conf
+    - gpg-agent.conf
+

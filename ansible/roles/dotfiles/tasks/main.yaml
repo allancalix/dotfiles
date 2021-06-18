@@ -1,18 +1,20 @@
-- include: "directories.yaml"
 - name: Create temporary artifact directory
-  ansible.builtin.tempfile:
+  tempfile:
     state: directory
     suffix: artifacts
   register: temp
+
 - name: Downloads rescript lsp bundle
   get_url:
     url: "{{ rescript_pkg_location }}"
     dest: "{{ temp.path }}/rescript-vscode.vsix"
     checksum: md5:a703213c829d2ed7d5e3ab0e760e8cd4
+
 - name: Extracts extension bundle to artifact directory
-  ansible.builtin.unarchive:
+  unarchive:
     src: "{{ temp.path }}/rescript-vscode.vsix"
     dest: "{{ third_party_pkg }}/rescript-vscode"
+
 - name: Sync dotfiles
   synchronize:
     delete: false
@@ -23,12 +25,15 @@
     rsync_opts:
       - "-v"
       - "--exclude=.zsh.local"
-  tags: ["dotfiles-only"]
+  tags:
+    - dotfiles-only
   notify: Run post install script
+
 - name: Create neovim autoload directory
   file:
     path: "{{ ansible_env.HOME }}/.local/share/nvim/site/autoload"
     state: directory
+
 - name: Install neovim package manager
   get_url:
     url: https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim

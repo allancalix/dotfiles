@@ -1,0 +1,20 @@
+- name: Set MacOS system settings
+  become: true
+  shell: "{{ ansible_env.DOTFILES_REPO }}/scripts/macos.sh"
+  tags:
+    - never
+    - install
+
+- name: Copy VS Code options
+  synchronize:
+    delete: false
+    src: "{{ ansible_env.DOTFILES_REPO }}/vscode/"
+    dest: "{{ ansible_env.HOME }}/Library/Application Support/Code/User/"
+
+- name: Install MacOS binaries
+  homebrew:
+    name: "{{ item }}"
+    state: latest
+  loop:
+    # Required to use keychain to store GPG key credentials.
+    - pinentry-mac
