@@ -3,7 +3,7 @@
   shell: "{{ ansible_env.DOTFILES_REPO }}/scripts/macos.sh"
   tags:
     - never
-    - install
+    - init
 
 - name: Copy VS Code options
   synchronize:

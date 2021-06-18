@@ -1,7 +1,7 @@
 # Layout common directories.
 - name: Create static directory for readonly source code
   file:
-    path: "{{ third_party_src }}"
+    path: "{{ readonly_src }}"
     state: directory
     mode: "0777"
 - name: Create static directory for readonly code artifacts
