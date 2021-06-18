@@ -14,9 +14,16 @@
 - name: Copies SSH configuration
   template: src="config" dest="{{ ansible_env.HOME }}/.ssh/config"
 
-# TODO(allancalix): Implement Linux variant.
 - name: Restart sshd
   community.general.launchd:
     name: com.openssh.ssh-agent
     state: restarted
   when: ansible_facts['os_family'] == "Darwin"
+
+# TODO(allancalix): Find out if this actually works.
+- name: Restart sshd
+  become: true
+  service:
+    name: ssh
+    state: restarted
+  when: ansible_facts['os_family'] == "Debian"
