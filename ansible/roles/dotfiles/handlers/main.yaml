@@ -1,3 +1,0 @@
----
-- name: Run post install script
-  shell: "{{ ansible_env.DOTFILES_REPO }}/POST-INSTALL.sh"

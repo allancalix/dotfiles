@@ -1,8 +1,0 @@
-# Directory for user specific binaries.
-user_bin: "{{ ansible_env.HOME }}/bin"
-# Directory for read only source code that tracks HEAD.
-readonly_src: /usr/local/share/acx/sources/acx
-# Directory for read only third party source code.
-third_party_src: /usr/local/share/acx/sources/third_party
-# Directory for read only third party artifacts.
-third_party_pkg: /usr/local/share/acx/pkg/third_party

@@ -1,3 +1,0 @@
-rescript_lsp_version: 1.1.2
-rescript_pkg_location: "https://github.com/rescript-lang/rescript-vscode/releases/\
-  download/{{ rescript_lsp_version }}/rescript-vscode-{{ rescript_lsp_version }}.vsix"
