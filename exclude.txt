@@ -1,0 +1,5 @@
+.git
+.editorconfig
+README.md
+exclude.txt
+testfile
