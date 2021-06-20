@@ -1,5 +1,1 @@
-.DS_Store
-.zsh.local
-POST-INSTALL.sh
-ansible/vars/user.yaml
 dotfiles/.config/fish/local.fish
