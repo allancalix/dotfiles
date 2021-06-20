@@ -1,61 +1,23 @@
 # Dotfiles
 
-Two annoying parts of previous dotfiles directories were:
+Just some dotfiles, designed to adhere to the XDG standard where possible.
 
-1. Minor changes on one system would add up into drift between environments.
-2. Operations that were not idempotent caused me to not update my configurations
-   in order to update my system. This also led to drift between environments.
+## Requirements
 
-Ansible playbooks are a useful tool for declaratively specifying the state of a system
-and abstracting away how that state is reached. Also, I could make changes to multiple
-systems simultaneously if I were so inclined.
+1. Neovim 0.5+, required for some plugin features.
 
-## Prerequisites
+2. Fish! It's a shell with nice built in features.
 
-1. Homebrew on Mac
-2. [ansible-playbook](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
-2. Neovim 0.5+. Some features like __treesitter__ are only available on newer
-   versions of Neovim.
+## Synchronizing
 
-   On Mac, you can install through homebrew:
+I use Ansible to automate synchronizing and deploying these dotfiles to my
+development machines. You can see the details of how that happens [here](https://github.com/allancalix/devmachine).
+The `exclude.txt` file specifies targets to not synchronize to the home directory (e.g. the git directory).
 
-   `brew install neovim --HEAD`
+You can synchronize the dotfiles from here using the following command:
 
-## Per System Configuration
-
-There are two ways you could make system specific changes at runtime. The first is to include
-a `POST-INSTALL.sh` script in the repositories root directory. Any time the dotfiles directory
-syncs, this script is executed.
-
-An example might be:
-```sh
-# POST-INSTALL.sh
-git config --global user.name "Jane Doe"
-git config --global user.email "jane.doe@mailinator.com"
+```bash
+rsync -vr \
+  --exclude-from=exclude.txt \
+  . $HOME
 ```
-This script should try to remain idempotent as it could potentially be executed multiple times.
-
-## Notes
-
-* [VSCODE_EXTENSIONS](VSCODE_EXTENSIONS) can be used to ensure that vscode extensions are installed.
-
-* [scripts/macos.sh](scripts/macos.sh)
-
-    Sets system settings for mac. These are only run during fresh installs.
-    Unless the `install` tag is explicitly set, this script won't run.
-
-## Running Playbooks
-
-From the repository root directory.
-
-```sh
-# Fresh install
-DOTFILES_REPO=$PWD ansible-playbook --tags=all,init --ask-become-pass ansible/devmachine.yaml
-
-# Syncs dotfiles only
-DOTFILES_REPO=$PWD ansible-playbook --tags=dotfiles-only ansible/devmachine.yaml
-```
-
-## Some Good Dotfiles
-
-* [Mathias Bynens](https://github.com/mathiasbynens/dotfiles)
