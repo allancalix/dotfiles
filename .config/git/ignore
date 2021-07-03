@@ -1,0 +1,5 @@
+# MacOS Cruft
+.DS_Store
+
+# IntelliJ
+.idea
