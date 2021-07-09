@@ -13,7 +13,13 @@ setenv XDG_DATA_HOME "$HOME/.local/share"
 setenv XDG_STATE_HOME "$HOME/.local/state"
 
 setenv USER_BIN "$HOME/bin"
+
+# Expose locally installed binaries on path.
 fish_add_path $USER_BIN
+# Expose Pyenv binaries on path.
+fish_add_path "$PYENV_ROOT/bin"
+# Expose Cargo binaries on path.
+fish_add_path "$XDG_CONFIG_HOME/cargo/bin"
 
 setenv TERMCOLOR "truecolor"
 
