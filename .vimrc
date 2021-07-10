@@ -10,7 +10,7 @@ call plug#begin('~/.config/nvim/plugins')
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'hrsh7th/nvim-compe'
+Plug 'nvim-lua/completion-nvim'
 
 " dependencies
 Plug 'nvim-lua/popup.nvim'
@@ -52,6 +52,9 @@ set backspace=indent,eol,start
 set ruler
 set wildmenu
 
+autocmd BufEnter * lua require'completion'.on_attach()
+set completeopt=menuone,noinsert,noselect
+set shortmess+=c
 set autowrite
 set autoread
 
