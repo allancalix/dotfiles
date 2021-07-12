@@ -11,8 +11,8 @@
 setenv XDG_CONFIG_HOME "$HOME/.config"
 setenv XDG_DATA_HOME "$HOME/.local/share"
 setenv XDG_STATE_HOME "$HOME/.local/state"
-
-setenv USER_BIN "$HOME/bin"
+setenv XDG_STATE_HOME "$HOME/.local/state"
+setenv USER_BIN "$HOME/.local/bin"
 
 # Expose locally installed binaries on path.
 fish_add_path $USER_BIN
