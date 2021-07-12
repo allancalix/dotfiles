@@ -1,4 +1,4 @@
-set GCLOUD_SDK_PATH "$HOME/bin/google-cloud-sdk"
+set GCLOUD_SDK_PATH "$USER_BIN/google-cloud-sdk"
 
 # Install gcloud toolchain.
 if test -d $GCLOUD_SDK_PATH
