@@ -59,6 +59,7 @@ set autowrite
 set autoread
 
 " SEARCH
+set inccommand=nosplit
 set incsearch
 set hlsearch
 if maparg('<C-L>', 'n') ==# ''
