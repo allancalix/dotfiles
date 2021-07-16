@@ -149,7 +149,10 @@ noremap <silent> <Leader>cw          :%s/[ \t]*$//g<CR>
 " Leader F prefix is for file related mappings (open, browse...)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <silent> <Leader>ff :Telescope find_files find_command=rg,--ignore,--hidden,--files prompt_prefix=🔍<CR>
+set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --ignore\ --hidden
+nnoremap <silent> <Leader>ff :Telescope find_files find_command=fd prompt_prefix=🔍<CR>
+nnoremap <silent> <Leader>fg :Telescope live_grep prompt_prefix=🔍<CR>
+nnoremap <silent> <Leader>fb :Telescope buffers prompt_prefix=🔍<CR>
 nnoremap <silent> <Leader>fe :Explore<CR>
 
 " Leader B prefix is for buffer related mappings
