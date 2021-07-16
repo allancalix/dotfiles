@@ -138,8 +138,7 @@ imap <F1> <Esc>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 noremap <F5> :call LanguageClient_contextMenu()<CR>
 noremap <silent> <Leader>c? :call LanguageClient#textDocument_hover()<CR>
-noremap <silent> <Leader>cd :call LanguageClient#textDocument_definition()<CR>
-noremap <silent> <Leader>cr :call LanguageClient#textDocument_rename()<CR>
+noremap <silent> <Leader>cn :call LanguageClient#textDocument_rename()<CR>
 
 noremap <silent> <Leader>cc          :TComment<CR>              "tcomment_vim
 
@@ -153,7 +152,14 @@ set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --ignore\ --hidden
 nnoremap <silent> <Leader>ff :Telescope find_files find_command=fd prompt_prefix=🔍<CR>
 nnoremap <silent> <Leader>fg :Telescope live_grep prompt_prefix=🔍<CR>
 nnoremap <silent> <Leader>fb :Telescope buffers prompt_prefix=🔍<CR>
+nnoremap <silent> <Leader>fm :lua require'telescope.builtin'.marks{}
+nnoremap <silent> <Leader>fd :lua require'telescope.builtin'.lsp_workspace_symbols{}
 nnoremap <silent> <Leader>fe :Explore<CR>
+
+nnoremap <silent> <Leader>cs :lua require'telescope.builtin'.lsp_document_symbols{}
+nnoremap <silent> <Leader>cr :lua require'telescope.builtin'.lsp_references{}
+nnoremap <silent> <Leader>cd :lua require'telescope.builtin'.lsp_definitions{}
+nnoremap <silent> <Leader>ci :lua require'telescope.builtin'.lsp_implementations{}
 
 " Leader B prefix is for buffer related mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
