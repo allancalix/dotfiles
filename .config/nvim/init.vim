@@ -4,6 +4,7 @@ source ~/.vimrc
 
 lua <<EOF
 local nvim_lsp = require('lspconfig')
+vim.api.nvim_set_keymap("n", "<Leader>mt", ":lua require('checklist').toggle_item()<CR>", { noremap = true, silent = true })
 
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained",
@@ -39,7 +40,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<Leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap("n", "<Leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
