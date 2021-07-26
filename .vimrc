@@ -34,7 +34,7 @@ Plug 'tpope/vim-surround'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'junegunn/seoul256.vim'
 Plug 'ayu-theme/ayu-vim'
-Plug 'itchyny/lightline.vim'
+Plug 'hoob3rt/lualine.nvim'
 Plug 'godlygeek/tabular'
 Plug 'editorconfig/editorconfig-vim'
 

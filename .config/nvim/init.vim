@@ -3,6 +3,11 @@ set packpath+=~/.vim
 source ~/.vimrc
 
 lua <<EOF
+options = {theme = 'ayu_mirage'}
+require'lualine'.setup{
+  options = options,
+}
+
 local nvim_lsp = require('lspconfig')
 vim.api.nvim_set_keymap("n", "<Leader>mt", ":lua require('checklist').toggle_item()<CR>", { noremap = true, silent = true })
 
