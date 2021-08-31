@@ -32,13 +32,13 @@ draw_bold_text_with_bright_colors: true
 # Font configuration (changes require restart)
 font:
   normal:
-    family: "Inconsolata-g"
+    family: "Input Mono"
 
   bold:
-    family: "Inconsolata-g"
+    family: "Input Mono"
 
   italic:
-    family: "Inconsolata-g"
+    family: "Input Mono"
 
   # Point size of the font
   size: 11.0
