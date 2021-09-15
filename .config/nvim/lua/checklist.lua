@@ -10,7 +10,7 @@ M.toggle_item = function()
 
   for i, state in ipairs(default_states) do
     if line:match('%['.. state ..'%]') then
-      next = default_states[i + 1] or default_states[1]
+      local next = default_states[i + 1] or default_states[1]
       local new = line:gsub('%['.. state ..'%]', '['.. next ..']', 1)
       return vim.api.nvim_set_current_line(new)
     end
