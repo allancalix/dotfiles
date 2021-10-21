@@ -52,7 +52,7 @@ set backspace=indent,eol,start
 set ruler
 set wildmenu
 
-let g:coq_settings = { 'auto_start': 'shut-up' }
+let g:coq_settings = { 'auto_start': 'shut-up', 'display.pum.fast_close': v:false }
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 set autowrite
