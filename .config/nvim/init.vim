@@ -9,6 +9,7 @@ require'lualine'.setup{
 }
 
 local nvim_lsp = require('lspconfig')
+local coq = require('coq')
 vim.api.nvim_set_keymap("n", "<Leader>mt", ":lua require('checklist').toggle_item()<CR>", { noremap = true, silent = true })
 
 require'nvim-treesitter.configs'.setup {
@@ -51,21 +52,21 @@ end
 -- map buffer local keybindings when the language server attaches
 local servers = { "rust_analyzer", "gopls" }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
+  nvim_lsp[lsp].setup (coq.lsp_ensure_capabilities({
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
     }
-  }
+  }))
 
-require'lspconfig'.rescriptls.setup {
+require'lspconfig'.rescriptls.setup (coq.lsp_ensure_capabilities({
   on_attach = on_attach,
   cmd = {
     'node',
     '/usr/local/share/acx/pkg/third_party/rescript-vscode/extension/server/out/server.js',
     '--stdio',
   }
-}
+}))
 
 end
 EOF

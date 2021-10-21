@@ -10,7 +10,7 @@ call plug#begin('~/.config/nvim/plugins')
 
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-lua/completion-nvim'
+Plug 'ms-jpq/coq_nvim', {'branch': 'coq'}
 
 " dependencies
 Plug 'nvim-lua/popup.nvim'
@@ -52,7 +52,7 @@ set backspace=indent,eol,start
 set ruler
 set wildmenu
 
-autocmd BufEnter * lua require'completion'.on_attach()
+let g:coq_settings = { 'auto_start': 'shut-up' }
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 set autowrite
