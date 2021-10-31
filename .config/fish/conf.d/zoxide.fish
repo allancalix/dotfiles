@@ -1,4 +1,4 @@
-lib::check_cmd_exists vault
+lib::check_cmd_exists zoxide
 
 zoxide init fish | source
 
