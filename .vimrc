@@ -24,15 +24,10 @@ Plug 'rescript-lang/vim-rescript'
 " RUST PLUGINS
 Plug 'rust-lang/rust.vim'
 
-" Terraform Plugins
-Plug 'hashivim/vim-terraform'
-
 " GENERAL PLUGINS
-Plug 'dag/vim-fish'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-surround'
 Plug 'bronson/vim-trailing-whitespace'
-Plug 'junegunn/seoul256.vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'hoob3rt/lualine.nvim'
 Plug 'godlygeek/tabular'
@@ -101,12 +96,6 @@ let g:netrw_hide = 1
 :  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 :augroup END
 
-"==============LIGHTLINE=================
-
-let g:lightline = {'colorscheme': 'seoul256',}
-set laststatus=2
-set noshowmode
-
 "================THEMES==================
 set termguicolors     " enable true colors support
 let ayucolor="mirage" " light | mirage | dark
@@ -159,9 +148,6 @@ nnoremap <silent> <Leader>fd :lua require'telescope.builtin'.lsp_workspace_symbo
 nnoremap <silent> <Leader>fe :Explore<CR>
 
 nnoremap <silent> <Leader>cs :lua require'telescope.builtin'.lsp_document_symbols{}<CR>
-nnoremap <silent> <Leader>cr :lua require'telescope.builtin'.lsp_references{}<CR>
-nnoremap <silent> <Leader>cd :lua require'telescope.builtin'.lsp_definitions{}<CR>
-nnoremap <silent> <Leader>ci :lua require'telescope.builtin'.lsp_implementations{}<CR>
 
 " Leader B prefix is for buffer related mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
