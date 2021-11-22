@@ -20,9 +20,7 @@ Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'fatih/vim-go'
 Plug 'rescript-lang/vim-rescript'
-
-" RUST PLUGINS
-Plug 'rust-lang/rust.vim'
+Plug 'jjo/vim-cue'
 
 " GENERAL PLUGINS
 Plug 'tomtom/tcomment_vim'
