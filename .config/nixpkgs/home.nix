@@ -222,6 +222,12 @@
         line-numbers = true;
       };
     };
+
+    extraConfig = {
+      credential = {
+        "https://github.com".helper = "!gh auth git-credential"
+      };
+    };
   };
 
   programs.tmux = {
