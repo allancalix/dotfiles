@@ -23,6 +23,11 @@
     pkgs.virtualenv
     pkgs.git-absorb
     pkgs.jq
+    pkgs.gh
+
+    pkgs.consul
+    pkgs.nomad
+    pkgs.vault
 
     pkgs.ripgrep
     pkgs.fd
@@ -190,17 +195,10 @@
     extraConfig = (import ./vim.nix) {};
   };
 
-  programs.gh = {
-    enable = true;
-
-    settings = {
-      git_protocol = "ssh";
-    };
-  };
-
   programs.git = {
     enable = true;
     userName = "Allan Calix";
+    userEmail = "contact@acx.dev";
 
     aliases = {
       co = "checkout";
