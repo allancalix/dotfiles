@@ -211,6 +211,11 @@
       append = "!git cherry-pick $(git merge-base HEAD\n  $1)..$1";
     };
 
+    signing = {
+      key = "B2F67574B94C1E89";
+      signByDefault = true;
+    };
+
     delta = {
       enable = true;
 
@@ -225,7 +230,7 @@
 
     extraConfig = {
       credential = {
-        "https://github.com".helper = "!gh auth git-credential"
+        "https://github.com".helper = "!gh auth git-credential";
       };
     };
   };
