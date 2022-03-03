@@ -1,2 +1,0 @@
-[ -f ~/source/github.com/junegunn/fzf/shell/key-bindings.bash ] && source ~/source/github.com/junegunn/fzf/shell/key-bindings.bash
-. "$HOME/.config/cargo/env"
