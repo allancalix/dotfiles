@@ -78,6 +78,10 @@
           end
           set_color green
           printf '%s ' (__fish_git_prompt)
+          set_color normal
+          if set -q SPIN && [ $SPIN = 1 ]
+            echo -n '☁️'
+          end
           set_color red
           echo -n '| '
           set_color normal
