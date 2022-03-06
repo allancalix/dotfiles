@@ -215,11 +215,6 @@
       append = "!git cherry-pick $(git merge-base HEAD\n  $1)..$1";
     };
 
-    ignores = [
-      ".DS_Store"
-      ".idea"
-    ];
-
     signing = {
       key = "B2F67574B94C1E89";
       signByDefault = true;
