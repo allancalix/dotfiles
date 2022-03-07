@@ -28,6 +28,7 @@
     pkgs.consul
     pkgs.nomad
     pkgs.vault
+    pkgs.google-cloud-sdk
 
     pkgs.ripgrep
     pkgs.fd
