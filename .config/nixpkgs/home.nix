@@ -21,6 +21,7 @@
     pkgs.input-fonts
 
     pkgs.virtualenv
+    pkgs.shadowenv
     pkgs.git-absorb
     pkgs.jq
     pkgs.gh
@@ -29,6 +30,7 @@
     pkgs.nomad
     pkgs.vault
     pkgs.google-cloud-sdk
+    pkgs.backblaze-b2
 
     pkgs.ripgrep
     pkgs.fd
@@ -61,6 +63,10 @@
       	          end
 
                   fish_vi_key_bindings
+
+                  if which shadowenv
+                    shadowenv init fish | source
+                  end
       	          '';
 
     interactiveShellInit = ''
@@ -80,6 +86,9 @@
           set_color green
           printf '%s ' (__fish_git_prompt)
           set_color normal
+          if set -q IN_NIX_SHELL
+            echo -n '👾'
+          end
           if set -q SPIN && [ $SPIN = 1 ]
             echo -n '☁️'
           end
@@ -110,6 +119,12 @@
       gc = "git commit -v -S";
       gp = "git push";
       gpthis = "git push origin (git_current_branch):(git_current_branch)";
+
+      b = "bazelisk";
+      br = "bazelisk run";
+      bb = "bazelisk build";
+      bt = "bazelisk test";
+      bazel = "bazelisk";
 
       l = "exa";
       ls = "exa";
