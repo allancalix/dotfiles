@@ -137,6 +137,8 @@
       tat = "tmux attach -t";
       tks = "tmux kill-session -t";
       tsw = "tmux switch -t";
+
+      nixsh = "nix-shell --run fish";
     };
 
     functions = {
