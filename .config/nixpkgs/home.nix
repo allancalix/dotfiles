@@ -25,6 +25,7 @@
     pkgs.git-absorb
     pkgs.jq
     pkgs.gh
+    pkgs.fnm
 
     pkgs.consul
     pkgs.nomad
@@ -67,6 +68,13 @@
                   if which shadowenv
                     shadowenv init fish | source
                   end
+
+                  if which fnm
+                    fnm env --use-on-cd --shell fish | source
+                  end
+
+                  bind -M insert \cj _fzf_search_tmux_sessions
+                  bind -M normal \cj _fzf_search_tmux_sessions
       	          '';
 
     interactiveShellInit = ''
@@ -149,6 +157,12 @@
         cat "$path/HEAD" | sed -e 's/^.*refs\/heads\///'
       '';
       pubip = "curl 'https://api.ipify.org/?format=json' 2> /dev/null | jq -r '.ip'";
+      _fzf_search_tmux_sessions = ''
+        tmux list-sessions -F "#{?session_attached,,#{session_name}}" | \
+        sed '/^$/d' | \
+        fzf --reverse --header jump-to-session --preview "tmux capture-pane -pt {}"  | \
+        xargs tmux switch-client -t
+      '';
     };
   };
 
