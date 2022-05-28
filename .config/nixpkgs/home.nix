@@ -73,8 +73,8 @@
                     fnm env --use-on-cd --shell fish | source
                   end
 
-                  bind -M insert \cj _fzf_search_tmux_sessions
-                  bind -M normal \cj _fzf_search_tmux_sessions
+                  bind -M insert \cj _fzf_jump_session
+                  bind -M normal \cj _fzf_jump_session
       	          '';
 
     interactiveShellInit = ''
@@ -157,11 +157,25 @@
         cat "$path/HEAD" | sed -e 's/^.*refs\/heads\///'
       '';
       pubip = "curl 'https://api.ipify.org/?format=json' 2> /dev/null | jq -r '.ip'";
+      set_session = ''
+        set session_name $argv
+
+        if set -q TMUX
+          tmux switch-client -t "$session_name"
+        else
+          tmux attach -t "$session_name"
+        end
+      '';
       _fzf_search_tmux_sessions = ''
         tmux list-sessions -F "#{?session_attached,,#{session_name}}" | \
-        sed '/^$/d' | \
-        fzf --reverse --header jump-to-session --preview "tmux capture-pane -pt {}"  | \
-        xargs tmux switch-client -t
+          sed '/^$/d' | \
+          fzf --reverse --header jump-to-session --preview "tmux capture-pane -pt {} | \
+          xargs echo"
+      '';
+      _fzf_jump_session = ''
+        set session_name (_fzf_search_tmux_sessions)
+
+        set_session $session_name
       '';
     };
   };
