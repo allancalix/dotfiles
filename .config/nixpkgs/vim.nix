@@ -47,6 +47,10 @@ set softtabstop=2
 set expandtab
 set noshiftround
 
+if exists('g:vscode')
+  finish
+endif
+
 " FILE EXPLORER
 let g:netrw_banner = 0
 let g:netrw_sort_sequence = '[\/]$,*'

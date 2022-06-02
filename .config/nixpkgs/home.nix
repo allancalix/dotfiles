@@ -1,5 +1,11 @@
 { config, pkgs, lib, ... }:
-
+let
+  nonVSCodePlugin = plugin: {
+    inherit plugin;
+    optional = true;
+    config = ''if !exists('g:vscode') | packadd ${plugin.pname} | endif'';
+  };
+in
 {
   xdg.enable = true;
 
@@ -222,6 +228,10 @@
     viAlias = true;
 
     plugins = with pkgs.vimPlugins; [
+      vim-surround
+      tabular
+      tcomment_vim
+    ] ++ map nonVSCodePlugin [
       # Neovim Plugins
       coq_nvim
       nvim-treesitter
@@ -234,12 +244,9 @@
 
       # Vim Plugins
       ayu-vim
-      tabular
-      tcomment_vim
       vim-cue
       vim-go
       vim-nix
-      vim-surround
     ];
 
     extraConfig = (import ./vim.nix) {};
