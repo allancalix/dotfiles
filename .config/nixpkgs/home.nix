@@ -102,9 +102,6 @@ in
           if set -q IN_NIX_SHELL
             echo -n '👾'
           end
-          if set -q SPIN && [ $SPIN = 1 ]
-            echo -n '☁️'
-          end
           set_color red
           echo -n '| '
           set_color normal
