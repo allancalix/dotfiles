@@ -15,7 +15,7 @@ in
 
   home.username = "allancalix";
   home.homeDirectory = "/Users/allancalix";
-  home.stateVersion = "21.11";
+  home.stateVersion = "22.05";
   home.sessionVariables = {
     EDITOR = "nvim";
     GIT_EDITOR = "nvim";
@@ -42,7 +42,6 @@ in
     pkgs.ripgrep
     pkgs.fd
     pkgs.exa
-    pkgs.bat
   ];
 
   programs.fish = {
@@ -244,8 +243,6 @@ in
 
       # Vim Plugins
       ayu-vim
-      vim-cue
-      vim-go
       vim-nix
     ];
 
