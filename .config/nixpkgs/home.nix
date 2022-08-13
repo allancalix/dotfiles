@@ -68,6 +68,10 @@ in
       	            fenv source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
       	          end
 
+      	          if test -e /opt/homebrew/bin/brew
+                    /opt/homebrew/bin/brew shellenv --fish | source
+      	          end
+
                   fish_vi_key_bindings
 
                   if which shadowenv
@@ -76,6 +80,10 @@ in
 
                   if which fnm
                     fnm env --use-on-cd --shell fish | source
+                  end
+
+                  if which opam
+                    eval (opam env)
                   end
 
                   bind -M insert \cj _fzf_jump_session
