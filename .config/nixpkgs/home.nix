@@ -5,6 +5,7 @@ let
     optional = true;
     config = ''if !exists('g:vscode') | packadd ${plugin.pname} | endif'';
   };
+  homeRoot = if pkgs.stdenv.isDarwin then "/Users/" else "/home";
 in
 {
   xdg.enable = true;
@@ -14,7 +15,7 @@ in
   programs.home-manager.enable = true;
 
   home.username = "allancalix";
-  home.homeDirectory = "/Users/allancalix";
+  home.homeDirectory = homeRoot + "allancalix";
   home.stateVersion = "22.05";
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -60,35 +61,35 @@ in
     ];
 
     loginShellInit = ''
-      	          if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-      	            fenv source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-      	          end
+      if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+        fenv source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+      end
 
-      	          if test -e /nix/var/nix/profiles/default/etc/profile.d/nix.sh
-      	            fenv source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
-      	          end
+      if test -e /nix/var/nix/profiles/default/etc/profile.d/nix.sh
+        fenv source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
+      end
 
-      	          if test -e /opt/homebrew/bin/brew
-                    /opt/homebrew/bin/brew shellenv --fish | source
-      	          end
+      if test -e /opt/homebrew/bin/brew
+        /opt/homebrew/bin/brew shellenv --fish | source
+      end
 
-                  fish_vi_key_bindings
+      fish_vi_key_bindings
 
-                  if which shadowenv
-                    shadowenv init fish | source
-                  end
+      if which shadowenv
+        shadowenv init fish | source
+      end
 
-                  if which fnm
-                    fnm env --use-on-cd --shell fish | source
-                  end
+      if which fnm
+        fnm env --use-on-cd --shell fish | source
+      end
 
-                  if which opam
-                    eval (opam env)
-                  end
+      if which opam
+        eval (opam env)
+      end
 
-                  bind -M insert \cj _fzf_jump_session
-                  bind -M normal \cj _fzf_jump_session
-      	          '';
+      bind -M insert \cj _fzf_jump_session
+      bind -M normal \cj _fzf_jump_session
+    '';
 
     interactiveShellInit = ''
       set -g fish_prompt_pwd_dir_length 3
@@ -247,7 +248,7 @@ in
       vim-nix
     ];
 
-    extraConfig = (import ./vim.nix) {};
+    extraConfig = (import ./vim.nix) { };
   };
 
   programs.git = {
