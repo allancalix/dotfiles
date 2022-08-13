@@ -203,11 +203,7 @@ in
   programs.kitty = {
     enable = true;
 
-    # This feature was recently added but doesn't seem to be supported
-    # in the installed home-manager version. Uncomment this when the
-    # merge is included in the system's home-manager build.
-    # https://github.com/nix-community/home-manager/pull/2710
-    # theme = "Ayu Mirage";
+    theme = "Ayu Mirage";
     font = {
       name = "Input Mono";
       size = 12;
