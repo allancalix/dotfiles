@@ -139,7 +139,6 @@
   vim.api.nvim_set_keymap("n", "<Leader>mt", ":lua require('checklist').toggle_item()<CR>", { noremap = true, silent = true })
 
   require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained",
     highlight = {
       enable = true,
     },
