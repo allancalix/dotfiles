@@ -25,8 +25,6 @@ in
   };
 
   home.packages = [
-    pkgs.input-fonts
-
     pkgs.virtualenv
     pkgs.shadowenv
     pkgs.git-absorb
@@ -235,7 +233,7 @@ in
     ] ++ map nonVSCodePlugin [
       # Neovim Plugins
       coq_nvim
-      nvim-treesitter
+      (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
       nvim-lspconfig
       lualine-nvim
       telescope-nvim
