@@ -26,6 +26,8 @@ in
 
   home.packages = [
     pkgs.virtualenv
+    pkgs.zig
+
     pkgs.shadowenv
     pkgs.git-absorb
     pkgs.jq
