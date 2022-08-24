@@ -138,6 +138,14 @@
   local coq = require('coq')
   vim.api.nvim_set_keymap("n", "<Leader>mt", ":lua require('checklist').toggle_item()<CR>", { noremap = true, silent = true })
 
+  -- place this in one of your configuration file(s)
+  require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+
+  vim.api.nvim_set_keymap("", 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
+  vim.api.nvim_set_keymap("", 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
+  vim.api.nvim_set_keymap("", 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>", {})
+  vim.api.nvim_set_keymap("", 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>", {})
+
   require'nvim-treesitter.configs'.setup {
     ensure_installed = { "lua", "rust", "toml", "zig", "go", "ocaml" },
     auto_install = true,
@@ -186,7 +194,7 @@
 
   -- Use a loop to conveniently call 'setup' on multiple servers and
   -- map buffer local keybindings when the language server attaches
-  local servers = { "rust_analyzer", "gopls", "ocamllsp" }
+  local servers = { "rust_analyzer", "gopls", "ocamllsp", "zls" }
   for _, lsp in ipairs(servers) do
     nvim_lsp[lsp].setup (coq.lsp_ensure_capabilities({
       on_attach = on_attach,

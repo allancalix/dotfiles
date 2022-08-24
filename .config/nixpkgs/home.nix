@@ -28,6 +28,9 @@ in
     pkgs.virtualenv
     pkgs.zig
 
+    pkgs.rust-analyzer
+    pkgs.zls
+
     pkgs.shadowenv
     pkgs.git-absorb
     pkgs.jq
@@ -232,6 +235,10 @@ in
       vim-surround
       tabular
       tcomment_vim
+      impatient-nvim
+      trouble-nvim
+      nvim-web-devicons
+      hop-nvim
     ] ++ map nonVSCodePlugin [
       # Neovim Plugins
       coq_nvim
