@@ -25,6 +25,8 @@ in
   };
 
   home.packages = [
+    pkgs.input-fonts
+
     pkgs.virtualenv
     pkgs.htop
     pkgs.zig
@@ -215,6 +217,10 @@ in
 
   programs.gpg.enable = true;
 
+  xdg.configFile."kitty/tab_bar.py" = {
+    text = builtins.readFile ./kitty/tab_bar.py;
+  };
+
   programs.kitty = {
     enable = true;
 
@@ -227,6 +233,36 @@ in
       "super+equal" = "increase_font_size";
       "super+minus" = "decrease_font_size";
       "super+0" = "restore_font_size";
+      "ctrl+a>\\" = "combine : new_window_with_cwd : next_layout";
+      "ctrl+a>-" = "new_window_with_cwd";
+      "ctrl+a>c" = "new_tab_with_cwd";
+      "ctrl+a>p" = "previous_tab";
+      "ctrl+a>n" = "next_tab";
+      "ctrl+a>," = "set_tab_title";
+      "ctrl+a>k" = "neighboring_window top";
+      "ctrl+a>j" = "neighboring_window bottom";
+      "ctrl+a>l" = "neighboring_window right";
+      "ctrl+a>h" = "neighboring_window left";
+    };
+
+    darwinLaunchOptions = [
+      "--single-instance"
+    ];
+
+    settings = {
+      allow_remote_control = true;
+      tab_bar_style = "custom";
+      tab_separator = ''""'';
+      tab_title_template = "{index}:{f'{title[:6]}…{title[-6:]}' if title.rindex(title[-1]) + 1 > 25 else title}";
+      active_tab_title_template = "{index}:{f'{title[:6]}…{title[-6:]}' if title.rindex(title[-1]) + 1 > 25 else title}";
+      tab_fade = "0 0 0 0";
+      tab_bar_align = "left";
+      tab_bar_min_tabs = 1;
+      tab_bar_margin_width = "0.0";
+      tab_bar_margin_height = "10.0 0.0";
+      active_tab_font_style = "bold-italic";
+      inactive_tab_font_style = "normal";
+      bell_on_tab = false;
     };
   };
 

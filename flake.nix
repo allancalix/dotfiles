@@ -11,9 +11,13 @@
   };
   outputs = { nixpkgs, home-manager, ... }:
     let
-      # system = "x86_64-linux";
-      system = "aarch64-darwin";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        system = "aarch64-darwin";
+        config = {
+          allowUnfree = true;
+          input-fonts.acceptLicense = true;
+        };
+      };
     in {
       homeConfigurations.allancalix = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
