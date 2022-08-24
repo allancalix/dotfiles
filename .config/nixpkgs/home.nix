@@ -26,6 +26,7 @@ in
 
   home.packages = [
     pkgs.virtualenv
+    pkgs.htop
     pkgs.zig
 
     pkgs.rust-analyzer
