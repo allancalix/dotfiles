@@ -6,6 +6,7 @@ let
     config = ''if !exists('g:vscode') | packadd ${plugin.pname} | endif'';
   };
   homeRoot = if pkgs.stdenv.isDarwin then "/Users/" else "/home";
+  kittyPager = pkgs.writeScriptBin "pager.sh" (builtins.readFile ./kitty/pager.sh);
 in
 {
   xdg.enable = true;
@@ -19,12 +20,13 @@ in
   home.stateVersion = "22.05";
   home.sessionVariables = {
     EDITOR = "nvim";
-    GIT_EDITOR = "nvim";
+    GIT_EDITOR = "nvim -u NORC";
     PAGER = "less -RFX";
     MANPAGER = "less -RFX";
   };
 
   home.packages = [
+    kittyPager
     pkgs.input-fonts
 
     pkgs.virtualenv
@@ -48,6 +50,7 @@ in
 
     pkgs.ripgrep
     pkgs.fd
+    pkgs.bat
     pkgs.hexyl
     pkgs.exa
   ];
@@ -146,12 +149,6 @@ in
       gp = "git push";
       gpthis = "git push origin (git_current_branch):(git_current_branch)";
 
-      b = "bazelisk";
-      br = "bazelisk run";
-      bb = "bazelisk build";
-      bt = "bazelisk test";
-      bazel = "bazelisk";
-
       l = "exa --group-directories-first";
       ls = "exa --group-directories-first";
       ll = "exa -l --group-directories-first";
@@ -176,26 +173,6 @@ in
         cat "$path/HEAD" | sed -e 's/^.*refs\/heads\///'
       '';
       pubip = "curl 'https://api.ipify.org/?format=json' 2> /dev/null | jq -r '.ip'";
-      set_session = ''
-        set session_name $argv
-
-        if set -q TMUX
-          tmux switch-client -t "$session_name"
-        else
-          tmux attach -t "$session_name"
-        end
-      '';
-      _fzf_search_tmux_sessions = ''
-        tmux list-sessions -F "#{?session_attached,,#{session_name}}" | \
-          sed '/^$/d' | \
-          fzf --reverse --header jump-to-session --preview "tmux capture-pane -pt {} | \
-          xargs echo"
-      '';
-      _fzf_jump_session = ''
-        set session_name (_fzf_search_tmux_sessions)
-
-        set_session $session_name
-      '';
     };
   };
 
@@ -221,6 +198,10 @@ in
     text = builtins.readFile ./kitty/tab_bar.py;
   };
 
+  xdg.configFile."nvim/minimal.vim" = {
+    text = builtins.readFile ./nvim/minimal.vim;
+  };
+
   programs.kitty = {
     enable = true;
 
@@ -243,6 +224,7 @@ in
       "ctrl+a>j" = "neighboring_window bottom";
       "ctrl+a>l" = "neighboring_window right";
       "ctrl+a>h" = "neighboring_window left";
+      "ctrl+a>[" = "show_scrollback";
     };
 
     darwinLaunchOptions = [
@@ -263,6 +245,7 @@ in
       active_tab_font_style = "bold-italic";
       inactive_tab_font_style = "normal";
       bell_on_tab = false;
+      scrollback_pager = ''nvim -u ~/.config/nvim/minimal.vim -c "silent write! /tmp/kitty_scrollback_buffer | te cat /tmp/kitty_scrollback_buffer - "'';
     };
   };
 
@@ -294,7 +277,13 @@ in
       vim-nix
     ];
 
-    extraConfig = (import ./vim.nix) { };
+    extraConfig = ''
+      ${builtins.readFile ./nvim/vimrc.vim}
+
+      lua <<EOF
+      ${builtins.readFile ./nvim/init.lua}
+      EOF
+    '';
   };
 
   programs.git = {
@@ -335,14 +324,6 @@ in
         "https://github.com".helper = "!gh auth git-credential";
       };
     };
-  };
-
-  programs.tmux = {
-    enable = true;
-    terminal = "xterm-256color";
-    shell = "${pkgs.fish}/bin/fish";
-
-    extraConfig = builtins.readFile ./tmux.conf;
   };
 
   programs.zoxide = {
