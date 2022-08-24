@@ -45,6 +45,7 @@ in
 
     pkgs.ripgrep
     pkgs.fd
+    pkgs.hexyl
     pkgs.exa
   ];
 
@@ -148,10 +149,11 @@ in
       bt = "bazelisk test";
       bazel = "bazelisk";
 
-      l = "exa";
-      ls = "exa";
-      ll = "exa -l";
-      lal = "exa -al";
+      l = "exa --group-directories-first";
+      ls = "exa --group-directories-first";
+      ll = "exa -l --group-directories-first";
+      lal = "exa -al --group-directories-first";
+      tree = "exa --tree";
 
       s = "git status -sb";
 
