@@ -48,10 +48,6 @@ set softtabstop=2
 set expandtab
 set noshiftround
 
-if exists('g:vscode')
-  finish
-endif
-
 " FILE EXPLORER
 let g:netrw_banner = 0
 let g:netrw_sort_sequence = '[\/]$,*'
@@ -98,7 +94,7 @@ noremap <F5> :call LanguageClient_contextMenu()<CR>
 noremap <silent> <Leader>c? :call LanguageClient#textDocument_hover()<CR>
 noremap <silent> <Leader>cn :call LanguageClient#textDocument_rename()<CR>
 
-noremap <silent> <Leader>cc          :TComment<CR>              "tcomment_vim
+noremap <silent> <Leader>cc          :Commentary<CR>
 
 " Hotkey for removing trailing whitespace in a file
 noremap <silent> <Leader>cw          :%s/[ \t]*$//g<CR>

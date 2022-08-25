@@ -256,13 +256,13 @@ in
     plugins = with pkgs.vimPlugins; [
       vim-surround
       tabular
-      tcomment_vim
-      impatient-nvim
-      trouble-nvim
-      nvim-web-devicons
+      vim-commentary
       hop-nvim
+      impatient-nvim
     ] ++ map nonVSCodePlugin [
       # Neovim Plugins
+      trouble-nvim
+      nvim-web-devicons
       coq_nvim
       (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
       nvim-lspconfig

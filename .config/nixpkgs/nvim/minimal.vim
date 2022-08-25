@@ -43,6 +43,13 @@ let g:netrw_sort_sequence = '[\/]$,*'
 let g:netrw_list_hide = '^bazel-.*$,^node_modules'
 let g:netrw_hide = 1
 
+" Keybindings
+let mapleader = ','
+inoremap jj <ESC>
+inoremap <C-L> <ESC>
+noremap <CR> o<Esc>k
+noremap <silent> <Leader>cc :Commentary<CR>
+
 lua << EOF
 require'hop'.setup()
 
