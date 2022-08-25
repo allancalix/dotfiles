@@ -1,4 +1,5 @@
 tap "homebrew/bundle"
+tap "homebrew/services"
 tap "homebrew/cask"
 tap "homebrew/core"
 
@@ -17,3 +18,4 @@ brew "openssl@1.1"
 brew "openssl@3"
 brew "podman"
 brew "postgresql"
+brew "spotifyd"

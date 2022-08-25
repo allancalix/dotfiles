@@ -27,7 +27,9 @@ in
 
   home.packages = [
     kittyPager
+    pkgs.spotify-tui
     pkgs.input-fonts
+    pkgs._1password
 
     pkgs.virtualenv
     pkgs.htop
@@ -200,6 +202,10 @@ in
 
   xdg.configFile."nvim/minimal.vim" = {
     text = builtins.readFile ./nvim/minimal.vim;
+  };
+
+  xdg.configFile."spotifyd/spotifyd.conf" = {
+    text = builtins.readFile ./spotifyd/spotifyd.conf;
   };
 
   programs.kitty = {
