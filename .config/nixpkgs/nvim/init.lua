@@ -16,6 +16,84 @@ vim.api.nvim_set_keymap("", 'F', "<cmd>lua require'hop'.hint_char1({ direction =
 vim.api.nvim_set_keymap("", 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>", {})
 vim.api.nvim_set_keymap("", 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>", {})
 
+local previewers = require("telescope.previewers")
+local actions = require("telescope.actions")
+
+local limited_preview = function(filepath, bufnr, opts)
+  opts = opts or {}
+
+  filepath = vim.fn.expand(filepath)
+  vim.loop.fs_stat(filepath, function(_, stat)
+    if not stat then return end
+    if stat.size > 100000 then
+      return
+    else
+      previewers.buffer_previewer_maker(filepath, bufnr, opts)
+    end
+  end)
+end
+
+local binary_filter = function(filepath, bufnr, opts)
+  filepath = vim.fn.expand(filepath)
+  Job:new({
+    command = "file",
+    args = { "--mime-type", "-b", filepath },
+    on_exit = function(j)
+      local mime_type = vim.split(j:result()[1], "/")[1]
+      if mime_type == "text" then
+        limited_preview(filepath, bufnr, opts)
+      else
+        -- maybe we want to write something to the buffer here
+        vim.schedule(function()
+          vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
+        end)
+      end
+    end
+  }):sync()
+end
+
+require'telescope'.setup {
+  buffer_preview_maker = binary_filter,
+  defaults = {
+    mappings = {
+      i = {
+        ["<esc>"] = actions.close,
+        ["<C-u>"] = false,
+      },
+    },
+    vimgrep_arguments = {
+      "rg",
+      "--vimgrep",
+      "--no-heading",
+      "--smart-case",
+      "--ignore",
+      "--hidden",
+      "--trim",
+    },
+  },
+  pickers = {
+    find_files = {
+      find_command = { "fd", "--type", "f", "--strip-cwd-prefix" }
+    },
+  },
+}
+
+-- Workspace base navigation
+vim.api.nvim_set_keymap("", "<Leader>fr", "<cmd>:Telescope live_grep prompt_prefix=🔍<cr>", {})
+vim.api.nvim_set_keymap("", "<Leader>fb", "<cmd>:Telescope buffers prompt_prefix=🔍<cr>", {})
+vim.api.nvim_set_keymap("", "<Leader>fm", "<cmd>lua require('telescope.builtin').marks()<cr>", {})
+vim.api.nvim_set_keymap("", "<Leader>ff", "<cmd>lua require('telescope.builtin').git_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", {})
+vim.api.nvim_set_keymap("", "<Leader>fg", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", {})
+vim.api.nvim_set_keymap("", "<Leader>fw", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", {})
+
+-- Code based navigation
+vim.api.nvim_set_keymap("", "<Leader>cs", "<cmd>lua require('telescope.builtin').lsp_document_symbols(require('telescope.themes').get_dropdown({}))<cr>", {})
+vim.api.nvim_set_keymap("", "<Leader>cr", "<cmd>lua require('telescope.builtin').lsp_references(require('telescope.themes').get_dropdown({}))<cr>", {})
+vim.api.nvim_set_keymap("", "<Leader>ci", "<cmd>lua require('telescope.builtin').lsp_implementations(require('telescope.themes').get_dropdown({}))<cr>", {})
+vim.api.nvim_set_keymap("", "<Leader>ct", "<cmd>lua require('telescope.builtin').lsp_type_definitions(require('telescope.themes').get_dropdown({}))<cr>", {})
+
+vim.api.nvim_set_keymap("", "<Leader>gb", "<cmd>lua require('telescope.builtin').git_branches()<cr>", {})
+
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { "lua", "rust", "toml", "zig", "go", "ocaml" },
   auto_install = true,

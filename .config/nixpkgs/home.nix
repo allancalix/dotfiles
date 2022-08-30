@@ -267,6 +267,7 @@ in
       impatient-nvim
     ] ++ map nonVSCodePlugin [
       # Neovim Plugins
+      nvim-bqf
       trouble-nvim
       nvim-web-devicons
       coq_nvim

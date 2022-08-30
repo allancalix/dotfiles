@@ -103,15 +103,7 @@ noremap <silent> <Leader>cw          :%s/[ \t]*$//g<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --ignore\ --hidden
-nnoremap <silent> <Leader>ff :Telescope find_files find_command=fd prompt_prefix=🔍<CR>
-nnoremap <silent> <Leader>fg :Telescope git_files prompt_prefix=🔍<CR>
-nnoremap <silent> <Leader>fr :Telescope live_grep prompt_prefix=🔍<CR>
-nnoremap <silent> <Leader>fb :Telescope buffers prompt_prefix=🔍<CR>
-nnoremap <silent> <Leader>fm :lua require'telescope.builtin'.marks{}<CR>
-nnoremap <silent> <Leader>fd :lua require'telescope.builtin'.lsp_workspace_symbols{}<CR>
 nnoremap <silent> <Leader>fe :Explore<CR>
-
-nnoremap <silent> <Leader>cs :lua require'telescope.builtin'.lsp_document_symbols{}<CR>
 
 " Leader B prefix is for buffer related mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
