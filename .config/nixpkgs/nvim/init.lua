@@ -86,23 +86,18 @@ vim.api.nvim_set_keymap("", "<Leader>ff", "<cmd>lua require('telescope.builtin')
 vim.api.nvim_set_keymap("", "<Leader>fg", "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", {})
 vim.api.nvim_set_keymap("", "<Leader>fw", "<cmd>lua require('telescope.builtin').lsp_workspace_symbols()<cr>", {})
 
--- Code based navigation
-vim.api.nvim_set_keymap("", "<Leader>cs", "<cmd>lua require('telescope.builtin').lsp_document_symbols(require('telescope.themes').get_dropdown({}))<cr>", {})
-vim.api.nvim_set_keymap("", "<Leader>cr", "<cmd>lua require('telescope.builtin').lsp_references(require('telescope.themes').get_dropdown({}))<cr>", {})
-vim.api.nvim_set_keymap("", "<Leader>ci", "<cmd>lua require('telescope.builtin').lsp_implementations(require('telescope.themes').get_dropdown({}))<cr>", {})
-vim.api.nvim_set_keymap("", "<Leader>ct", "<cmd>lua require('telescope.builtin').lsp_type_definitions(require('telescope.themes').get_dropdown({}))<cr>", {})
-
 vim.api.nvim_set_keymap("", "<Leader>gb", "<cmd>lua require('telescope.builtin').git_branches()<cr>", {})
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "lua", "rust", "toml", "zig", "go", "ocaml" },
-  auto_install = true,
   highlight = {
     enable = true,
     additional_vim_regex_highlighting=false,
   },
   ident = {
-    enable = true
+    enable = true,
+  },
+  incremental_selection = {
+    enable = true,
   },
   rainbow = {
     enable = true,
@@ -119,6 +114,12 @@ local on_attach = function(client, bufnr)
 
   -- Mappings.
   local opts = { noremap=true, silent=true }
+
+  -- Code based navigation
+  buf_set_keymap("", "<Leader>cs", "<cmd>lua require('telescope.builtin').lsp_document_symbols(require('telescope.themes').get_dropdown({}))<cr>", {})
+  buf_set_keymap("", "<Leader>cr", "<cmd>lua require('telescope.builtin').lsp_references(require('telescope.themes').get_dropdown({}))<cr>", {})
+  buf_set_keymap("", "<Leader>ci", "<cmd>lua require('telescope.builtin').lsp_implementations(require('telescope.themes').get_dropdown({}))<cr>", {})
+  buf_set_keymap("", "<Leader>ct", "<cmd>lua require('telescope.builtin').lsp_type_definitions(require('telescope.themes').get_dropdown({}))<cr>", {})
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -150,6 +151,11 @@ for _, lsp in ipairs(servers) do
       debounce_text_changes = 150,
     }
   }))
+
+require'lspconfig'.elixirls.setup (coq.lsp_ensure_capabilities({
+  on_attach = on_attach,
+  cmd = { "/Users/allancalix/acx/src/github.com/allancalix/dotfiles/elixir-lsp/language_server.sh" };
+}))
 
 require'lspconfig'.rescriptls.setup (coq.lsp_ensure_capabilities({
   on_attach = on_attach,

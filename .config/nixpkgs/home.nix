@@ -50,6 +50,8 @@ in
     pkgs.google-cloud-sdk
     pkgs.backblaze-b2
 
+    pkgs.bandwhich
+    pkgs.ouch
     pkgs.ripgrep
     pkgs.fd
     pkgs.bat
@@ -260,6 +262,7 @@ in
     viAlias = true;
 
     plugins = with pkgs.vimPlugins; [
+      vim-nickel
       vim-surround
       tabular
       vim-commentary
@@ -271,7 +274,13 @@ in
       trouble-nvim
       nvim-web-devicons
       coq_nvim
-      (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+      (nvim-treesitter.withPlugins (
+        plugins: with plugins; [
+          tree-sitter-rust
+          tree-sitter-nickel
+          tree-sitter-elixir
+        ]
+      ))
       nvim-lspconfig
       lualine-nvim
       telescope-nvim
