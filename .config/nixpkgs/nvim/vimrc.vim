@@ -60,11 +60,6 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 augroup END
 
-"================THEMES==================
-set termguicolors     " enable true colors support
-let ayucolor="mirage" " light | mirage | dark
-colorscheme ayu
-
 "=================TABULAR==================
 
 " Align on equal sign

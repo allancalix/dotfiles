@@ -33,10 +33,9 @@ in
 
     pkgs.virtualenv
     pkgs.htop
-    pkgs.zig
 
     pkgs.rust-analyzer
-    pkgs.zls
+    pkgs.postgresql_15
 
     pkgs.shadowenv
     pkgs.git-absorb
@@ -271,6 +270,7 @@ in
     ] ++ map nonVSCodePlugin [
       # Neovim Plugins
       nvim-bqf
+      neovim-ayu
       trouble-nvim
       nvim-web-devicons
       coq_nvim
@@ -289,7 +289,6 @@ in
       editorconfig-nvim
 
       # Vim Plugins
-      ayu-vim
       vim-nix
     ];
 
