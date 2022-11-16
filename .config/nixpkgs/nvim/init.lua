@@ -157,13 +157,4 @@ require'lspconfig'.elixirls.setup (coq.lsp_ensure_capabilities({
   cmd = { "/Users/allancalix/acx/src/github.com/allancalix/dotfiles/elixir-lsp/language_server.sh" };
 }))
 
-require'lspconfig'.rescriptls.setup (coq.lsp_ensure_capabilities({
-  on_attach = on_attach,
-  cmd = {
-    'node',
-    '/usr/local/share/acx/pkg/third_party/rescript-vscode/extension/server/out/server.js',
-    '--stdio',
-  }
-}))
-
 end
