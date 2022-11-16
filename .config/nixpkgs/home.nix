@@ -276,9 +276,13 @@ in
       coq_nvim
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
-          tree-sitter-rust
-          tree-sitter-nickel
           tree-sitter-elixir
+          tree-sitter-lua
+          tree-sitter-nickel
+          tree-sitter-rust
+          tree-sitter-ocaml
+          tree-sitter-vim
+          tree-sitter-nix
         ]
       ))
       nvim-lspconfig
