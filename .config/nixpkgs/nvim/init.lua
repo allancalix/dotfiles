@@ -1,5 +1,10 @@
 options = {theme = 'ayu_mirage'}
 
+require'ayu'.setup{
+  mirage = true,
+  overrides = {},
+}
+
 require'lualine'.setup{
   options = options,
 }
