@@ -283,6 +283,8 @@ in
           tree-sitter-ocaml
           tree-sitter-vim
           tree-sitter-nix
+          tree-sitter-python
+          tree-sitter-julia
         ]
       ))
       nvim-lspconfig
