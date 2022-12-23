@@ -11,6 +11,10 @@ require'lualine'.setup{
 
 local nvim_lsp = require('lspconfig')
 local coq = require('coq')
+require('coq_3p') {
+  { src = "copilot", short_name = "COP", accept_key = "<C-f>" },
+}
+
 vim.api.nvim_set_keymap("n", "<Leader>mt", ":lua require('checklist').toggle_item()<CR>", { noremap = true, silent = true })
 
 -- place this in one of your configuration file(s)

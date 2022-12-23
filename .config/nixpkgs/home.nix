@@ -274,6 +274,7 @@ in
       trouble-nvim
       nvim-web-devicons
       coq_nvim
+      coq-thirdparty
       (nvim-treesitter.withPlugins (
         plugins: with plugins; [
           tree-sitter-elixir
@@ -296,6 +297,7 @@ in
 
       # Vim Plugins
       vim-nix
+      copilot-vim
     ];
 
     extraConfig = ''
