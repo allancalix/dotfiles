@@ -33,6 +33,8 @@ in
 
     pkgs.virtualenv
     pkgs.htop
+    pkgs.helix
+    pkgs.just
 
     pkgs.rust-analyzer
     pkgs.postgresql_15
@@ -253,6 +255,7 @@ in
       inactive_tab_font_style = "normal";
       bell_on_tab = false;
       scrollback_pager = ''nvim -u ~/.config/nvim/minimal.vim -c "silent write! /tmp/kitty_scrollback_buffer | te cat /tmp/kitty_scrollback_buffer - "'';
+      macos_option_as_alt = true;
     };
   };
 

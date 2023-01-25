@@ -23,7 +23,7 @@
         inherit pkgs;
 
         modules = [
-          .config/nixpkgs/home.nix
+          nix/home.nix
         ];
       };
     };
