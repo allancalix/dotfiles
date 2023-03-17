@@ -199,6 +199,10 @@ in
 
   programs.gpg.enable = true;
 
+  xdg.configFile."helix/config.toml" = {
+    text = builtins.readFile ./helix/config.toml;
+  };
+
   xdg.configFile."kitty/tab_bar.py" = {
     text = builtins.readFile ./kitty/tab_bar.py;
   };
