@@ -20,7 +20,7 @@ in
   home.stateVersion = "22.05";
   home.sessionVariables = {
     EDITOR = "nvim";
-    GIT_EDITOR = "nvim -u NORC";
+    GIT_EDITOR = "hx";
     PAGER = "less -RFX";
     MANPAGER = "less -RFX";
   };
