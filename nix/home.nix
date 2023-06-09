@@ -73,6 +73,15 @@ in
           sha256 = "00xqlyl3lffc5l0viin1nyp819wf81fncqyz87jx8ljjdhilmgbs";
         };
       }
+      {
+        name = "fifc";
+        src = pkgs.fetchFromGitHub {
+          owner = "gazorby";
+          repo = "fifc";
+          rev = "8bd370c4a5db3b71f52a3079b758f0f2ed082044";
+          sha256 = "whF9BYxudKiqOtSdHGOcIitI+ZNRk0xeZbqMcXmivaY=";
+        };
+      }
     ];
 
     loginShellInit = ''
