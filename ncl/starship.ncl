@@ -10,6 +10,7 @@
         "$git_branch",
         "$git_state",
         "$git_status",
+        "$nix_shell",
         "$cmd_duration",
         "$line_break",
         "$character",
@@ -41,5 +42,9 @@
   git_state = {
     format = "\\([$state( $progress_current/$progress_total)]($style)\\) ",
     style = "bright-black",
+  },
+  nix_shell = {
+    format = "$symbol ",
+    symbol = "👾",
   },
 }

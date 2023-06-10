@@ -1,4 +1,4 @@
-format = " $username$hostname$directory$git_branch$git_state$git_status$cmd_duration$line_break$character"
+format = " $username$hostname$directory$git_branch$git_state$git_status$nix_shell$cmd_duration$line_break$character"
 
 [character]
 error_symbol = "[❯](red)"
@@ -27,3 +27,7 @@ staged = " "
 stashed = "≡"
 style = "cyan"
 untracked = " "
+
+[nix_shell]
+format = "$symbol "
+symbol = "👾"
