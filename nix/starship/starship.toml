@@ -1,9 +1,13 @@
-format = "$username$hostname$directory$git_branch$git_state$git_status$cmd_duration$line_break$character"
+format = " $username$hostname$directory$git_branch$git_state$git_status$cmd_duration$line_break$character"
 
 [character]
 error_symbol = "[❯](red)"
 success_symbol = "[❯](purple)"
 vimcmd_symbol = "[❮](green)"
+
+[cmd_duration]
+format = "[$duration]($style) "
+style = "yellow"
 
 [directory]
 style = "blue"
@@ -17,12 +21,9 @@ format = '\([$state( $progress_current/$progress_total)]($style)\) '
 style = "bright-black"
 
 [git_status]
-conflicted = ""
-deleted = ""
-format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
-modified = ""
-renamed = ""
-staged = ""
-stashed = "="
+format = "[[(•$untracked$modified$staged)](218) ($ahead_behind$stashed)]($style)"
+modified = " "
+staged = " "
+stashed = "≡"
 style = "cyan"
-untracked = ""
+untracked = " "

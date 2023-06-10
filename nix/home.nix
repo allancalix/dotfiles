@@ -36,6 +36,7 @@ in
     pkgs.helix
     pkgs.just
 
+    pkgs.topiary
     pkgs.postgresql_15
 
     pkgs.consul
