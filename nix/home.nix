@@ -34,7 +34,12 @@ in
     pkgs.virtualenv
     pkgs.htop
     pkgs.helix
+    pkgs.wezterm
     pkgs.just
+    pkgs.mold
+    pkgs.openssl
+    pkgs.sqlite
+    pkgs.bash
 
     pkgs.topiary
     pkgs.postgresql_15
