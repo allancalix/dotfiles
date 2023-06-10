@@ -27,7 +27,6 @@ in
 
   home.packages = [
     kittyPager
-    pkgs.spotify-tui
     pkgs.input-fonts
     pkgs._1password
 
@@ -36,14 +35,7 @@ in
     pkgs.helix
     pkgs.just
 
-    pkgs.rust-analyzer
     pkgs.postgresql_15
-
-    pkgs.shadowenv
-    pkgs.git-absorb
-    pkgs.jq
-    pkgs.gh
-    pkgs.fnm
 
     pkgs.consul
     pkgs.nomad
@@ -51,6 +43,11 @@ in
     pkgs.google-cloud-sdk
     pkgs.backblaze-b2
 
+    pkgs.gh
+    pkgs.git-absorb
+
+    # Extended coreutils
+    pkgs.jq
     pkgs.bandwhich
     pkgs.ouch
     pkgs.ripgrep
@@ -93,29 +90,18 @@ in
         fenv source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
       end
 
-      if test -e /opt/homebrew/bin/brew
+     if test -e /opt/homebrew/bin/brew
         /opt/homebrew/bin/brew shellenv | source
       end
 
       fish_vi_key_bindings
-
-      if which shadowenv
-        shadowenv init fish | source
-      end
-
-      if which fnm
-        fnm env --use-on-cd --shell fish | source
-      end
-
-      if which opam
-        eval (opam env)
-      end
-
-      bind -M insert \cj _fzf_jump_session
-      bind -M normal \cj _fzf_jump_session
     '';
 
     interactiveShellInit = ''
+      # Disable greeting prompt
+      function fish_greeting
+      end
+
       set -g fish_prompt_pwd_dir_length 3
 
       function fish_prompt
@@ -138,10 +124,6 @@ in
           set_color red
           echo -n '| '
           set_color normal
-      end
-
-      # Disable greeting prompt
-      function fish_greeting
       end
     '';
 
@@ -171,12 +153,7 @@ in
 
       s = "git status -sb";
 
-      t = "tmux";
-      tat = "tmux attach -t";
-      tks = "tmux kill-session -t";
-      tsw = "tmux switch -t";
-
-      nixsh = "nix-shell --run fish";
+      nxd = "nix develop --command fish";
     };
 
     functions = {
@@ -220,8 +197,8 @@ in
     text = builtins.readFile ./nvim/minimal.vim;
   };
 
-  xdg.configFile."spotifyd/spotifyd.conf" = {
-    text = builtins.readFile ./spotifyd/spotifyd.conf;
+  xdg.configFile."wezterm/wezterm.lua" = {
+    text = builtins.readFile ./wezterm/wezterm.lua;
   };
 
   programs.kitty = {
