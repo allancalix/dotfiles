@@ -28,6 +28,7 @@ in
   home.packages = [
     kittyPager
     pkgs.input-fonts
+    pkgs.nerdfonts
     pkgs._1password
 
     pkgs.virtualenv
@@ -201,6 +202,13 @@ in
     text = builtins.readFile ./wezterm/wezterm.lua;
   };
 
+  # The starship configuration uses lots of backslashes in it's configuration for templating.
+  # This interaction with nix's toml serializer is too annoying to deal with so I'm just doing
+  # this manually.
+  xdg.configFile."starship.toml" = {
+    text = builtins.readFile ./starship/starship.toml;
+  };
+
   programs.kitty = {
     enable = true;
 
@@ -344,47 +352,6 @@ in
 
   programs.starship = {
     enable = true;
-
-    settings = {
-      format = lib.concatStrings [
-        "$username"
-        "$hostname"
-        "$directory"
-        "$git_branch"
-        "$git_state"
-        "$git_status"
-        "$cmd_duration"
-        "$line_break"
-        "$character"
-      ];
-      character = {
-        success_symbol = "[❯](purple)";
-        error_symbol = "[❯](red)";
-        vimcmd_symbol = "[❮](green)";
-      };
-      directory = {
-        style = "blue";
-      };
-      git_branch = {
-        format = "[$branch]($style)";
-        style = "bright-black";
-      };
-      git_status = {
-        format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)";
-        style = "cyan";
-        conflicted = "";
-        untracked = "";
-        modified = "";
-        staged = "";
-        renamed = "";
-        deleted = "";
-        stashed = "=";
-      };
-      git_state = {
-        format = "\([$state( $progress_current/$progress_total)]($style)\) ";
-        style = "bright-black";
-      };
-    };
   };
 
   programs.zoxide = {

@@ -161,9 +161,4 @@ for _, lsp in ipairs(servers) do
     }
   }))
 
-require'lspconfig'.elixirls.setup (coq.lsp_ensure_capabilities({
-  on_attach = on_attach,
-  cmd = { "/Users/allancalix/acx/src/github.com/allancalix/dotfiles/elixir-lsp/language_server.sh" };
-}))
-
 end
