@@ -42,6 +42,7 @@ in
     pkgs.bash
 
     pkgs.topiary
+    pkgs.rage
     pkgs.postgresql_15
 
     pkgs.consul
