@@ -1,5 +1,0 @@
-.git
-.editorconfig
-README.md
-exclude.txt
-Makefile
