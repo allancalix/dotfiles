@@ -2,7 +2,7 @@ default:
 	just --list
 
 switch: render
-	home-manager switch --flake .config/nix#allancalix
+	home-manager switch --flake flake.nix#allancalix
 	./scripts/link-gui.sh
 
 update:

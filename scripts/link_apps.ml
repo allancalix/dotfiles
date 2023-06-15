@@ -1,8 +1,8 @@
 open Core.Option
 
 let nix_home_dir () =
-  Core.Sys.(getenv "HOME") >>= fun home ->
-  return (home ^ "/.nix-profile/Applications")
+  Core.Sys.(getenv "$XDG_STATE_HOME") >>= fun home ->
+  return (home ^ "/nix/profile/Applications")
 
 let target_path app =
   Core.Sys.(getenv "HOME") >>= fun home ->
