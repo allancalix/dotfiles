@@ -30,6 +30,7 @@ in
     pkgs.input-fonts
     pkgs.nerdfonts
     pkgs._1password
+    pkgs.cachix
 
     pkgs.virtualenv
     pkgs.htop
@@ -44,6 +45,7 @@ in
     pkgs.topiary
     pkgs.rage
     pkgs.postgresql_15
+    pkgs.nodejs_20
 
     pkgs.consul
     pkgs.nomad
@@ -57,6 +59,7 @@ in
     # Extended coreutils
     pkgs.jq
     pkgs.bandwhich
+    pkgs.starship
     pkgs.ouch
     pkgs.ripgrep
     pkgs.fd
@@ -100,6 +103,10 @@ in
 
      if test -e /opt/homebrew/bin/brew
         /opt/homebrew/bin/brew shellenv | source
+      end
+
+     if type -q starship
+        source (starship init fish --print-full-init | psub)
       end
 
       fish_vi_key_bindings
@@ -331,10 +338,6 @@ in
         "https://github.com".helper = "!gh auth git-credential";
       };
     };
-  };
-
-  programs.starship = {
-    enable = true;
   };
 
   programs.zoxide = {
