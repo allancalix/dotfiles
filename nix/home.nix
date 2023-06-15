@@ -105,16 +105,16 @@ in
         /opt/homebrew/bin/brew shellenv | source
       end
 
-     if type -q starship
-        source (starship init fish --print-full-init | psub)
-      end
-
       fish_vi_key_bindings
     '';
 
     interactiveShellInit = ''
       # Disable greeting prompt
       function fish_greeting
+      end
+
+     if type -q starship
+        source (starship init fish --print-full-init | psub)
       end
     '';
 
