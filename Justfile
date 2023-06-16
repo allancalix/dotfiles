@@ -1,15 +1,15 @@
 default:
 	just --list
 
-switch: render
+update: bumpdeps switch
+
+switch: render clean
+	brew bundle install
 	home-manager switch --flake flake.nix#allancalix
-	./scripts/link-gui.sh
 
-update:
-	nix flake update
-
-lockbrew:
+bumpdeps:
 	brew bundle
+	nix flake update
 
 clean:
 	brew bundle cleanup -f

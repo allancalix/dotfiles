@@ -5,7 +5,7 @@
         "revision": "8b10d0e05aeb11868ba44573fce125b12555f47b"
       },
       "homebrew/bundle": {
-        "revision": "6e315568a356bbe61eaf4a68022bd4ff62568876"
+        "revision": "564fcde1eccbdaa7c7007a3e252bdfc50134237d"
       },
       "homebrew/cask": {
         "revision": "e37c6da78424c38d30fa3875c73c53c0908e1f5e"
@@ -14,7 +14,10 @@
         "revision": "ba9f2bcd9b5601114466a8c55c35acd58acf8f8b"
       },
       "homebrew/services": {
-        "revision": "9f1446cdfdffca2f0cc5cb14884a5870e99cadde"
+        "revision": "0aaa43de1a3674f92a066ce4f414837dea1810da"
+      },
+      "pulumi/tap": {
+        "revision": "a3a4ce4c93f472c7c86109236c7c955a163d5d4e"
       }
     },
     "brew": {
@@ -928,6 +931,49 @@
             }
           }
         }
+      },
+      "julia": {
+        "version": "1.9.1",
+        "bottle": {
+          "rebuild": 0,
+          "root_url": "https://ghcr.io/v2/homebrew/core",
+          "files": {
+            "arm64_ventura": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/julia/blobs/sha256:7400ec27ec7cb699f8c4593b482b836fa719fa9fb5ddc43bc7a85df5e1faff0d",
+              "sha256": "7400ec27ec7cb699f8c4593b482b836fa719fa9fb5ddc43bc7a85df5e1faff0d"
+            },
+            "arm64_monterey": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/julia/blobs/sha256:b9a4ac358305ce58a611b8a16b48c5f91d6ca38452506be8d2b6071655bb57db",
+              "sha256": "b9a4ac358305ce58a611b8a16b48c5f91d6ca38452506be8d2b6071655bb57db"
+            },
+            "arm64_big_sur": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/julia/blobs/sha256:dd66cd13a011bc55310030ce05697d9893935a0301a9307b78c5c23ca5023c66",
+              "sha256": "dd66cd13a011bc55310030ce05697d9893935a0301a9307b78c5c23ca5023c66"
+            },
+            "ventura": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/julia/blobs/sha256:6484d4cf411d1b575a9e92eefed35552fd1662c61bb55706325447d9bc7626d5",
+              "sha256": "6484d4cf411d1b575a9e92eefed35552fd1662c61bb55706325447d9bc7626d5"
+            },
+            "monterey": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/julia/blobs/sha256:a63c749a460d9ecbe351b2f04795079fd267492af85660b83d494186af04a67e",
+              "sha256": "a63c749a460d9ecbe351b2f04795079fd267492af85660b83d494186af04a67e"
+            },
+            "big_sur": {
+              "cellar": ":any",
+              "url": "https://ghcr.io/v2/homebrew/core/julia/blobs/sha256:64956829acc5251f422d01a11109e93c13d42c14939e9c777012c83c4da22a2b",
+              "sha256": "64956829acc5251f422d01a11109e93c13d42c14939e9c777012c83c4da22a2b"
+            }
+          }
+        }
+      },
+      "pulumi/tap/pulumi": {
+        "version": "3.72.1",
+        "bottle": false
       }
     },
     "cask": {
@@ -952,7 +998,10 @@
       "rust-lang.rust-analyzer": null,
       "svelte.svelte-vscode": null,
       "Tailscale.vscode-tailscale": null,
-      "teabyii.ayu": null
+      "teabyii.ayu": null,
+      "facebook.starlark": null,
+      "ms-python.python": null,
+      "ms-python.vscode-pylance": null
     }
   },
   "system": {
@@ -966,7 +1015,7 @@
         "macOS": "12.5.1"
       },
       "ventura": {
-        "HOMEBREW_VERSION": "4.0.21",
+        "HOMEBREW_VERSION": "4.0.23",
         "HOMEBREW_PREFIX": "/opt/homebrew",
         "Homebrew/homebrew-core": "api",
         "CLT": "14.3.1.0.1.1683849156",
