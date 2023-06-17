@@ -114,8 +114,12 @@ in
       end
 
      if type -q starship
-        source (starship init fish --print-full-init | psub)
-      end
+       source (starship init fish --print-full-init | psub)
+     end
+
+     if type -q direnv
+       direnv hook fish | source
+     end
     '';
 
     shellAliases = {
@@ -172,6 +176,14 @@ in
       "--height 25%"
     ];
     enableFishIntegration = true;
+  };
+
+  programs.direnv = {
+    enable = true;
+
+    nix-direnv = {
+      enable = true;
+    };
   };
 
   programs.gpg.enable = true;
