@@ -7,6 +7,12 @@ let
   };
   homeRoot = if pkgs.stdenv.isDarwin then "/Users/" else "/home";
   kittyPager = pkgs.writeScriptBin "pager.sh" (builtins.readFile ./kitty/pager.sh);
+  # https://github.com/sharkdp/bat/issues/1145
+  manpager = (pkgs.writeShellScriptBin "manpager" (if pkgs.stdenv.isDarwin then ''
+    sh -c 'col -bx | bat -l man -p'
+    '' else ''
+    cat "$1" | col -bx | bat --language man --style plain
+  ''));
 in
 {
   xdg.enable = true;
@@ -22,7 +28,7 @@ in
     EDITOR = "nvim";
     GIT_EDITOR = "hx";
     PAGER = "less -RFX";
-    MANPAGER = "less -RFX";
+    MANPAGER = "${manpager}/bin/manpager";
   };
 
   home.packages = [
