@@ -192,8 +192,6 @@ in
     };
   };
 
-  programs.gpg.enable = true;
-
   xdg.configFile."helix/config.toml" = {
     text = builtins.readFile ./helix/config.toml;
   };
@@ -335,7 +333,7 @@ in
     };
 
     signing = {
-      key = "B2F67574B94C1E89";
+      key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGbUaWlb/y+fgePO+ZFd7ToGpGqzMJUuKdGMuLMhuaI";
       signByDefault = true;
     };
 
@@ -352,6 +350,11 @@ in
     };
 
     extraConfig = {
+      gpg = {
+        format = "ssh";
+
+      };
+      gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       credential = {
         "https://github.com".helper = "!gh auth git-credential";
       };
