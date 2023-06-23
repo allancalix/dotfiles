@@ -352,7 +352,6 @@ in
     extraConfig = {
       gpg = {
         format = "ssh";
-
       };
       gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       credential = {
