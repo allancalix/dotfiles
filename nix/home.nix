@@ -43,7 +43,6 @@ in
     pkgs.helix
     pkgs.wezterm
     pkgs.just
-    pkgs.mold
     pkgs.openssl
     pkgs.sqlite
     pkgs.bash
@@ -53,8 +52,6 @@ in
     pkgs.postgresql_15
     pkgs.nodejs_20
 
-    pkgs.consul
-    pkgs.nomad
     pkgs.vault
     pkgs.google-cloud-sdk
     pkgs.backblaze-b2
