@@ -46,6 +46,7 @@ in
     pkgs.openssl
     pkgs.sqlite
     pkgs.bash
+    pkgs.zig
 
     pkgs.topiary
     pkgs.rage
