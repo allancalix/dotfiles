@@ -47,6 +47,7 @@ in
     pkgs.sqlite
     pkgs.bash
     pkgs.zig
+    pkgs.racket
 
     pkgs.topiary
     pkgs.rage
