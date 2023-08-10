@@ -46,7 +46,7 @@ in
     pkgs.openssl
     pkgs.sqlite
     pkgs.bash
-    pkgs.zig
+    pkgs.zig_0_11
     pkgs.racket
 
     pkgs.topiary
