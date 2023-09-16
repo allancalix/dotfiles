@@ -70,7 +70,7 @@ in
     pkgs.fd
     pkgs.bat
     pkgs.hexyl
-    pkgs.exa
+    pkgs.eza
   ];
 
   programs.fish = {
@@ -145,11 +145,11 @@ in
       gp = "git push";
       gpthis = "git push origin (git_current_branch):(git_current_branch)";
 
-      l = "exa --group-directories-first";
-      ls = "exa --group-directories-first";
-      ll = "exa -l --group-directories-first";
-      lal = "exa -al --group-directories-first";
-      tree = "exa --tree";
+      l = "eza --group-directories-first";
+      ls = "eza --group-directories-first";
+      ll = "eza -l --group-directories-first";
+      lal = "eza -al --group-directories-first";
+      tree = "eza --tree";
 
       s = "git status -sb";
 
