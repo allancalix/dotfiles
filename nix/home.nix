@@ -41,18 +41,16 @@ in
     pkgs.virtualenv
     pkgs.htop
     pkgs.helix
-    pkgs.wezterm
     pkgs.just
     pkgs.openssl
     pkgs.sqlite
     pkgs.bash
-    pkgs.zig_0_11
+    pkgs.zig
     pkgs.racket
 
     pkgs.topiary
     pkgs.rage
     pkgs.postgresql_15
-    pkgs.nodejs_20
 
     pkgs.vault
     pkgs.google-cloud-sdk
@@ -281,19 +279,7 @@ in
       nvim-web-devicons
       coq_nvim
       coq-thirdparty
-      (nvim-treesitter.withPlugins (
-        plugins: with plugins; [
-          tree-sitter-elixir
-          tree-sitter-lua
-          tree-sitter-nickel
-          tree-sitter-rust
-          tree-sitter-ocaml
-          tree-sitter-vim
-          tree-sitter-nix
-          tree-sitter-python
-          tree-sitter-julia
-        ]
-      ))
+      nvim-treesitter.withAllGrammars
       nvim-lspconfig
       lualine-nvim
       telescope-nvim
@@ -302,7 +288,6 @@ in
       editorconfig-nvim
 
       # Vim Plugins
-      vim-nix
       copilot-vim
     ];
 
