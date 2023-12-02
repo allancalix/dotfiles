@@ -123,6 +123,10 @@ in
      if type -q direnv
        direnv hook fish | source
      end
+
+     if type -q op
+       source $HOME/.config/op/plugins.sh
+     end
     '';
 
     shellAliases = {

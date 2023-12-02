@@ -2,9 +2,9 @@ default:
 	just --list
 
 update: bumpdeps switch
-
-switch: render clean
 	brew bundle install
+
+switch: render
 	home-manager switch --flake flake.nix#allancalix
 
 bumpdeps:
@@ -15,5 +15,5 @@ clean:
 	brew bundle cleanup -f
 
 render:
-	nickel export --format=toml -f ncl/starship.ncl > nix/starship/starship.toml
+	nickel export --format=toml -o nix/starship/starship.toml ncl/starship.ncl
 
