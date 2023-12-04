@@ -50,7 +50,7 @@ in
 
     pkgs.topiary
     pkgs.rage
-    pkgs.postgresql_15
+    pkgs.postgresql_16
 
     pkgs.vault
     pkgs.google-cloud-sdk
