@@ -46,7 +46,6 @@ in
     pkgs.sqlite
     pkgs.bash
     pkgs.zig
-    pkgs.racket
 
     pkgs.topiary
     pkgs.rage
@@ -63,7 +62,6 @@ in
     pkgs.jq
     pkgs.bandwhich
     pkgs.starship
-    pkgs.ouch
     pkgs.ripgrep
     pkgs.fd
     pkgs.bat
