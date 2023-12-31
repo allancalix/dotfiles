@@ -46,6 +46,7 @@ in
     pkgs.sqlite
     pkgs.bash
     pkgs.zig
+    pkgs.zls
 
     pkgs.topiary
     pkgs.rage
@@ -53,7 +54,6 @@ in
 
     pkgs.vault
     pkgs.google-cloud-sdk
-    pkgs.backblaze-b2
 
     pkgs.gh
     pkgs.git-absorb
@@ -128,8 +128,6 @@ in
     '';
 
     shellAliases = {
-      cd = "z";
-
       gd = "git diff -M";
       gdc = "git diff --cached -M";
       ga = "git add -A";
