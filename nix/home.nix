@@ -6,13 +6,9 @@ let
     config = ''if !exists('g:vscode') | packadd ${plugin.pname} | endif'';
   };
   homeRoot = if pkgs.stdenv.isDarwin then "/Users/" else "/home";
+  gc = pkgs.writeScriptBin ",gc" (builtins.readFile ./scripts/gc);
   kittyPager = pkgs.writeScriptBin "pager.sh" (builtins.readFile ./kitty/pager.sh);
-  # https://github.com/sharkdp/bat/issues/1145
-  manpager = (pkgs.writeShellScriptBin "manpager" (if pkgs.stdenv.isDarwin then ''
-    sh -c 'col -bx | bat -l man -p'
-    '' else ''
-    cat "$1" | col -bx | bat --language man --style plain
-  ''));
+  manpager = (pkgs.writeShellScriptBin "manpager" (builtins.readFile ./scripts/manpager));
 in
 {
   xdg.enable = true;
@@ -32,7 +28,11 @@ in
   };
 
   home.packages = [
+    # Scripts
     kittyPager
+    manpager
+    gc
+
     pkgs.input-fonts
     pkgs.nerdfonts
     pkgs._1password
@@ -48,7 +48,6 @@ in
     pkgs.zig
     pkgs.zls
 
-    pkgs.topiary
     pkgs.rage
     pkgs.postgresql_16
 
@@ -87,8 +86,8 @@ in
         src = pkgs.fetchFromGitHub {
           owner = "gazorby";
           repo = "fifc";
-          rev = "8bd370c4a5db3b71f52a3079b758f0f2ed082044";
-          sha256 = "whF9BYxudKiqOtSdHGOcIitI+ZNRk0xeZbqMcXmivaY=";
+          rev = "2ee5beec7dfd28101026357633616a211fe240ae";
+          sha256 = "Nrart7WAh2VQhsDDe0EFI59TqvBO56US2MraqencxgE=";
         };
       }
     ];
@@ -128,6 +127,8 @@ in
     '';
 
     shellAliases = {
+      c = "bat";
+
       gd = "git diff -M";
       gdc = "git diff --cached -M";
       ga = "git add -A";
@@ -150,12 +151,9 @@ in
       tree = "eza --tree";
 
       s = "git status -sb";
-
-      nxd = "nix develop --command fish";
     };
 
     functions = {
-      docker_clean = "docker rm (docker ps -aq) && docker rmi (docker images -aq)";
       gc = "git commit -Sv -a $argv";
       git_current_branch = ''
         set path (git rev-parse --git-dir 2>/dev/null)
@@ -201,8 +199,8 @@ in
     text = builtins.readFile ./nvim/minimal.vim;
   };
 
-  xdg.configFile."wezterm/wezterm.lua" = {
-    text = builtins.readFile ./wezterm/wezterm.lua;
+  xdg.configFile."ghostty/config" = {
+    text = builtins.readFile ./ghostty/config;
   };
 
   # The starship configuration uses lots of backslashes in it's configuration for templating.

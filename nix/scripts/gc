@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -eou pipefail
+
+function main() {
+  nix-collect-garbage
+  docker rm $(docker ps -aq)
+  docker rmi $(docker images -aq)
+}
+
+main

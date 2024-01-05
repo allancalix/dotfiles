@@ -1,0 +1,15 @@
+theme = ayu Mirage
+
+background-opacity = 0.95
+shell-integration-features = cursor
+confirm-close-surface = false
+
+font-family = MonoLisa Trial
+font-size = 13
+font-thicken = true
+
+clipboard-trim-trailing-spaces = true
+
+cursor-opacity = 0.9
+
+mouse-hide-while-typing = true
