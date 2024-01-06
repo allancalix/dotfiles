@@ -3,7 +3,7 @@ theme = ayu Mirage
 shell-integration-features = cursor
 confirm-close-surface = false
 
-font-family = MonoLisa Trial
+font-family = MonoLisa
 font-size = 13
 font-thicken = true
 
