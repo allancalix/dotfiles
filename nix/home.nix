@@ -33,20 +33,16 @@ in
     manpager
     gc
 
-    pkgs.input-fonts
-    pkgs.nerdfonts
     pkgs._1password
-    pkgs.cachix
-
     pkgs.virtualenv
     pkgs.htop
     pkgs.helix
     pkgs.just
     pkgs.openssl
-    pkgs.sqlite
     pkgs.bash
-    pkgs.zig
-    pkgs.zls
+
+    pkgs.babashka
+    pkgs.clojure-lsp
 
     pkgs.rage
     pkgs.postgresql_16
@@ -271,6 +267,7 @@ in
       impatient-nvim
     ] ++ map nonVSCodePlugin [
       # Neovim Plugins
+      parinfer-rust
       nvim-bqf
       neovim-ayu
       trouble-nvim
@@ -313,6 +310,11 @@ in
       dp = "diff --word-diff --unified=10";
       append = "!git cherry-pick $(git merge-base HEAD\n  $1)..$1";
     };
+
+    ignores = [
+      ".DS_Store"
+      ".idea"
+    ];
 
     signing = {
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGbUaWlb/y+fgePO+ZFd7ToGpGqzMJUuKdGMuLMhuaI";
