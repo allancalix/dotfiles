@@ -14,3 +14,4 @@ cursor-opacity = 0.9
 
 mouse-hide-while-typing = true
 macos-titlebar-tabs = true
+macos-option-as-alt = true
