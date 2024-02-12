@@ -1,19 +1,29 @@
-options = {theme = 'ayu_mirage'}
+vim.cmd[[colorscheme dracula]]
+vim.cmd[[autocmd BufNewFile,BufRead *.ncl setfiletype nickel]]
 
-require'ayu'.setup{
-  mirage = true,
-  overrides = {},
-}
+options = {theme = "dracula-nvim"}
 
 require'lualine'.setup{
   options = options,
 }
 
 local nvim_lsp = require('lspconfig')
-local coq = require('coq')
-require('coq_3p') {
-  { src = "copilot", short_name = "COP", accept_key = "<C-f>" },
-}
+local cmp = require'cmp'
+
+cmp.setup({
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+  }, {
+    { name = 'buffer' },
+  })
+})
 
 vim.api.nvim_set_keymap("n", "<Leader>mt", ":lua require('checklist').toggle_item()<CR>", { noremap = true, silent = true })
 
@@ -153,12 +163,14 @@ end
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
 local servers = { "rust_analyzer", "gopls", "zls", "nickel_ls", "clojure_lsp" }
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup (coq.lsp_ensure_capabilities({
+  nvim_lsp[lsp].setup ({
     on_attach = on_attach,
+    capabilities = capabilities,
     flags = {
       debounce_text_changes = 150,
     }
-  }))
+  })
 
 end

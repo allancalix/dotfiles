@@ -257,33 +257,33 @@ in
   programs.neovim = {
     enable = true;
     viAlias = true;
+    vimAlias = true;
 
     plugins = with pkgs.vimPlugins; [
-      vim-nickel
       vim-surround
       tabular
       vim-commentary
       hop-nvim
       impatient-nvim
     ] ++ map nonVSCodePlugin [
+      dracula-nvim
+
       # Neovim Plugins
-      parinfer-rust
       nvim-bqf
       neovim-ayu
       trouble-nvim
       nvim-web-devicons
-      coq_nvim
-      coq-thirdparty
+      nvim-cmp
+      cmp-nvim-lsp
+      cmp-buffer
       nvim-treesitter.withAllGrammars
       nvim-lspconfig
       lualine-nvim
       telescope-nvim
       plenary-nvim
-      popup-nvim
-      editorconfig-nvim
 
       # Vim Plugins
-      copilot-vim
+      parinfer-rust
     ];
 
     extraConfig = ''
@@ -302,6 +302,7 @@ in
 
     aliases = {
       co = "checkout";
+      cm = "commit --all -m --no-gpg-sign";
       subup = "submodule update --recursive --remote";
       lg = "log --pretty='%Cred%h%Creset | %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(cyan)[%an]%Creset' --graph";
       so = "show --pretty='parent %Cred%p%Creset commit\n  %Cred%h%Creset%C(yellow)%d%Creset%n%n%w(72,2,2)%s%n%n%w(72,0,0)%C(cyan)%an%Creset\n  %Cgreen%ar%Creset'";
