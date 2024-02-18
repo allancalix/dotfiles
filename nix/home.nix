@@ -335,6 +335,15 @@ in
     };
 
     extraConfig = {
+      diff.algorithm = "histogram";
+      commit.verbose = true;
+      init.defaultBranch = "main";
+      merge.conflictstyle = "zdiff3";
+      push = {
+        default = "current";
+        autoSetupRemote = true;
+      };
+
       gpg = {
         format = "ssh";
       };
