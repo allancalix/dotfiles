@@ -7,8 +7,10 @@ let
   };
   homeRoot = if pkgs.stdenv.isDarwin then "/Users/" else "/home";
   gc = pkgs.writeScriptBin ",gc" (builtins.readFile ./scripts/gc);
+  todo = pkgs.writeScriptBin ",todo" (builtins.readFile ./scripts/todo);
   kittyPager = pkgs.writeScriptBin "pager.sh" (builtins.readFile ./kitty/pager.sh);
   manpager = (pkgs.writeShellScriptBin "manpager" (builtins.readFile ./scripts/manpager));
+  username = "allancalix";
 in
 {
   xdg.enable = true;
@@ -17,14 +19,15 @@ in
 
   programs.home-manager.enable = true;
 
-  home.username = "allancalix";
-  home.homeDirectory = homeRoot + "allancalix";
+  home.username = username;
+  home.homeDirectory = homeRoot + username;
   home.stateVersion = "22.05";
   home.sessionVariables = {
     EDITOR = "nvim";
     GIT_EDITOR = "hx";
     PAGER = "less -RFX";
     MANPAGER = "${manpager}/bin/manpager";
+    DOCUMENT_ROOT = homeRoot + username + "/Dropbox";
   };
 
   home.packages = [
@@ -32,6 +35,7 @@ in
     kittyPager
     manpager
     gc
+    todo
 
     pkgs._1password
     pkgs.virtualenv
