@@ -45,28 +45,39 @@ in
     pkgs.openssl
     pkgs.bash
     pkgs.b3sum
+    pkgs.ouch
 
     pkgs.babashka
     pkgs.clojure-lsp
+    pkgs.starship
 
+    # Applications
     pkgs.rage
-    pkgs.postgresql_16
-
+    pkgs.caddy
+    pkgs.aria
     pkgs.vault
     pkgs.google-cloud-sdk
-
-    pkgs.gh
-    pkgs.git-absorb
+    pkgs.postgresql_16
+    pkgs.yt-dlp-light
 
     # Extended coreutils
     pkgs.jq
     pkgs.bandwhich
-    pkgs.starship
     pkgs.ripgrep
     pkgs.fd
     pkgs.bat
     pkgs.hexyl
     pkgs.eza
+    pkgs.curl
+
+    # Development
+    pkgs.fastfetch
+    pkgs.gh
+    pkgs.git-absorb
+    pkgs.sqlite
+    pkgs.duckdb
+    pkgs.tldr
+    pkgs.tokei
   ];
 
   programs.fish = {
