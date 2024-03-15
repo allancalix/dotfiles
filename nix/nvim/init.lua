@@ -20,6 +20,7 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
+    { name = 'cody' },
   }, {
     { name = 'buffer' },
   })
@@ -96,6 +97,7 @@ require'telescope'.setup {
     },
   },
 }
+require("telescope").load_extension("zf-native")
 
 -- Workspace base navigation
 vim.api.nvim_set_keymap("", "<Leader>fr", "<cmd>:Telescope live_grep prompt_prefix=🔍<cr>", {})
@@ -159,6 +161,9 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<Leader>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap("n", "<Leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
+
+-- Sourcegraph Plugin
+require("sg").setup {}
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches

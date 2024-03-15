@@ -44,6 +44,7 @@ in
     pkgs.just
     pkgs.openssl
     pkgs.bash
+    pkgs.b3sum
 
     pkgs.babashka
     pkgs.clojure-lsp
@@ -284,7 +285,9 @@ in
       nvim-lspconfig
       lualine-nvim
       telescope-nvim
+      telescope-zf-native-nvim
       plenary-nvim
+      sg-nvim
 
       # Vim Plugins
       parinfer-rust
