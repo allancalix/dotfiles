@@ -23,7 +23,7 @@ in
 
   home.username = username;
   home.homeDirectory = homeRoot + username;
-  home.stateVersion = "22.05";
+  home.stateVersion = "24.05";
   home.sessionVariables = {
     EDITOR = "nvim";
     GIT_EDITOR = "nvim -u ~/.config/nvim/minimal.vim";
@@ -69,6 +69,7 @@ in
     pkgs.hexyl
     pkgs.eza
     pkgs.curl
+    pkgs.nickel
 
     # Development
     pkgs.fastfetch
