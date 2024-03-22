@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-# https://github.com/sharkdp/bat/issues/1145#issuecomment-1743518097
-
-# mandoc passes a file name, other tools write to stdout
-# using `cat "$@"` we take care of both reading from file and stdin
-sh -c 'col -bx | bat -l man -p'

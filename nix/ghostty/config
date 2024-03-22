@@ -1,4 +1,4 @@
-theme = ayu Mirage
+theme = Dracula+
 
 shell-integration-features = cursor
 confirm-close-surface = false

@@ -10,7 +10,6 @@ let
   todo = pkgs.writeScriptBin ",todo" (builtins.readFile ./scripts/todo);
   ssh-init-term = (pkgs.writeShellScriptBin ",ssh-init-term" (builtins.readFile ./scripts/ssh-init-term));
   kittyPager = pkgs.writeScriptBin "pager.sh" (builtins.readFile ./kitty/pager.sh);
-  manpager = (pkgs.writeShellScriptBin "manpager" (builtins.readFile ./scripts/manpager));
   username = "allancalix";
   onePassPath = "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
 in
@@ -28,14 +27,12 @@ in
     EDITOR = "nvim";
     GIT_EDITOR = "nvim -u ~/.config/nvim/minimal.vim";
     PAGER = "less -RFX";
-    MANPAGER = "${manpager}/bin/manpager";
     DOCUMENT_ROOT = homeRoot + username + "/Dropbox";
   };
 
   home.packages = [
     # Scripts
     kittyPager
-    manpager
     gc
     todo
     ssh-init-term
@@ -65,7 +62,7 @@ in
     pkgs.bandwhich
     pkgs.ripgrep
     pkgs.fd
-    pkgs.bat
+    pkgs.bat-extras.batman
     pkgs.hexyl
     pkgs.eza
     pkgs.curl
@@ -137,6 +134,7 @@ in
 
     shellAliases = {
       c = "bat";
+      man = "batman";
 
       gd = "git diff -M";
       gdc = "git diff --cached -M";
@@ -366,6 +364,13 @@ in
       credential = {
         "https://github.com".helper = "!gh auth git-credential";
       };
+    };
+  };
+
+  programs.bat = {
+    enable = true;
+    config = {
+      theme = "Dracula";
     };
   };
 
