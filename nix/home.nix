@@ -8,9 +8,11 @@ let
   homeRoot = if pkgs.stdenv.isDarwin then "/Users/" else "/home";
   gc = pkgs.writeScriptBin ",gc" (builtins.readFile ./scripts/gc);
   todo = pkgs.writeScriptBin ",todo" (builtins.readFile ./scripts/todo);
+  ssh-init-term = (pkgs.writeShellScriptBin ",ssh-init-term" (builtins.readFile ./scripts/ssh-init-term));
   kittyPager = pkgs.writeScriptBin "pager.sh" (builtins.readFile ./kitty/pager.sh);
   manpager = (pkgs.writeShellScriptBin "manpager" (builtins.readFile ./scripts/manpager));
   username = "allancalix";
+  onePassPath = "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
 in
 {
   xdg.enable = true;
@@ -36,6 +38,7 @@ in
     manpager
     gc
     todo
+    ssh-init-term
 
     pkgs._1password
     pkgs.virtualenv
@@ -131,10 +134,6 @@ in
 
      if type -q direnv
        direnv hook fish | source
-     end
-
-     if type -q op
-       source $HOME/.config/op/plugins.sh
      end
     '';
 
@@ -370,6 +369,15 @@ in
         "https://github.com".helper = "!gh auth git-credential";
       };
     };
+  };
+
+  programs.ssh = {
+    enable = true;
+    extraConfig = ''
+      Host *
+        IdentitiesOnly=yes
+        IdentityAgent ${onePassPath}
+    '';
   };
 
   programs.zoxide = {

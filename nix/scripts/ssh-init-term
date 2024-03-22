@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+#
+# USAGE: ,ssh-init-term
+#
+# Sets term info on a remote server to allow for more advanced terminal features.
+
+set -e
+
+REMOTE_ADDR="$1"
+
+infocmp -x | ssh "$REMOTE_ADDR" -- tic -x -
