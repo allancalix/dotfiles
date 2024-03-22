@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [[ $(uname -o) != "Darwin" ]]; then
+  echo "Only MacOS is supported... exiting."
+  exit 1
+fi
+
+touch ~/.hushlogin
+mkdir -p ~/Desktop/Screenshots
+./script/macos
