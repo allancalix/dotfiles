@@ -26,7 +26,7 @@ in
   home.stateVersion = "22.05";
   home.sessionVariables = {
     EDITOR = "nvim";
-    GIT_EDITOR = "hx";
+    GIT_EDITOR = "nvim -u ~/.config/nvim/minimal.vim";
     PAGER = "less -RFX";
     MANPAGER = "${manpager}/bin/manpager";
     DOCUMENT_ROOT = homeRoot + username + "/Dropbox";
@@ -41,18 +41,15 @@ in
     ssh-init-term
 
     pkgs._1password
-    pkgs.virtualenv
     pkgs.htop
-    pkgs.helix
-    pkgs.just
     pkgs.openssl
     pkgs.bash
     pkgs.b3sum
     pkgs.ouch
 
     pkgs.babashka
-    pkgs.clojure-lsp
     pkgs.starship
+    pkgs.nodejs-slim
 
     # Applications
     pkgs.rage
