@@ -6,5 +6,5 @@
 
 (defn switch [_m]
   (render)
-  (shell "home-manager switch --flake flake.nix#allancalix"))
+  (shell "home-manager switch --flake ./#allancalix"))
               
