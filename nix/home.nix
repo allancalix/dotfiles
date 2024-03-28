@@ -367,6 +367,26 @@ in
     };
   };
 
+  programs.jujutsu = {
+    enable = true;
+
+    settings = {
+      user = {
+        name = "Allan Calix";
+        email = "contact@acx.dev";
+      };
+      ui = {
+        diff.tool = ["difft" "--color=always" "$left" "$right"];
+      };
+      signing = {
+        backend = "ssh";
+        sign-all = true;
+        key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGbUaWlb/y+fgePO+ZFd7ToGpGqzMJUuKdGMuLMhuaI";
+        backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      };
+    };
+  };
+
   programs.bat = {
     enable = true;
     config = {
