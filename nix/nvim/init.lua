@@ -1,5 +1,7 @@
 vim.cmd[[colorscheme dracula]]
 vim.cmd[[autocmd BufNewFile,BufRead *.ncl setfiletype nickel]]
+-- Experimental (as of 0.9) Neovim lua loader, may speed up start times and replace `impatient-nvim`.
+vim.loader.enable()
 
 options = {theme = "dracula-nvim"}
 
@@ -26,15 +28,35 @@ cmp.setup({
   })
 })
 
-vim.api.nvim_set_keymap("n", "<Leader>mt", ":lua require('checklist').toggle_item()<CR>", { noremap = true, silent = true })
+-- START keybindings
+-- Write out current buffer
+vim.api.nvim_set_keymap("n", "<leader>w", ":w<CR>", { noremap=true, silent=true })
+-- Fast exit
+vim.api.nvim_set_keymap("n", "<leader>q", ":qa!<CR>", { noremap=true, silent=true })
+-- END   keybindings
 
--- place this in one of your configuration file(s)
-require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+-- START hop
+local hop = require('hop')
+local directions = require('hop.hint').HintDirection
 
-vim.api.nvim_set_keymap("", 'f', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true })<cr>", {})
-vim.api.nvim_set_keymap("", 'F', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true })<cr>", {})
-vim.api.nvim_set_keymap("", 't', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })<cr>", {})
-vim.api.nvim_set_keymap("", 'T', "<cmd>lua require'hop'.hint_char1({ direction = require'hop.hint'.HintDirection.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })<cr>", {})
+vim.keymap.set('', 'f', function()
+  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+end, {remap=true})
+vim.keymap.set('', 'F', function()
+  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+end, {remap=true})
+vim.keymap.set('', 't', function()
+  hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+end, {remap=true})
+vim.keymap.set('', 'T', function()
+  hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+end, {remap=true})
+vim.keymap.set('', ' ', function()
+  hop.hint_patterns()
+end, {remap=true})
+
+hop.setup({ keys = 'etovxqpdygfblzhckisuran' })
+-- END hop
 
 local previewers = require("telescope.previewers")
 local actions = require("telescope.actions")
@@ -86,6 +108,7 @@ require'telescope'.setup {
       "--vimgrep",
       "--no-heading",
       "--smart-case",
+
       "--ignore",
       "--hidden",
       "--trim",

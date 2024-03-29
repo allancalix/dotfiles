@@ -40,8 +40,6 @@ in
     pkgs._1password
     pkgs.htop
     pkgs.openssl
-    pkgs.bash
-    pkgs.b3sum
     pkgs.ouch
 
     pkgs.babashka
@@ -76,6 +74,7 @@ in
     pkgs.duckdb
     pkgs.tldr
     pkgs.tokei
+    pkgs.difftastic
   ];
 
   programs.fish = {
@@ -275,15 +274,12 @@ in
       tabular
       vim-commentary
       hop-nvim
-      impatient-nvim
     ] ++ map nonVSCodePlugin [
       dracula-nvim
 
       # Neovim Plugins
       nvim-bqf
-      neovim-ayu
       trouble-nvim
-      nvim-web-devicons
       nvim-cmp
       cmp-nvim-lsp
       cmp-buffer
@@ -294,9 +290,6 @@ in
       telescope-zf-native-nvim
       plenary-nvim
       sg-nvim
-
-      # Vim Plugins
-      parinfer-rust
     ];
 
     extraConfig = ''
