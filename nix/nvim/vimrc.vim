@@ -40,7 +40,7 @@ set directory=~/.vim/tmp/                   " for the swap files
 
 set textwidth=120
 set nowrap " wrapping is really annoying when working with html/jsx files
-set colorcolumn=81
+set colorcolumn=101
 set formatoptions=tcqrn1
 set tabstop=2
 set shiftwidth=2

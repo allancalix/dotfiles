@@ -30,7 +30,7 @@ set directory=/tmp/vim
 
 set textwidth=120
 set nowrap
-set colorcolumn=81
+set colorcolumn=101
 set formatoptions=tcqrn1
 set tabstop=2
 set shiftwidth=2
