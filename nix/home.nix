@@ -54,6 +54,7 @@ in
     pkgs.google-cloud-sdk
     pkgs.postgresql_16
     pkgs.yt-dlp-light
+    pkgs.emacs-nox
 
     # Extended coreutils
     pkgs.jq
