@@ -281,6 +281,7 @@ in
       # Neovim Plugins
       nvim-bqf
       trouble-nvim
+      oil-nvim
       nvim-cmp
       cmp-nvim-lsp
       cmp-buffer
