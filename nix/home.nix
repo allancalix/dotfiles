@@ -28,6 +28,7 @@ in
     GIT_EDITOR = "nvim -u ~/.config/nvim/minimal.vim";
     PAGER = "less -RFX";
     DOCUMENT_ROOT = homeRoot + username + "/Dropbox";
+    SSH_AUTH_SOCK = onePassPath;
   };
 
   home.packages = [
@@ -372,6 +373,9 @@ in
       };
       ui = {
         diff.tool = ["difft" "--color=always" "$left" "$right"];
+      };
+      git = {
+        push-branch-prefix = "allancalix/push-";
       };
       signing = {
         backend = "ssh";
