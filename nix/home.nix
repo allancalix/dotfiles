@@ -28,7 +28,7 @@ in
     GIT_EDITOR = "nvim -u ~/.config/nvim/minimal.vim";
     PAGER = "less -RFX";
     DOCUMENT_ROOT = homeRoot + username + "/Dropbox";
-    SSH_AUTH_SOCK = onePassPath;
+    SSH_AUTH_SOCK = homeRoot + username + "/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
   };
 
   home.packages = [
