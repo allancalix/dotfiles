@@ -12,6 +12,13 @@ let
   kittyPager = pkgs.writeScriptBin "pager.sh" (builtins.readFile ./kitty/pager.sh);
   username = "allancalix";
   onePassPath = "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+  
+  zedThemeDracula = pkgs.fetchFromGitHub {
+    owner = "dracula";
+    repo = "zed";
+    rev = "c2163e9f812eea4df6091cfc1919c72fbcbc098b";
+    sha256 = "0m6r70mfm35wd4f31q2v0dcaszgdq8q8sfx3wi6a8rdkxvgm0ycs";
+  };
 in
 {
   xdg.enable = true;
@@ -32,6 +39,13 @@ in
     # Annoyingly, because MacOS has a stupid space in the file name I can't just use the the fully qualified path
     # in both places because the escaping is important for being parseable inside the ssh config file.
     SSH_AUTH_SOCK = homeRoot + username + "/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+  };
+
+  home.file.".config/zed/themes" = {
+    source = pkgs.runCommandNoCC "dracula.json" {} ''
+      mkdir -p $out
+      cp ${zedThemeDracula}/themes/dracula.json $out/
+    '';
   };
 
   home.packages = [
