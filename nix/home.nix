@@ -28,6 +28,9 @@ in
     GIT_EDITOR = "nvim -u ~/.config/nvim/minimal.vim";
     PAGER = "less -RFX";
     DOCUMENT_ROOT = homeRoot + username + "/Dropbox";
+    # This environment variable is used for `jujutsu` that doesn't support configuration found in `~/.ssh/config`.
+    # Annoyingly, because MacOS has a stupid space in the file name I can't just use the the fully qualified path
+    # in both places because the escaping is important for being parseable inside the ssh config file.
     SSH_AUTH_SOCK = homeRoot + username + "/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
   };
 
