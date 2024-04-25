@@ -10,7 +10,7 @@
 home-manager switch --flake ./#allancalix
 ```
 
-## Making changes
+## Updates
 
 Make changes to files in this repository and create a new `home-manager` generation with:
 
