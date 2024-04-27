@@ -141,13 +141,19 @@ in
       function fish_greeting
       end
 
-     if type -q starship
-       source (starship init fish --print-full-init | psub)
-     end
+      set -gx PATH ~/.local/bin $PATH
 
-     if type -q direnv
-       direnv hook fish | source
-     end
+      if type -q starship
+        source (starship init fish --print-full-init | psub)
+      end
+
+      if type -q direnv
+        direnv hook fish | source
+      end
+
+      if type -q jj
+        jj util completion fish | source
+      end
     '';
 
     shellAliases = {
