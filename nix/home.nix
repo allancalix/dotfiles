@@ -68,11 +68,8 @@ in
     pkgs.rage
     pkgs.caddy
     pkgs.aria
-    pkgs.vault
-    pkgs.google-cloud-sdk
     pkgs.postgresql_16
     pkgs.yt-dlp-light
-    pkgs.emacs-nox
 
     # Extended coreutils
     pkgs.jq
