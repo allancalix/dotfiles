@@ -171,7 +171,6 @@ in
       gc = "git commit -v -S";
       gp = "git push";
       gpthis = "git push origin (git_current_branch):(git_current_branch)";
-
       l = "eza --group-directories-first";
       ls = "eza --group-directories-first";
       ll = "eza -l --group-directories-first";
@@ -392,6 +391,7 @@ in
         email = "contact@acx.dev";
       };
       ui = {
+        default-command = "status";
         diff.tool = ["difft" "--color=always" "$left" "$right"];
       };
       git = {
