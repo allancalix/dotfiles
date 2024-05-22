@@ -403,6 +403,9 @@ in
         key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGbUaWlb/y+fgePO+ZFd7ToGpGqzMJUuKdGMuLMhuaI";
         backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       };
+      experimental-advance-branches = {
+        enabled-branches = ["main" "glob:allancalix/pr-*"];
+      };
     };
   };
 
