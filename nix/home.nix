@@ -85,14 +85,15 @@ in
     pkgs.nickel
 
     # Development
+    pkgs.difftastic
+    pkgs.duckdb
     pkgs.fastfetch
     pkgs.gh
     pkgs.git-absorb
     pkgs.sqlite
-    pkgs.duckdb
     pkgs.tldr
     pkgs.tokei
-    pkgs.difftastic
+    pkgs.watchexec
   ];
 
   programs.fish = {
