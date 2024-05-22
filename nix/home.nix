@@ -404,7 +404,8 @@ in
         backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       };
       experimental-advance-branches = {
-        enabled-branches = ["main" "glob:allancalix/pr-*"];
+        enabled-branches = ["glob:allancalix/pr-*"];
+        disabled-branches = ["main"];
       };
     };
   };
