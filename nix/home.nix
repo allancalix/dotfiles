@@ -155,29 +155,31 @@ in
 
     shellAliases = {
       c = "bat";
-      man = "batman";
-
-      gd = "git diff -M";
-      gdc = "git diff --cached -M";
       ga = "git add -A";
       gap = "git add -p";
       gau = "git add -u";
       gbr = "git branch -v";
+      gc = "git commit -v -S";
+      gd = "git diff -M";
+      gdc = "git diff --cached -M";
+      gf = "git fetch --prune";
       gl = "git lg";
+      gp = "git push";
+      gpthis = "git push origin (git_current_branch):(git_current_branch)";
       gst = "git stash";
       gstp = "git stash pop";
       gup = "git pull";
-      gf = "git fetch --prune";
-      gc = "git commit -v -S";
-      gp = "git push";
-      gpthis = "git push origin (git_current_branch):(git_current_branch)";
+      jc = "jj commit";
+      jd = "jj diff";
+      jl = "jj log";
+      jp = "jj git push";
       l = "eza --group-directories-first";
-      ls = "eza --group-directories-first";
-      ll = "eza -l --group-directories-first";
       lal = "eza -al --group-directories-first";
+      ll = "eza -l --group-directories-first";
+      ls = "eza --group-directories-first";
+      man = "batman";
+      s = "jj status";
       tree = "eza --tree";
-
-      s = "git status -sb";
     };
 
     functions = {
