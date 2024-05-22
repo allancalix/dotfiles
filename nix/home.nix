@@ -188,6 +188,13 @@ in
         set path (git rev-parse --git-dir 2>/dev/null)
         cat "$path/HEAD" | sed -e 's/^.*refs\/heads\///'
       '';
+      # Set repo-specific config rules to advance main branches on commit. Set this for repos where
+      # pushing to main is the commit policy (like single contributor repos). Both values have to be
+      # set otherwise these options may behave unpredictably when interacting with the global options.
+      ",jj_track_main" = ''
+        jj config set --repo experimental-advance-branches.enabled-branches '["main"]'
+        jj config set --repo experimental-advance-branches.disabled-branches '[]'
+      '';
       pubip = "curl 'https://api.ipify.org/?format=json' 2> /dev/null | jq -r '.ip'";
     };
   };
