@@ -196,7 +196,7 @@ in
       # set otherwise these options may behave unpredictably when interacting with the global options.
       ",jj_track_main" = ''
         jj config set --repo experimental-advance-branches.enabled-branches '["main"]'
-        jj config set --repo experimental-advance-branches.disabled-branches '[]'
+        jj config set --repo experimental-advance-branches.disabled-branches '["wip/*"]'
       '';
       pubip = "curl 'https://api.ipify.org/?format=json' 2> /dev/null | jq -r '.ip'";
     };
