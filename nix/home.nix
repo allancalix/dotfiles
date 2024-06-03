@@ -71,12 +71,14 @@ in
     pkgs.caddy
     pkgs.aria
     pkgs.postgresql_16
+    pkgs.redpanda-client
     pkgs.yt-dlp-light
 
     # Extended coreutils
     pkgs.jq
     pkgs.bandwhich
     pkgs.ripgrep
+    pkgs.sd
     pkgs.fd
     pkgs.bat-extras.batman
     pkgs.hexyl

@@ -11,8 +11,12 @@
   };
   outputs = { nixpkgs, home-manager, ... }:
     let
+      overlays = [
+        (import ./overlays/supermaven.nix)
+      ];
       pkgs = import nixpkgs {
         system = "aarch64-darwin";
+        overlays = overlays;
         config = {
           allowUnfree = true;
           input-fonts.acceptLicense = true;
