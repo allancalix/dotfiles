@@ -319,13 +319,14 @@ in
       nvim-cmp
       cmp-nvim-lsp
       cmp-buffer
+      cmp-path
       nvim-treesitter.withAllGrammars
       nvim-lspconfig
+      supermaven-nvim
       lualine-nvim
       telescope-nvim
       telescope-zf-native-nvim
       plenary-nvim
-      sg-nvim
     ];
 
     extraConfig = ''

@@ -12,6 +12,21 @@ require("oil").setup()
 
 local nvim_lsp = require("lspconfig")
 
+require("supermaven-nvim").setup({
+    keymaps = {
+    accept_suggestion = "<Tab>",
+    clear_suggestion = "<C-]>",
+    accept_word = "<C-j>",
+  },
+  ignore_filetypes = { cpp = true },
+  color = {
+    suggestion_color = "#ffffff",
+    cterm = 244,
+  },
+  disable_inline_completion = false, -- disables inline completion for use with cmp
+  disable_keymaps = false -- disables built in keymaps for more manual control
+})
+
 local cmp = require("cmp")
 cmp.setup({
   mapping = cmp.mapping.preset.insert({
@@ -23,10 +38,10 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = "nvim_lsp" },
-    { name = "cody" },
-  }, {
+    { name = "supermaven" },
     { name = "buffer" },
-  })
+    { name = "path" },
+  }),
 })
 
 -- START keybindings
@@ -186,9 +201,6 @@ local on_attach = function(client, bufnr)
   buf_set_keymap("n", "<Leader>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
   buf_set_keymap("n", "<Leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
 end
-
--- Sourcegraph Plugin
-require("sg").setup {}
 
 -- Use a loop to conveniently call "setup" on multiple servers and
 -- map buffer local keybindings when the language server attaches
