@@ -73,6 +73,7 @@ in
     pkgs.postgresql_16
     pkgs.redpanda-client
     pkgs.yt-dlp-light
+    pkgs.zf
 
     # Extended coreutils
     pkgs.jq
@@ -209,13 +210,14 @@ in
 
     defaultCommand = "fd --type f";
     defaultOptions = [
-      "--color fg:#cbccc6,bg:#1f2430,hl:#707a8c"
-      "--color fg+:#707a8c,bg+:#191e2a,hl+:#ffcc66"
-      "--color info:#73d0ff,prompt:#707a8c,pointer:#cbccc6"
-      "--color marker:#73d0ff,spinner:#73d0ff,header:#d4bfff"
+      # https://github.com/dracula/fzf/blob/master/INSTALL.md
+      "--color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9"
+      "--color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9"
+      "--color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6"
+      "--color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4"
       "--reverse"
       "--border"
-      "--height 25%"
+      "--height 40%"
     ];
     enableFishIntegration = true;
   };
@@ -386,13 +388,16 @@ in
         default = "current";
         autoSetupRemote = true;
       };
-
       gpg = {
         format = "ssh";
       };
       gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       credential = {
         "https://github.com".helper = "!gh auth git-credential";
+      };
+      url = {
+        "git@github.com:".insteadOf = "gh:";
+        "https://github.com/".insteadOf = "http:";
       };
     };
   };
