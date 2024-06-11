@@ -73,7 +73,6 @@ in
     pkgs.postgresql_16
     pkgs.redpanda-client
     pkgs.yt-dlp-light
-    pkgs.zf
 
     # Extended coreutils
     pkgs.jq
