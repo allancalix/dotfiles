@@ -64,7 +64,7 @@ in
 
     pkgs.babashka
     pkgs.starship
-    pkgs.nodejs-slim
+    pkgs.nodejs-slim_22
 
     # Applications
     pkgs.rage
