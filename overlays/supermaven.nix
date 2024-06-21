@@ -6,8 +6,8 @@ self: super: {
       src = super.fetchFromGitHub {
         owner  = "supermaven-inc";
         repo   = "supermaven-nvim";
-        rev    = "ef3bd1a6b6f722857f2f88d929dd4ac875655611";
-        sha256 = "0bdk7r8nn6j230saxhb73g7pi473c8d2w6kwgp74hrc3jbynhmcs";
+        rev    = "c7ab94a6bcde96c79ff51afd6a1494606bb6f10b";
+        sha256 = "1a4arykaq4678h6j236drlpyyq8f9jbpqq3v4gws64nyw52mdr2d";
       };
     };
   };
