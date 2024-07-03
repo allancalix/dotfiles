@@ -1,4 +1,6 @@
 {:paths ["."]
  :min-bb-version "1.3.0"
- :tasks {switch {:task (exec 'tasks/switch)}}}
+ :tasks {
+         switch {:task (exec 'tasks/switch)}
+         sw {:depends [switch]}}} ; alias for switch
  
