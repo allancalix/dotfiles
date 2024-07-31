@@ -12,7 +12,7 @@ let
   kittyPager = pkgs.writeScriptBin "pager.sh" (builtins.readFile ./kitty/pager.sh);
   username = "allancalix";
   onePassPath = "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
-  
+
   zedThemeDracula = pkgs.fetchFromGitHub {
     owner = "dracula";
     repo = "zed";
@@ -39,8 +39,6 @@ in
     # Annoyingly, because MacOS has a stupid space in the file name I can't just use the the fully qualified path
     # in both places because the escaping is important for being parseable inside the ssh config file.
     SSH_AUTH_SOCK = homeRoot + username + "/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
-    # https://github.com/nix-community/home-manager/pull/5416
-    JJ_CONFIG = "${config.xdg.configHome}/jj/config.toml";
   };
 
   home.file.".config/zed/themes" = {
