@@ -94,6 +94,7 @@ in
     pkgs.tldr
     pkgs.tokei
     pkgs.watchexec
+    pkgs.helix
   ];
 
   programs.fish = {
