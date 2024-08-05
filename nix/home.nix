@@ -74,6 +74,7 @@ in
 
     # Extended coreutils
     pkgs.jq
+    pkgs.jo
     pkgs.bandwhich
     pkgs.ripgrep
     pkgs.sd
