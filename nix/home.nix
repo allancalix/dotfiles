@@ -312,6 +312,7 @@ in
       hop-nvim
     ] ++ map nonVSCodePlugin [
       dracula-nvim
+      vim-go
 
       # Neovim Plugins
       nvim-bqf
