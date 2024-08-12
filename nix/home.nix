@@ -312,7 +312,6 @@ in
       hop-nvim
     ] ++ map nonVSCodePlugin [
       dracula-nvim
-      vim-go
 
       # Neovim Plugins
       nvim-bqf
@@ -322,7 +321,20 @@ in
       cmp-nvim-lsp
       cmp-buffer
       cmp-path
-      nvim-treesitter.withAllGrammars
+      (nvim-treesitter.withPlugins(p: [
+        p.bash
+        p.json
+        p.lua
+        p.go
+        p.markdown
+        p.nix
+        p.typescript
+        p.rust
+        p.zig
+        p.nickel
+        p.vimdoc
+      ]))
+      conform-nvim
       nvim-lspconfig
       supermaven-nvim
       lualine-nvim

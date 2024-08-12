@@ -216,3 +216,20 @@ for _, lsp in ipairs(servers) do
   })
 
 end
+
+require("conform").setup({
+  -- Map of filetype to formatters
+  formatters_by_ft = {
+    lua = { "stylua" },
+    -- Conform will run multiple formatters sequentially
+    go = { "goimports", "gofmt" },
+    -- You can also customize some of the format options for the filetype
+    rust = { "rustfmt", lsp_format = "fallback" },
+  },
+
+  format_on_save = {
+    lsp_format = "fallback",
+    timeout_ms = 500,
+  },
+})
+
