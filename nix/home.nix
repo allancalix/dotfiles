@@ -463,4 +463,8 @@ in
 
     enableFishIntegration = true;
   };
+
+  services.syncthing = {
+    enable = true;
+  };
 }
