@@ -9,7 +9,6 @@ let
   gc = pkgs.writeScriptBin ",gc" (builtins.readFile ./scripts/gc);
   todo = pkgs.writeScriptBin ",todo" (builtins.readFile ./scripts/todo);
   ssh-init-term = (pkgs.writeShellScriptBin ",ssh-init-term" (builtins.readFile ./scripts/ssh-init-term));
-  kittyPager = pkgs.writeScriptBin "pager.sh" (builtins.readFile ./kitty/pager.sh);
   username = "allancalix";
   onePassPath = "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
 
@@ -50,7 +49,6 @@ in
 
   home.packages = [
     # Scripts
-    kittyPager
     gc
     todo
     ssh-init-term
@@ -233,10 +231,6 @@ in
     text = builtins.readFile ./helix/config.toml;
   };
 
-  xdg.configFile."kitty/tab_bar.py" = {
-    text = builtins.readFile ./kitty/tab_bar.py;
-  };
-
   xdg.configFile."nvim/minimal.vim" = {
     text = builtins.readFile ./nvim/minimal.vim;
   };
@@ -250,54 +244,6 @@ in
   # this manually.
   xdg.configFile."starship.toml" = {
     text = builtins.readFile ./starship/starship.toml;
-  };
-
-  programs.kitty = {
-    enable = true;
-
-    theme = "Ayu Mirage";
-    font = {
-      name = "Input Mono";
-      size = 12;
-    };
-    keybindings = {
-      "super+equal" = "increase_font_size";
-      "super+minus" = "decrease_font_size";
-      "super+0" = "restore_font_size";
-      "ctrl+a>\\" = "combine : new_window_with_cwd : next_layout";
-      "ctrl+a>-" = "new_window_with_cwd";
-      "ctrl+a>c" = "new_tab_with_cwd";
-      "ctrl+a>p" = "previous_tab";
-      "ctrl+a>n" = "next_tab";
-      "ctrl+a>," = "set_tab_title";
-      "ctrl+a>k" = "neighboring_window top";
-      "ctrl+a>j" = "neighboring_window bottom";
-      "ctrl+a>l" = "neighboring_window right";
-      "ctrl+a>h" = "neighboring_window left";
-      "ctrl+a>[" = "show_scrollback";
-    };
-
-    darwinLaunchOptions = [
-      "--single-instance"
-    ];
-
-    settings = {
-      allow_remote_control = true;
-      tab_bar_style = "custom";
-      tab_separator = ''""'';
-      tab_title_template = "{index}:{f'{title[:6]}…{title[-6:]}' if title.rindex(title[-1]) + 1 > 25 else title}";
-      active_tab_title_template = "{index}:{f'{title[:6]}…{title[-6:]}' if title.rindex(title[-1]) + 1 > 25 else title}";
-      tab_fade = "0 0 0 0";
-      tab_bar_align = "left";
-      tab_bar_min_tabs = 1;
-      tab_bar_margin_width = "0.0";
-      tab_bar_margin_height = "10.0 0.0";
-      active_tab_font_style = "bold-italic";
-      inactive_tab_font_style = "normal";
-      bell_on_tab = false;
-      scrollback_pager = ''nvim -u ~/.config/nvim/minimal.vim -c "silent write! /tmp/kitty_scrollback_buffer | te cat /tmp/kitty_scrollback_buffer - "'';
-      macos_option_as_alt = true;
-    };
   };
 
   programs.neovim = {
