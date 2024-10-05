@@ -401,6 +401,8 @@ in
       Host *
         IdentitiesOnly=yes
         IdentityAgent ${onePassPath}
+
+      Include ~/.orbstack/ssh/config
     '';
   };
 
