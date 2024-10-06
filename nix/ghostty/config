@@ -18,7 +18,6 @@ clipboard-trim-trailing-spaces = true
 background-opacity = 0.95
 cursor-opacity = 0.9
 
-mouse-hide-while-typing = true
 macos-titlebar-style = tabs
 macos-option-as-alt = true
 # Only supported on MacOS, other platforms will ignore this.
