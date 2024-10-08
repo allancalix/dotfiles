@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#
+# Forwards all arguments to the Tailscale binary installed in the Mac App Store.
+
+/Applications/Tailscale.app/Contents/MacOS/Tailscale "$@"

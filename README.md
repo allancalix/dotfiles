@@ -1,30 +1,27 @@
 # dotfiles
+Contains configuration for my development machines that uses [home-manager] to manage installing applications and setting up configuration for those applications. Some applications that are setup using home manager in this repository include:
 
-## Setup
+- [Neovim](https://neovim.io/)
+- [Starship](https://starship.rs/)
+- [Fish](https://fishshell.com/)
 
-1. Install [home-manager](https://nix-community.github.io/home-manager/)
+## Initial setup
 
-2. Create initial generation
+1. Install [home-manager]
+2. Perform initial install and configure the system
+    ```bash
+    ./update.sh
+    ```
 
-```bash
-home-manager switch --flake ./#allancalix
-```
+## Updating the system configuration
 
-## Updates
+Updating the system configuration is done by running the same `./update.sh` command described in the [initial setup](#initial-setup).
 
-Make changes to files in this repository and create a new `home-manager` generation with:
+Some files are written using [nickel](https://github.com/tweag/nickel) and then converted to the expected format for the tools to consume. This saves some trouble in looking up the schema for a configuration file and allows for configuration validation before updating the system.
 
-```bash
-bb switch
-```
+To regenerate the nickel files run the `./update.sh --regenerate` command. The updated files should be committed to the repository.
 
-Most programs are configured using `home-manager` configuration records but others have configuration files that are linked in the correct spots by `home-manager`.
-
-The bulk of the configuration is defined in [home.nix](./nix/home.nix).
-
-## Tour
-
-A quick highlight of the some of the features `home-manager` supports:
+## How-to
 
 ### Install programs for development
 
@@ -59,3 +56,16 @@ home.sessionVariables = {
   PAGER = "less -RFX";
 }
 ```
+
+<!-- References -->
+[home-manager]: https://nix-community.github.io/home-manager/
+
+## Mac OS
+Mac system configuration is not managed by home-manager. The configuration is stored in the [script/macos](./script/macos) file and executed with the `./script/bootstrap` script.
+
+## References
+
+People sharing how they setup and configure their systems has been incredibly inspirational. Below are some references to other setups that informed some choices made here.
+
+- [NixOS Configuration](https://github.com/mitchellh/nixos-config)
+- [Mathias Bynens' macOS Setup](https://mathiasbynens.github.io/dotfiles/macos/)

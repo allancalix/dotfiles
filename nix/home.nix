@@ -7,8 +7,9 @@ let
   };
   homeRoot = if pkgs.stdenv.isDarwin then "/Users/" else "/home";
   gc = pkgs.writeScriptBin ",gc" (builtins.readFile ./scripts/gc);
-  todo = pkgs.writeScriptBin ",todo" (builtins.readFile ./scripts/todo);
   ssh-init-term = (pkgs.writeShellScriptBin ",ssh-init-term" (builtins.readFile ./scripts/ssh-init-term));
+  # This just forwards commands to the Tailscale binary, not using the `,` prefix.
+  tailscale = pkgs.writeScriptBin "tailscale" (builtins.readFile ./scripts/tailscale);
   username = "allancalix";
   onePassPath = "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
 
@@ -50,17 +51,13 @@ in
   home.packages = [
     # Scripts
     gc
-    todo
     ssh-init-term
+    tailscale
 
     pkgs._1password
     pkgs.htop
     pkgs.openssl
     pkgs.ouch
-
-    pkgs.babashka
-    pkgs.starship
-    pkgs.nodejs-slim_22
 
     # Applications
     pkgs.rage
@@ -84,11 +81,11 @@ in
     pkgs.nickel
 
     # Development
+    pkgs.starship
     pkgs.difftastic
     pkgs.duckdb
     pkgs.fastfetch
     pkgs.gh
-    pkgs.git-absorb
     pkgs.sqlite
     pkgs.tldr
     pkgs.tokei
@@ -267,19 +264,7 @@ in
       cmp-nvim-lsp
       cmp-buffer
       cmp-path
-      (nvim-treesitter.withPlugins(p: [
-        p.bash
-        p.json
-        p.lua
-        p.go
-        p.markdown
-        p.nix
-        p.typescript
-        p.rust
-        p.zig
-        p.nickel
-        p.vimdoc
-      ]))
+      nvim-treesitter
       conform-nvim
       nvim-lspconfig
       supermaven-nvim
