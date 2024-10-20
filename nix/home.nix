@@ -358,7 +358,7 @@ in
         diff.tool = ["difft" "--color=always" "$left" "$right"];
       };
       git = {
-        push-branch-prefix = "allancalix/push-";
+        push-bookmark-prefix = "allancalix/push-";
       };
       signing = {
         backend = "ssh";
