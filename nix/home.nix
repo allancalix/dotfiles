@@ -63,7 +63,7 @@ in
     pkgs.rage
     pkgs.caddy
     pkgs.aria
-    pkgs.postgresql_16
+    pkgs.postgresql_17
     pkgs.redpanda-client
     pkgs.yt-dlp-light
 
