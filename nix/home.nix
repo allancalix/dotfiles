@@ -54,7 +54,7 @@ in
     ssh-init-term
     tailscale
 
-    pkgs._1password
+    pkgs._1password-cli
     pkgs.htop
     pkgs.openssl
     pkgs.ouch
