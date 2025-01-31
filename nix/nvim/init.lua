@@ -1,9 +1,9 @@
-vim.cmd[[colorscheme dracula]]
+vim.cmd[[colorscheme tokyonight]]
 vim.cmd[[autocmd BufNewFile,BufRead *.ncl setfiletype nickel]]
 -- Experimental (as of 0.9) Neovim lua loader, may speed up start times and replace `impatient-nvim`.
 vim.loader.enable()
 
-options = {theme = "dracula-nvim"}
+options = {theme = "tokyonight-nvim"}
 
 require("lualine").setup{
   options = options,

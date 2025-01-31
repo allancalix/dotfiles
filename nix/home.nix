@@ -12,13 +12,6 @@ let
   tailscale = pkgs.writeScriptBin "tailscale" (builtins.readFile ./scripts/tailscale);
   username = "allancalix";
   onePassPath = "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
-
-  zedThemeDracula = pkgs.fetchFromGitHub {
-    owner = "dracula";
-    repo = "zed";
-    rev = "c2163e9f812eea4df6091cfc1919c72fbcbc098b";
-    sha256 = "0m6r70mfm35wd4f31q2v0dcaszgdq8q8sfx3wi6a8rdkxvgm0ycs";
-  };
 in
 {
   xdg.enable = true;
@@ -39,13 +32,6 @@ in
     # Annoyingly, because MacOS has a stupid space in the file name I can't just use the the fully qualified path
     # in both places because the escaping is important for being parseable inside the ssh config file.
     SSH_AUTH_SOCK = homeRoot + username + "/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
-  };
-
-  home.file.".config/zed/themes" = {
-    source = pkgs.runCommandNoCC "dracula.json" {} ''
-      mkdir -p $out
-      cp ${zedThemeDracula}/themes/dracula.json $out/
-    '';
   };
 
   home.packages = [
@@ -98,15 +84,6 @@ in
 
     plugins = [
       {
-        name = "foreign-env";
-        src = pkgs.fetchFromGitHub {
-          owner = "oh-my-fish";
-          repo = "plugin-foreign-env";
-          rev = "dddd9213272a0ab848d474d0cbde12ad034e65bc";
-          sha256 = "00xqlyl3lffc5l0viin1nyp819wf81fncqyz87jx8ljjdhilmgbs";
-        };
-      }
-      {
         name = "fifc";
         src = pkgs.fetchFromGitHub {
           owner = "gazorby";
@@ -119,11 +96,11 @@ in
 
     loginShellInit = ''
       if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        fenv source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
       end
 
       if test -e /nix/var/nix/profiles/default/etc/profile.d/nix.sh
-        fenv source /nix/var/nix/profiles/default/etc/profile.d/nix.sh
+        source /nix/var/nix/profiles/default/etc/profile.d/nix.fish
       end
 
      if test -e /opt/homebrew/bin/brew
@@ -254,7 +231,7 @@ in
       vim-commentary
       hop-nvim
     ] ++ map nonVSCodePlugin [
-      dracula-nvim
+      tokyonight-nvim
 
       # Neovim Plugins
       nvim-bqf
