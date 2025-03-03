@@ -52,6 +52,7 @@ in
     pkgs.postgresql_17
     pkgs.redpanda-client
     pkgs.yt-dlp-light
+    pkgs.claude-code
 
     # Extended coreutils
     pkgs.jq
@@ -339,7 +340,7 @@ in
       };
       signing = {
         backend = "ssh";
-        sign-all = true;
+        behavior = "own";
         key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGbUaWlb/y+fgePO+ZFd7ToGpGqzMJUuKdGMuLMhuaI";
         backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       };
