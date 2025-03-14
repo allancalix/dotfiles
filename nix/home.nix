@@ -60,7 +60,6 @@ in
     pkgs.bandwhich
     pkgs.ripgrep
     pkgs.sd
-    pkgs.fd
     pkgs.bat-extras.batman
     pkgs.hexyl
     pkgs.eza
@@ -242,7 +241,7 @@ in
       cmp-nvim-lsp
       cmp-buffer
       cmp-path
-      nvim-treesitter
+      (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
       conform-nvim
       nvim-lspconfig
       supermaven-nvim
@@ -321,6 +320,12 @@ in
         "https://github.com/".insteadOf = "http:";
       };
     };
+  };
+
+  programs.fd = {
+    enable = true;
+
+    ignores = [ "prelude" ];
   };
 
   programs.jujutsu = {

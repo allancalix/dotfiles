@@ -3,7 +3,7 @@ vim.cmd[[autocmd BufNewFile,BufRead *.ncl setfiletype nickel]]
 -- Experimental (as of 0.9) Neovim lua loader, may speed up start times and replace `impatient-nvim`.
 vim.loader.enable()
 
-options = {theme = "tokyonight-nvim"}
+options = {theme = "base16"}
 
 require("lualine").setup{
   options = options,
