@@ -46,7 +46,7 @@ in
     tailscale
 
     pkgs._1password-cli
-    pkgs.htop
+    pkgs.btop
     pkgs.openssl
     pkgs.ouch
 
@@ -210,9 +210,7 @@ in
     text = builtins.readFile ./helix/config.toml;
   };
 
-  xdg.configFile."nvim/minimal.vim" = {
-    text = builtins.readFile ./nvim/minimal.vim;
-  };
+  xdg.configFile."nvim".source = ./nvim;
 
   xdg.configFile."ghostty/config" = {
     text = builtins.readFile ./ghostty/config;
@@ -223,46 +221,6 @@ in
   # this manually.
   xdg.configFile."starship.toml" = {
     text = builtins.readFile ./starship/starship.toml;
-  };
-
-  programs.neovim = {
-    enable = true;
-    viAlias = true;
-    vimAlias = true;
-
-    plugins = with pkgs.vimPlugins; [
-      vim-surround
-      tabular
-      vim-commentary
-      hop-nvim
-    ] ++ map nonVSCodePlugin [
-      tokyonight-nvim
-
-      # Neovim Plugins
-      nvim-bqf
-      trouble-nvim
-      oil-nvim
-      nvim-cmp
-      cmp-nvim-lsp
-      cmp-buffer
-      cmp-path
-      (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
-      conform-nvim
-      nvim-lspconfig
-      supermaven-nvim
-      lualine-nvim
-      telescope-nvim
-      telescope-zf-native-nvim
-      plenary-nvim
-    ];
-
-    extraConfig = ''
-      ${builtins.readFile ./nvim/vimrc.vim}
-
-      lua <<EOF
-      ${builtins.readFile ./nvim/init.lua}
-      EOF
-    '';
   };
 
   programs.git = {
@@ -326,6 +284,13 @@ in
         "https://github.com/".insteadOf = "http:";
       };
     };
+  };
+
+  programs.neovim = {
+    enable = true;
+    package = pkgs.neovim-unwrapped;
+    viAlias = true;
+    vimAlias = true;
   };
 
   programs.fd = {

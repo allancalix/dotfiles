@@ -16,7 +16,6 @@ set backspace=indent,eol,start
 set ruler
 set wildmenu
 
-let g:coq_settings = { 'auto_start': 'shut-up', 'display.pum.fast_close': v:false, 'xdg': v:true }
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
 set autowrite
@@ -70,8 +69,6 @@ vnoremap <silent> <Leader>cet    :Tabularize /#<CR>             "tabular
 vnoremap <silent> <Leader>ce     :Tabularize /
 
 "==================KEYS====================
-let mapleader = ','
-
 " use jj to quickly escape to normal mode while typing <- AWESOME tip
 inoremap jj <ESC>
 inoremap <C-L> <ESC>
@@ -94,11 +91,6 @@ noremap <silent> <Leader>cc          :Commentary<CR>
 " Hotkey for removing trailing whitespace in a file
 noremap <silent> <Leader>cw          :%s/[ \t]*$//g<CR>
 
-" Leader F prefix is for file related mappings (open, browse...)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case\ --ignore\ --hidden
-nnoremap <silent> <Leader>fe :Explore<CR>
 
 " Leader B prefix is for buffer related mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
