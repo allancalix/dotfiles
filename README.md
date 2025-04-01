@@ -14,12 +14,11 @@ Contains configuration for my development machines that uses [home-manager] to m
     ```
 
 ## Updating the system configuration
+To update the system configuration just modify files under `./nix` and create a new generation with:
 
-Updating the system configuration is done by running the same `./update.sh` command described in the [initial setup](#initial-setup).
-
-Some files are written using [nickel](https://github.com/tweag/nickel) and then converted to the expected format for the tools to consume. This saves some trouble in looking up the schema for a configuration file and allows for configuration validation before updating the system.
-
-To regenerate the nickel files run the `./update.sh --regenerate` command. The updated files should be committed to the repository.
+```bash
+./update.sh
+```
 
 ## How-to
 

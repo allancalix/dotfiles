@@ -72,7 +72,6 @@ in
     pkgs.nickel
 
     # Development
-    pkgs.starship
     pkgs.difftastic
     pkgs.duckdb
     pkgs.fastfetch
@@ -121,10 +120,6 @@ in
       end
 
       set -gx PATH ~/.local/bin $PATH
-
-      if type -q starship
-        source (starship init fish --print-full-init | psub)
-      end
 
       if type -q direnv
         direnv hook fish | source
@@ -178,6 +173,29 @@ in
         jj config set --repo experimental-advance-branches.disabled-branches '["wip/*"]'
       '';
       pubip = "curl 'https://api.ipify.org/?format=json' 2> /dev/null | jq -r '.ip'";
+      jj_status = ''
+        jj log --revisions @ --no-graph --ignore-working-copy --color always --limit 1 --template '
+          separate(" ",
+            change_id.shortest(4),
+            bookmarks,
+            "|",
+            concat(
+              if(conflict, "💥"),
+              if(divergent, "🚧"),
+              if(hidden, "👻"),
+              if(immutable, "🔒"),
+            ),
+            raw_escape_sequence("\x1b[1;32m") ++ if(empty, "(empty)"),
+            raw_escape_sequence("\x1b[1;32m") ++ if(description.first_line().len() == 0,
+              "(no description set)",
+              if(description.first_line().substr(0, 29) == description.first_line(),
+                description.first_line(),
+                description.first_line().substr(0, 29) ++ "…",
+              )
+            ) ++ raw_escape_sequence("\x1b[0m"),
+          )
+        '
+      '';
     };
   };
 
@@ -214,13 +232,6 @@ in
 
   xdg.configFile."ghostty/config" = {
     text = builtins.readFile ./ghostty/config;
-  };
-
-  # The starship configuration uses lots of backslashes in it's configuration for templating.
-  # This interaction with nix's toml serializer is too annoying to deal with so I'm just doing
-  # this manually.
-  xdg.configFile."starship.toml" = {
-    text = builtins.readFile ./starship/starship.toml;
   };
 
   programs.git = {
@@ -343,6 +354,63 @@ in
 
     ${if pkgs.stdenv.isDarwin then "Include ~/.orbstack/ssh/config" else ""}
     '';
+  };
+
+  programs.starship = {
+    enable = true;
+    enableFishIntegration = true;
+    settings = {
+      scan_timeout = 10;
+      add_newline = false;
+      line_break.disabled = true;
+      cmd_duration.disabled = true;
+
+      nix_shell.disabled = true;
+      git_branch.disabled = true;
+      custom.git_branch = {
+        when = true;
+        command = "jj root >/dev/null 2>&1 || starship module git_branch";
+        description = "Only show git_branch if we're not in a jj repo.";
+      };
+
+      custom.jj = {
+        command = "jj_status";
+        when = "jj root";
+        symbol = "";
+      };
+
+      git_status = {
+        format = "[[(•$untracked$modified$staged)](218)]($style)";
+        style = "cyan";
+        untracked = " ";
+        modified = " ";
+        staged = " ";
+        stashed = "≡";
+
+      };
+
+      format = (lib.concatStringsSep "" [
+        "$username"
+        "$hostname"
+        "$directory"
+        "$git_branch"
+        "$git_state"
+        "$git_status"
+        "$custom"
+        "$nix_shell"
+        "$cmd_duration"
+        "$line_break"
+        "$character"
+      ]);
+
+      character = {
+        success_symbol = "[❯](purple)";
+        error_symbol = "[❯](red)";
+        vimcmd_symbol = "[❮](green)";
+      };
+
+      directory.style = "blue";
+    };
   };
 
   programs.zoxide = {
