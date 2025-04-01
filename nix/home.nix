@@ -1,24 +1,32 @@
-{ config, pkgs, lib, ... }:
-let
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
   nonVSCodePlugin = plugin: {
     inherit plugin;
     optional = true;
     config = ''if !exists('g:vscode') | packadd ${plugin.pname} | endif'';
   };
-  homeRoot = if pkgs.stdenv.isDarwin then "/Users/" else "/home/";
+  homeRoot =
+    if pkgs.stdenv.isDarwin
+    then "/Users/"
+    else "/home/";
   gc = pkgs.writeScriptBin ",gc" (builtins.readFile ./scripts/gc);
-  ssh-init-term = (pkgs.writeShellScriptBin ",ssh-init-term" (builtins.readFile ./scripts/ssh-init-term));
+  ssh-init-term = pkgs.writeShellScriptBin ",ssh-init-term" (builtins.readFile ./scripts/ssh-init-term);
   # This just forwards commands to the Tailscale binary, not using the `,` prefix.
   tailscale = pkgs.writeScriptBin "tailscale" (builtins.readFile ./scripts/tailscale);
   username = "allancalix";
-  onePassPath = if pkgs.stdenv.isDarwin
+  onePassPath =
+    if pkgs.stdenv.isDarwin
     then "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock"
     else "~/.1password/agent.sock";
-  onePassSigningBackend = if pkgs.stdenv.isDarwin
+  onePassSigningBackend =
+    if pkgs.stdenv.isDarwin
     then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
     else "/opt/1Password/op-ssh-sign";
-in
-{
+in {
   xdg.enable = true;
 
   fonts.fontconfig.enable = true;
@@ -99,19 +107,19 @@ in
     ];
 
     loginShellInit = ''
-      if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
-      end
+       if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+       end
 
-      if test -e /nix/var/nix/profiles/default/etc/profile.d/nix.sh
-        source /nix/var/nix/profiles/default/etc/profile.d/nix.fish
-      end
+       if test -e /nix/var/nix/profiles/default/etc/profile.d/nix.sh
+         source /nix/var/nix/profiles/default/etc/profile.d/nix.fish
+       end
 
-     if test -e /opt/homebrew/bin/brew
-        /opt/homebrew/bin/brew shellenv | source
-      end
+      if test -e /opt/homebrew/bin/brew
+         /opt/homebrew/bin/brew shellenv | source
+       end
 
-      fish_vi_key_bindings
+       fish_vi_key_bindings
     '';
 
     interactiveShellInit = ''
@@ -307,7 +315,7 @@ in
   programs.fd = {
     enable = true;
 
-    ignores = [ "prelude" ];
+    ignores = ["prelude"];
   };
 
   programs.jujutsu = {
@@ -348,11 +356,15 @@ in
   programs.ssh = {
     enable = true;
     extraConfig = ''
-    Host *
-      IdentitiesOnly=yes
-      IdentityAgent ${onePassPath}
+      Host *
+        IdentitiesOnly=yes
+        IdentityAgent ${onePassPath}
 
-    ${if pkgs.stdenv.isDarwin then "Include ~/.orbstack/ssh/config" else ""}
+      ${
+        if pkgs.stdenv.isDarwin
+        then "Include ~/.orbstack/ssh/config"
+        else ""
+      }
     '';
   };
 
@@ -386,10 +398,9 @@ in
         modified = " ";
         staged = " ";
         stashed = "≡";
-
       };
 
-      format = (lib.concatStringsSep "" [
+      format = lib.concatStringsSep "" [
         "$username"
         "$hostname"
         "$directory"
@@ -401,7 +412,7 @@ in
         "$cmd_duration"
         "$line_break"
         "$character"
-      ]);
+      ];
 
       character = {
         success_symbol = "[❯](purple)";

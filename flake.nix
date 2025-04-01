@@ -11,7 +11,12 @@
     utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { nixpkgs, home-manager, utils, ... }:
+  outputs = {
+    nixpkgs,
+    home-manager,
+    utils,
+    ...
+  }:
     utils.lib.eachDefaultSystem (
       system: let
         pkgs = import nixpkgs {
@@ -25,15 +30,16 @@
           };
         };
       in {
-	packages = {
-		homeConfigurations.allancalix = home-manager.lib.homeManagerConfiguration {
-		  inherit pkgs;
+        packages = {
+          homeConfigurations.allancalix = home-manager.lib.homeManagerConfiguration {
+            inherit pkgs;
 
-		  modules = [
-		    nix/home.nix
-		  ];
-		};
+            modules = [
+              nix/home.nix
+            ];
+          };
         };
+        formatter = pkgs.alejandra;
       }
     );
 }
