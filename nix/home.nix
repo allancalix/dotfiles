@@ -5,13 +5,18 @@ let
     optional = true;
     config = ''if !exists('g:vscode') | packadd ${plugin.pname} | endif'';
   };
-  homeRoot = if pkgs.stdenv.isDarwin then "/Users/" else "/home";
+  homeRoot = if pkgs.stdenv.isDarwin then "/Users/" else "/home/";
   gc = pkgs.writeScriptBin ",gc" (builtins.readFile ./scripts/gc);
   ssh-init-term = (pkgs.writeShellScriptBin ",ssh-init-term" (builtins.readFile ./scripts/ssh-init-term));
   # This just forwards commands to the Tailscale binary, not using the `,` prefix.
   tailscale = pkgs.writeScriptBin "tailscale" (builtins.readFile ./scripts/tailscale);
   username = "allancalix";
-  onePassPath = "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+  onePassPath = if pkgs.stdenv.isDarwin
+    then "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    else "~/.1password/agent.sock";
+  onePassSigningBackend = if pkgs.stdenv.isDarwin
+    then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
+    else "/opt/1Password/op-ssh-sign";
 in
 {
   xdg.enable = true;
@@ -311,9 +316,10 @@ in
       gpg = {
         format = "ssh";
       };
-      gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+      gpg.ssh.program = onePassSigningBackend;
       credential = {
         "https://github.com".helper = "!gh auth git-credential";
+        "git@github.com".helper = onePassSigningBackend;
       };
       url = {
         "git@github.com:".insteadOf = "gh:";
@@ -347,7 +353,7 @@ in
         backend = "ssh";
         behavior = "own";
         key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGbUaWlb/y+fgePO+ZFd7ToGpGqzMJUuKdGMuLMhuaI";
-        backends.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
+        backends.ssh.program = onePassSigningBackend;
       };
       experimental-advance-branches = {
         enabled-branches = ["glob:allancalix/pr-*"];
@@ -366,11 +372,11 @@ in
   programs.ssh = {
     enable = true;
     extraConfig = ''
-      Host *
-        IdentitiesOnly=yes
-        IdentityAgent ${onePassPath}
+    Host *
+      IdentitiesOnly=yes
+      IdentityAgent ${onePassPath}
 
-      Include ~/.orbstack/ssh/config
+    ${if pkgs.stdenv.isDarwin then "Include ~/.orbstack/ssh/config" else ""}
     '';
   };
 

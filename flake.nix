@@ -8,26 +8,32 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
-    let
-      pkgs = import nixpkgs {
-        system = "aarch64-darwin";
-        overlays = [];
+  outputs = { nixpkgs, home-manager, utils, ... }:
+    utils.lib.eachDefaultSystem (
+      system: let
+        pkgs = import nixpkgs {
+          inherit system;
 
-        config = {
-          allowUnfree = true;
-          input-fonts.acceptLicense = true;
+          overlays = [];
+
+          config = {
+            allowUnfree = true;
+            input-fonts.acceptLicense = true;
+          };
         };
-      };
-    in {
-      homeConfigurations.allancalix = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
+      in {
+	packages = {
+		homeConfigurations.allancalix = home-manager.lib.homeManagerConfiguration {
+		  inherit pkgs;
 
-        modules = [
-          nix/home.nix
-        ];
-      };
-    };
+		  modules = [
+		    nix/home.nix
+		  ];
+		};
+        };
+      }
+    );
 }
