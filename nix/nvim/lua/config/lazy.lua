@@ -15,11 +15,14 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+	-- Write lockfiles to the base ~/.config directory because ~/.config/nvim is only writeable by home-manager.
+	lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
 	spec = {
 		-- add LazyVim and import its plugins
 		{ "LazyVim/LazyVim", import = "lazyvim.plugins" },
 		-- { "LazyVim/LazyVim"},
 		-- import/override with your plugins
+		--
 		{ import = "plugins" },
 	},
 	defaults = {
