@@ -1,4 +1,5 @@
 {
+
   description = "Home Manager configurations.";
 
   inputs = {
