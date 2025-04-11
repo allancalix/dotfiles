@@ -424,6 +424,10 @@ in {
     };
   };
 
+  programs.emacs = {
+    enable = true;
+  };
+
   programs.zoxide = {
     enable = true;
 
