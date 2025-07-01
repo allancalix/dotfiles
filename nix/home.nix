@@ -328,7 +328,7 @@ in {
       };
       ui = {
         default-command = "status";
-        diff.tool = ["difft" "--color=always" "$left" "$right"];
+        diff-formatter = ["difft" "--color=always" "$left" "$right"];
       };
       git = {
         push-bookmark-prefix = "allancalix/push-";
