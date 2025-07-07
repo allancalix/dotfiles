@@ -1,1 +1,10 @@
-  theme = "ayu_mirage"
+theme = "ayu_mirage"
+
+[editor]
+gutters = []
+
+[editor.statusline]
+left = []
+right = []
+center = []
+

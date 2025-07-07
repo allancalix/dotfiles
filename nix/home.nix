@@ -66,6 +66,7 @@ in {
     pkgs.redpanda-client
     pkgs.yt-dlp-light
     pkgs.claude-code
+    pkgs.ffmpeg
 
     # Extended coreutils
     pkgs.jq
@@ -89,6 +90,7 @@ in {
     pkgs.tokei
     pkgs.watchexec
     pkgs.helix
+    pkgs.uv
   ];
 
   programs.fish = {
@@ -330,8 +332,8 @@ in {
         default-command = "status";
         diff-formatter = ["difft" "--color=always" "$left" "$right"];
       };
-      git = {
-        push-bookmark-prefix = "allancalix/push-";
+      templates = {
+        git_push_bookmark = "\"martinvonz/push-\" ++ change_id.short()";
       };
       signing = {
         backend = "ssh";
