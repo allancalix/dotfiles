@@ -333,7 +333,7 @@ in {
         diff-formatter = ["difft" "--color=always" "$left" "$right"];
       };
       templates = {
-        git_push_bookmark = "\"martinvonz/push-\" ++ change_id.short()";
+        git_push_bookmark = "\"allancalix/push-\" ++ change_id.short()";
       };
       signing = {
         backend = "ssh";
