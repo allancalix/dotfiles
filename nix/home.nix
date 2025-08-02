@@ -329,11 +329,49 @@ in {
         email = "contact@acx.dev";
       };
       ui = {
-        default-command = "status";
+        default-command = "log";
         diff-formatter = ["difft" "--color=always" "$left" "$right"];
+        graph.style = "square";
+      };
+      revsets = {
+        log = "stack(mine() | @) | trunk() | @";
+        log-graph-prioritize = "coalesce(megamerge(), trunk())";
+      };
+      revset-aliases = {
+        "user(x)" = "author(x) | committer(x)";
+        "megamerge()" = "coalesce(present(megamerge), reachable(stack(), merges()))";
+
+        "stack()" = "ancestors(reachable(@, mutable()), 2)";
+        "stack(x)" = "ancestors(reachable(x, mutable()), 2)";
+        "stack(x, n)" = "ancestors(reachable(x, mutable()), n)";
+
+        # Revsets that should refuse to push.
+        "wip()" = "description(glob:'wip:*')";
+        "private()" = "description(glob:'private:*')";
+        "blacklist()" = "wip() | private()";
+
+        "open()" = "stack(trunk().. & mine(), 1)";
+        "ready()" = "open() ~ blacklist()::";
+      };
+      aliases = {
+        d = ["diff"];
+        s = ["show"];
+        n = ["new"];
+        nt = ["new" "trunk()"];
+
+        fold = ["squash" "--into" "@" "--from"];
+        retrunk = ["rebase" "-d" "trunk()"];
       };
       templates = {
         git_push_bookmark = "\"allancalix/push-\" ++ change_id.short()";
+      };
+      snapshot = {
+        auto-update-stale = true;
+      };
+      git = {
+        private-commits = "blacklist()";
+        colocate = true;
+        subprocess = true;
       };
       signing = {
         backend = "ssh";
