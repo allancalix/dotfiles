@@ -362,6 +362,8 @@ in {
         fold = ["squash" "--into" "@" "--from"];
         retrunk = ["rebase" "-d" "trunk()"];
         open = ["log" "-r" "open()"];
+
+        sandwich = [ "rebase" "-B" "megamerge()" "-A" "trunk()" "-r"];
       };
       templates = {
         git_push_bookmark = "\"allancalix/push-\" ++ change_id.short()";
