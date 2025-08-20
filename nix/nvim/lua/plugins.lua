@@ -3,4 +3,5 @@ return {
 	"JoosepAlviste/nvim-ts-context-commentstring",
 	"supermaven-inc/supermaven-nvim",
 	{ "ggandor/leap.nvim", enabled = true },
+	{ "akinsho/bufferline.nvim", enabled = false },
 }

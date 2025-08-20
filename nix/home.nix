@@ -58,9 +58,14 @@ in {
     pkgs.openssl
     pkgs.ouch
 
+    # Extended utils
+    pkgs.age
+    pkgs.age-plugin-yubikey
+    pkgs.age-plugin-se
+    pkgs.age-plugin-1p
+    pkgs.yubikey-manager
+
     # Applications
-    pkgs.rage
-    pkgs.caddy
     pkgs.aria
     pkgs.postgresql_17
     pkgs.redpanda-client
