@@ -67,7 +67,7 @@ in {
 
     # Applications
     pkgs.aria
-    pkgs.postgresql_17
+    pkgs.postgresql_18
     pkgs.redpanda-client
     pkgs.yt-dlp-light
     pkgs.claude-code
@@ -84,8 +84,10 @@ in {
     pkgs.eza
     pkgs.curl
     pkgs.nickel
+    pkgs.mosh
 
     # Development
+    pkgs.bun
     pkgs.difftastic
     pkgs.duckdb
     pkgs.fastfetch
@@ -482,7 +484,22 @@ in {
     enableFishIntegration = true;
   };
 
-  services.syncthing = {
-    enable = true;
+    services.syncthing = {
+    enable = false;
+
+    settings = {
+      gui = {
+        address = "127.0.0.1:8384";
+        insecureAdminAccess = true;
+      };
+
+      options = {
+        urAccepted = -1;
+        natEnabled = false;
+        globalAnnounceEnabled = false;
+        localAnnounceEnabled = false;
+        relaysEnabled = false;
+      };
+    };
   };
 }

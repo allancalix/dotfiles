@@ -1,5 +1,3 @@
-theme = tokyonight_night
-
 shell-integration-features = cursor
 confirm-close-surface = false
 
