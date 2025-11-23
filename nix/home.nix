@@ -72,6 +72,7 @@ in {
     pkgs.yt-dlp-light
     pkgs.claude-code
     pkgs.ffmpeg
+    pkgs.typst
 
     # Extended coreutils
     pkgs.jq
