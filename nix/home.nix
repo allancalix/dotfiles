@@ -66,7 +66,7 @@ in {
     pkgs.yubikey-manager
 
     # Applications
-    pkgs.aria
+    pkgs.aria2
     pkgs.postgresql_18
     pkgs.redpanda-client
     pkgs.yt-dlp-light
@@ -252,22 +252,21 @@ in {
     text = builtins.readFile ./ghostty/config;
   };
 
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+
+    options = {
+      plus-style = "syntax #012800";
+      minus-style = "syntax #340001";
+      syntax-theme = "Monokai Extended";
+      navigate = true;
+      line-numbers = true;
+    };
+  };
+
   programs.git = {
     enable = true;
-    userName = "Allan Calix";
-    userEmail = "contact@acx.dev";
-
-    aliases = {
-      co = "checkout";
-      cm = "commit --all -m --no-gpg-sign";
-      subup = "submodule update --recursive --remote";
-      lg = "log --pretty='%Cred%h%Creset | %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(cyan)[%an]%Creset' --graph";
-      so = "show --pretty='parent %Cred%p%Creset commit\n  %Cred%h%Creset%C(yellow)%d%Creset%n%n%w(72,2,2)%s%n%n%w(72,0,0)%C(cyan)%an%Creset\n  %Cgreen%ar%Creset'";
-      st = "status --short --branch";
-      cma = "commit --all -m";
-      dp = "diff --word-diff --unified=10";
-      append = "!git cherry-pick $(git merge-base HEAD\n  $1)..$1";
-    };
 
     ignores = [
       ".DS_Store"
@@ -279,19 +278,22 @@ in {
       signByDefault = true;
     };
 
-    delta = {
-      enable = true;
-
-      options = {
-        plus-style = "syntax #012800";
-        minus-style = "syntax #340001";
-        syntax-theme = "Monokai Extended";
-        navigate = true;
-        line-numbers = true;
+    settings = {
+      user = {
+        name = "Allan Calix";
+        email = "contact@acx.dev";
       };
-    };
-
-    extraConfig = {
+      alias = {
+        co = "checkout";
+        cm = "commit --all -m --no-gpg-sign";
+        subup = "submodule update --recursive --remote";
+        lg = "log --pretty='%Cred%h%Creset | %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset %C(cyan)[%an]%Creset' --graph";
+        so = "show --pretty='parent %Cred%p%Creset commit\n  %Cred%h%Creset%C(yellow)%d%Creset%n%n%w(72,2,2)%s%n%n%w(72,0,0)%C(cyan)%an%Creset\n  %Cgreen%ar%Creset'";
+        st = "status --short --branch";
+        cma = "commit --all -m";
+        dp = "diff --word-diff --unified=10";
+        append = "!git cherry-pick $(git merge-base HEAD\n  $1)..$1";
+      };
       diff.algorithm = "histogram";
       commit.verbose = true;
       init.defaultBranch = "main";
@@ -406,16 +408,15 @@ in {
 
   programs.ssh = {
     enable = true;
-    extraConfig = ''
-      Host *
-        IdentitiesOnly=yes
-        IdentityAgent ${onePassPath}
+    enableDefaultConfig = false;
 
-      ${
-        if pkgs.stdenv.isDarwin
-        then "Include ~/.orbstack/ssh/config"
-        else ""
-      }
+    matchBlocks."*" = {
+      identitiesOnly = true;
+      identityAgent = onePassPath;
+    };
+
+    extraConfig = lib.optionalString pkgs.stdenv.isDarwin ''
+      Include ~/.orbstack/ssh/config
     '';
   };
 

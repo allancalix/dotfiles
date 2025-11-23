@@ -1,6 +1,7 @@
 shell-integration-features = cursor
 confirm-close-surface = false
 
+font-family = Berkeley Mono Trial
 font-family = MonoLisa
 font-size = 12
 font-thicken = true
