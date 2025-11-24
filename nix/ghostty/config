@@ -1,16 +1,72 @@
 shell-integration-features = cursor
 confirm-close-surface = false
 
-font-family = Berkeley Mono Trial
-font-family = MonoLisa
-font-size = 12
 font-thicken = true
-font-feature = zero
-font-feature = ss01
-font-feature = ss04
-font-feature = ss11
-font-feature = ss12
-font-feature = ss15
+
+# Berkeley Mono configuration
+# Use variable font family name for advanced control
+font-family = Berkeley Mono Variable ZY761Y88
+
+# Font width (60 to 100)
+#  60 = UltraCondensed
+#  70 = ExtraCondensed
+#  80 = Condensed
+#  87.5 = SemiCondensed (recommended)
+# 100 = Normal
+font-variation = wdth=87.5
+
+# Font weight (100 to 900)
+# 100 = Thin
+# 200 = ExtraLight
+# 300 = Light
+# 350 = SemiLight
+# 400 = Regular
+# 450 = Medium-Regular (recommended)
+# 500 = Medium
+# 600 = SemiBold
+# 700 = Bold
+# 800 = ExtraBold
+# 900 = Black
+font-variation = wght=450
+
+# Font slant (0 to -16)
+#   0 = Regular
+# -16 = Oblique
+font-variation = slnt=0
+
+# otfinfo -f ~/.local/share/fonts/Berkeley\ Mono\ Variable.otf
+# aalt    Access All Alternates
+# calt    Contextual Alternates
+# ccmp    Glyph Composition/Decomposition
+# liga    Ligatures (programming ligatures)
+# mark    Mark Positioning
+# mkmk    Mark to Mark Positioning
+# salt    Stylistic Alternates
+# ss01    Stylistic Set 1 <- slashed 0
+# ss02    Stylistic Set 2 <- dotted 0
+# ss03    Stylistic Set 3 <- gap 0
+# ss04    Stylistic Set 4 <- slashed 0, slash 7
+# ss05    Stylistic Set 5 <- dotted 0, slash 7
+# ss06    Stylistic Set 6 <- gap 0, slash 7
+# zero    Slashed zero for disambiguation
+# font-feature = +liga
+font-feature = +calt
+font-feature = +ss01
+font-feature = +ss02
+# font-feature = +zero
+
+font-size = 13
+# Personal preference
+adjust-cell-height = -2%
+
+# MonoLisa configuration
+# font-family = MonoLisa
+# font-feature = zero
+# font-feature = ss01
+# font-feature = ss04
+# font-feature = ss11
+# font-feature = ss12
+# font-feature = ss15
 
 clipboard-trim-trailing-spaces = true
 
