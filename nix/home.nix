@@ -70,9 +70,12 @@ in {
     pkgs.postgresql_18
     pkgs.redpanda-client
     pkgs.yt-dlp-light
-    pkgs.claude-code
     pkgs.ffmpeg
     pkgs.typst
+
+    # Agents
+    pkgs.claude-code
+    pkgs.codex
 
     # Extended coreutils
     pkgs.jq
