@@ -1,10 +1,10 @@
 return {
-	"neovim/nvim-lspconfig",
-	opts = {
-		servers = {
-			nickel_ls = {
-				mason = false,
-			},
-		},
-	},
+  "neovim/nvim-lspconfig",
+  opts = {
+    servers = {
+      nickel_ls = {
+        mason = false,
+      },
+    },
+  },
 }

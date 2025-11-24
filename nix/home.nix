@@ -61,7 +61,7 @@ in {
     # Extended utils
     pkgs.age
     pkgs.age-plugin-yubikey
-    pkgs.age-plugin-se
+    # pkgs.age-plugin-se # Requires Swift which is currently broken in nixpkgs
     pkgs.age-plugin-1p
     pkgs.yubikey-manager
 
@@ -72,10 +72,6 @@ in {
     pkgs.yt-dlp-light
     pkgs.ffmpeg
     pkgs.typst
-
-    # Agents
-    pkgs.claude-code
-    pkgs.codex
 
     # Extended coreutils
     pkgs.jq
@@ -413,14 +409,15 @@ in {
     enable = true;
     enableDefaultConfig = false;
 
+    includes = lib.optionals pkgs.stdenv.isDarwin [
+      "~/.acx/ssh/config"
+      "~/.orbstack/ssh/config"
+    ];
+
     matchBlocks."*" = {
       identitiesOnly = true;
       identityAgent = onePassPath;
     };
-
-    extraConfig = lib.optionalString pkgs.stdenv.isDarwin ''
-      Include ~/.orbstack/ssh/config
-    '';
   };
 
   programs.starship = {
