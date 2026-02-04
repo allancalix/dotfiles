@@ -1,3 +1,5 @@
 vim.g.mapleader = ","
 vim.g.maplocalleader = "\\"
-vim.g.ai_cmp = true
+
+vim.opt.textwidth = 120
+vim.opt.colorcolumn = "101"

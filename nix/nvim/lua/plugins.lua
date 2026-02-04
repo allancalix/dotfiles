@@ -1,7 +1,11 @@
 return {
-  "stevearc/oil.nvim",
-  "JoosepAlviste/nvim-ts-context-commentstring",
-  "supermaven-inc/supermaven-nvim",
-  { "ggandor/leap.nvim", enabled = true },
+  { "stevearc/oil.nvim", opts = {} },
   { "akinsho/bufferline.nvim", enabled = false },
+  { "LazyVim/LazyVim", opts = { news = { lazyvim = false, neovim = false } } },
+  {
+    "folke/noice.nvim",
+    opts = {
+      cmdline = { enabled = false },
+    },
+  },
 }
