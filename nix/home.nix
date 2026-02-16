@@ -444,8 +444,16 @@ in {
       git_branch.disabled = true;
       custom.git_branch = {
         when = true;
+        format = "$output";
         command = "jj root >/dev/null 2>&1 || starship module git_branch";
         description = "Only show git_branch if we're not in a jj repo.";
+      };
+
+      custom.git_status = {
+        when = true;
+        format = "$output";
+        command = "jj root >/dev/null 2>&1 || starship module git_status";
+        description = "Only show git_status if we're not in a jj repo.";
       };
 
       custom.jj = {
@@ -467,10 +475,10 @@ in {
         "$username"
         "$hostname"
         "$directory"
-        "$git_branch"
+        "\${custom.git_branch}"
         "$git_state"
-        "$git_status"
-        "$custom"
+        "\${custom.git_status}"
+        "\${custom.jj}"
         "$nix_shell"
         "$direnv"
         "$cmd_duration"
