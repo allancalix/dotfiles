@@ -45,6 +45,7 @@ in {
     # Annoyingly, because MacOS has a stupid space in the file name I can't just use the the fully qualified path
     # in both places because the escaping is important for being parseable inside the ssh config file.
     SSH_AUTH_SOCK = homeRoot + username + "/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
+    DIRENV_LOG_FORMAT = "";
   };
 
   home.packages = [
@@ -88,6 +89,7 @@ in {
 
     # Development
     pkgs.bun
+    pkgs.pnpm
     pkgs.difftastic
     pkgs.duckdb
     pkgs.fastfetch
@@ -128,6 +130,9 @@ in {
          /opt/homebrew/bin/brew shellenv | source
        end
 
+      set -gx PNPM_HOME "$HOME/Library/pnpm"
+      set -gx PATH $PNPM_HOME $PATH
+
        fish_vi_key_bindings
     '';
 
@@ -137,10 +142,6 @@ in {
       end
 
       set -gx PATH ~/.local/bin $PATH
-
-      if type -q direnv
-        direnv hook fish | source
-      end
 
       if type -q jj
         jj util completion fish | source
@@ -238,6 +239,11 @@ in {
 
     nix-direnv = {
       enable = true;
+    };
+
+    config = {
+      logFilter = "^$";
+      hideEnvDiff = true;
     };
   };
 
@@ -430,6 +436,11 @@ in {
       cmd_duration.disabled = true;
 
       nix_shell.disabled = true;
+      direnv = {
+        disabled = false;
+        format = "[$symbol]($style)";
+        symbol = "⬡ ";
+      };
       git_branch.disabled = true;
       custom.git_branch = {
         when = true;
@@ -461,6 +472,7 @@ in {
         "$git_status"
         "$custom"
         "$nix_shell"
+        "$direnv"
         "$cmd_duration"
         "$line_break"
         "$character"
