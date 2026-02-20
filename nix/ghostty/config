@@ -1,3 +1,4 @@
+theme = tokyonight
 shell-integration-features = cursor
 confirm-close-surface = false
 
