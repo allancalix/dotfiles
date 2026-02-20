@@ -9,12 +9,17 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     utils.url = "github:numtide/flake-utils";
+    plan = {
+      url = "github:allancalix/plan";
+      inputs.nixpkgs-unstable.follows = "nixpkgs";
+    };
   };
 
   outputs = {
     nixpkgs,
     home-manager,
     utils,
+    plan,
     ...
   }:
     utils.lib.eachDefaultSystem (
@@ -22,7 +27,11 @@
         pkgs = import nixpkgs {
           inherit system;
 
-          overlays = [];
+          overlays = [
+            (final: prev: {
+              plan = plan.packages.${system}.default;
+            })
+          ];
 
           config = {
             allowUnfree = true;

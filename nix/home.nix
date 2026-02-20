@@ -46,6 +46,7 @@ in {
     # in both places because the escaping is important for being parseable inside the ssh config file.
     SSH_AUTH_SOCK = homeRoot + username + "/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
     DIRENV_LOG_FORMAT = "";
+    PLAN_DIR = homeRoot + username + "/iCloudDriver/plans";
   };
 
   home.packages = [
@@ -100,6 +101,7 @@ in {
     pkgs.watchexec
     pkgs.helix
     pkgs.uv
+    pkgs.plan
   ];
 
   programs.fish = {
