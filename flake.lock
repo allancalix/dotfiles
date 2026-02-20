@@ -45,11 +45,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1771573697,
-        "narHash": "sha256-uzu3zk5Ow8IBghR025ukLefPu1t1avE1jEtALnScCdY=",
+        "lastModified": 1771578098,
+        "narHash": "sha256-LvVQyRJBEe75vmsmp2dQeuh1fYJeaqU6/i1lQ4R5yhs=",
         "owner": "allancalix",
         "repo": "plan",
-        "rev": "9500a4c47bf8407098ae816885ff6b4963d59c14",
+        "rev": "8619174a0071583b0320caece06a79e4fbb60f1f",
         "type": "github"
       },
       "original": {
