@@ -5,6 +5,12 @@ return {
     dashboard = { enabled = false },
     explorer = { enabled = false },
     zen = {
+      on_open = function()
+        vim.b.completion = false
+      end,
+      on_close = function()
+        vim.b.completion = true
+      end,
       toggles = {
         dim = true,
         git_signs = false,
@@ -13,11 +19,10 @@ return {
         inlay_hints = false,
       },
       win = {
-        style = "zen",
         width = 89,
         backdrop = { transparent = true, blend = 60 },
         wo = {
-          wrap = false,
+          wrap = true,
           linebreak = true,
           number = false,
           relativenumber = false,
