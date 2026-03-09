@@ -7,9 +7,11 @@ return {
     zen = {
       on_open = function()
         vim.b.completion = false
+        vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
       end,
       on_close = function()
         vim.b.completion = true
+        vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
       end,
       toggles = {
         dim = true,
@@ -29,6 +31,7 @@ return {
           signcolumn = "no",
           spell = true,
           cursorline = false,
+          scrolloff = 999,
         },
       },
     },
