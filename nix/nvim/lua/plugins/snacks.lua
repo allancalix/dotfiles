@@ -17,7 +17,7 @@ return {
         width = 89,
         backdrop = { transparent = true, blend = 60 },
         wo = {
-          wrap = true,
+          wrap = false,
           linebreak = true,
           number = false,
           relativenumber = false,
