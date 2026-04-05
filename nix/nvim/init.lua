@@ -4,6 +4,12 @@ require("config.lazy")
 
 vim.filetype.add({ extension = { ncl = "nickel" } })
 
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    vim.lsp.completion.enable(true, args.data.client_id, args.buf, { autotrigger = true })
+  end,
+})
+
 -- Keybindings
 vim.keymap.set("n", "<leader>w", "<cmd>w<cr>", { desc = "Write buffer" })
 vim.keymap.set("n", "<leader>q", "<cmd>qa!<cr>", { desc = "Quit all" })

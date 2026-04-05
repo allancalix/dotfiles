@@ -282,6 +282,7 @@ in {
     ];
 
     signing = {
+      format = "ssh";
       key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGbUaWlb/y+fgePO+ZFd7ToGpGqzMJUuKdGMuLMhuaI";
       signByDefault = true;
     };
