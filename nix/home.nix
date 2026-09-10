@@ -77,7 +77,6 @@ in {
 
     # Extended coreutils
     pkgs.jq
-    pkgs.jo
     pkgs.bandwhich
     pkgs.ripgrep
     pkgs.sd
@@ -89,7 +88,6 @@ in {
     pkgs.mosh
 
     # Development
-    pkgs.bun
     pkgs.pnpm
     pkgs.difftastic
     pkgs.duckdb
@@ -424,9 +422,9 @@ in {
       "~/.orbstack/ssh/config"
     ];
 
-    matchBlocks."*" = {
-      identitiesOnly = true;
-      identityAgent = onePassPath;
+    settings."*" = {
+      IdentitiesOnly = true;
+      IdentityAgent = onePassPath;
     };
   };
 
