@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Updates the system configuration to match the current repository state.
 #
-# Usage: ./update.sh
-set -eou pipefail
+# Usage: ./update.sh [home-manager options]
+set -euo pipefail
 
-home-manager switch --flake ./#allancalix
-
+repo_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+exec home-manager switch --flake "$repo_dir#allancalix" "$@"

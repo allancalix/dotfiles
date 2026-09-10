@@ -4,26 +4,33 @@
   lib,
   ...
 }: let
-  nonVSCodePlugin = plugin: {
-    inherit plugin;
-    optional = true;
-    config = ''if !exists('g:vscode') | packadd ${plugin.pname} | endif'';
-  };
+  isDarwin = pkgs.stdenv.hostPlatform.isDarwin;
   homeRoot =
-    if pkgs.stdenv.isDarwin
+    if isDarwin
     then "/Users/"
     else "/home/";
-  gc = pkgs.writeScriptBin ",gc" (builtins.readFile ./scripts/gc);
-  ssh-init-term = pkgs.writeShellScriptBin ",ssh-init-term" (builtins.readFile ./scripts/ssh-init-term);
+  gc = pkgs.writeShellApplication {
+    name = ",gc";
+    runtimeInputs = [pkgs.nix pkgs.docker-client];
+    text = builtins.readFile ./scripts/gc;
+  };
+  ssh-init-term = pkgs.writeShellApplication {
+    name = ",ssh-init-term";
+    runtimeInputs = [pkgs.ncurses pkgs.openssh];
+    text = builtins.readFile ./scripts/ssh-init-term;
+  };
   # This just forwards commands to the Tailscale binary, not using the `,` prefix.
-  tailscale = pkgs.writeScriptBin "tailscale" (builtins.readFile ./scripts/tailscale);
+  tailscale = pkgs.writeShellApplication {
+    name = "tailscale";
+    text = builtins.readFile ./scripts/tailscale;
+  };
   username = "allancalix";
-  onePassPath =
-    if pkgs.stdenv.isDarwin
-    then "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock"
-    else "~/.1password/agent.sock";
+  onePassSocket =
+    if isDarwin
+    then "${config.home.homeDirectory}/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
+    else "${config.home.homeDirectory}/.1password/agent.sock";
   onePassSigningBackend =
-    if pkgs.stdenv.isDarwin
+    if isDarwin
     then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
     else "/opt/1Password/op-ssh-sign";
 in {
@@ -37,23 +44,30 @@ in {
   home.homeDirectory = homeRoot + username;
   home.stateVersion = "24.05";
   home.sessionVariables = {
-    EDITOR = "nvim";
-    GIT_EDITOR = "nvim -u ${config.xdg.configHome}/nvim/minimal.vim";
+    GIT_EDITOR = "nvim --clean";
     PAGER = "less -RFX";
     DOCUMENT_ROOT = homeRoot + username + "/Dropbox";
-    # This environment variable is used for `jujutsu` that doesn't support configuration found in `~/.ssh/config`.
-    # Annoyingly, because MacOS has a stupid space in the file name I can't just use the the fully qualified path
-    # in both places because the escaping is important for being parseable inside the ssh config file.
-    SSH_AUTH_SOCK = homeRoot + username + "/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock";
-    DIRENV_LOG_FORMAT = "";
+    SSH_AUTH_SOCK = onePassSocket;
+    PNPM_HOME =
+      if isDarwin
+      then "${config.home.homeDirectory}/Library/pnpm"
+      else "${config.xdg.dataHome}/pnpm";
     PLAN_DIR = homeRoot + username + "/iCloudDrive/plans";
   };
+  home.sessionPath = [
+    "${config.home.homeDirectory}/.local/bin"
+    config.home.sessionVariables.PNPM_HOME
+  ];
 
   home.packages = [
     # Scripts
     gc
     ssh-init-term
-    tailscale
+    (
+      if isDarwin
+      then tailscale
+      else pkgs.tailscale
+    )
 
     pkgs._1password-cli
     pkgs.btop
@@ -94,12 +108,10 @@ in {
     pkgs.fastfetch
     pkgs.gh
     pkgs.sqlite
-    pkgs.tldr
     pkgs.tokei
     pkgs.watchexec
     pkgs.helix
     pkgs.uv
-    pkgs.plan
   ];
 
   programs.fish = {
@@ -108,44 +120,27 @@ in {
     plugins = [
       {
         name = "fifc";
-        src = pkgs.fetchFromGitHub {
-          owner = "gazorby";
-          repo = "fifc";
-          rev = "2ee5beec7dfd28101026357633616a211fe240ae";
-          sha256 = "Nrart7WAh2VQhsDDe0EFI59TqvBO56US2MraqencxgE=";
-        };
+        src = pkgs.fishPlugins.fifc.src;
       }
     ];
 
     loginShellInit = ''
-       if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-         source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
-       end
+      if test -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+        source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.fish
+      end
 
-       if test -e /nix/var/nix/profiles/default/etc/profile.d/nix.sh
-         source /nix/var/nix/profiles/default/etc/profile.d/nix.fish
-       end
+      if test -e /nix/var/nix/profiles/default/etc/profile.d/nix.fish
+        source /nix/var/nix/profiles/default/etc/profile.d/nix.fish
+      end
 
       if test -e /opt/homebrew/bin/brew
-         /opt/homebrew/bin/brew shellenv | source
-       end
-
-      set -gx PNPM_HOME "$HOME/Library/pnpm"
-      set -gx PATH $PNPM_HOME $PATH
-
-       fish_vi_key_bindings
+        /opt/homebrew/bin/brew shellenv | source
+      end
     '';
 
     interactiveShellInit = ''
-      # Disable greeting prompt
-      function fish_greeting
-      end
-
-      set -gx PATH ~/.local/bin $PATH
-
-      if type -q jj
-        jj util completion fish | source
-      end
+      set -g fish_greeting
+      fish_vi_key_bindings
     '';
 
     shellAliases = {
@@ -154,13 +149,12 @@ in {
       gap = "git add -p";
       gau = "git add -u";
       gbr = "git branch -v";
-      gc = "git commit -v -S";
       gd = "git diff -M";
       gdc = "git diff --cached -M";
       gf = "git fetch --prune";
       gl = "git lg";
       gp = "git push";
-      gpthis = "git push origin (git_current_branch):(git_current_branch)";
+      gpthis = "git push origin HEAD";
       gst = "git stash";
       gstp = "git stash pop";
       gup = "git pull";
@@ -179,10 +173,6 @@ in {
 
     functions = {
       gc = "git commit -Sv -a $argv";
-      git_current_branch = ''
-        set path (git rev-parse --git-dir 2>/dev/null)
-        cat "$path/HEAD" | sed -e 's/^.*refs\/heads\///'
-      '';
       # Set repo-specific config rules to advance main branches on commit. Set this for repos where
       # pushing to main is the commit policy (like single contributor repos). Both values have to be
       # set otherwise these options may behave unpredictably when interacting with the global options.
@@ -190,7 +180,7 @@ in {
         jj config set --repo experimental-advance-branches.enabled-branches '["main"]'
         jj config set --repo experimental-advance-branches.disabled-branches '["wip/*"]'
       '';
-      pubip = "curl 'https://api.ipify.org/?format=json' 2> /dev/null | jq -r '.ip'";
+      pubip = "curl --fail --silent --show-error https://api.ipify.org";
       jj_status = ''
         jj log --revisions @ --no-graph --ignore-working-copy --color always --limit 1 --template '
           separate(" ",
@@ -231,31 +221,21 @@ in {
       "--border"
       "--height 40%"
     ];
-    enableFishIntegration = true;
   };
 
   programs.direnv = {
     enable = true;
 
-    nix-direnv = {
-      enable = true;
-    };
-
-    config = {
-      logFilter = "^$";
-      hideEnvDiff = true;
-    };
+    nix-direnv.enable = true;
+    # Filter status messages; direnv 2.37.1 treats "-" as a literal format string.
+    config.global.log_filter = "^$";
   };
 
-  xdg.configFile."helix/config.toml" = {
-    text = builtins.readFile ./helix/config.toml;
-  };
+  xdg.configFile."helix/config.toml".source = ./helix/config.toml;
 
   xdg.configFile."nvim".source = ./nvim;
 
-  xdg.configFile."ghostty/config" = {
-    text = builtins.readFile ./ghostty/config;
-  };
+  xdg.configFile."ghostty/config".source = ./ghostty/config;
 
   programs.delta = {
     enable = true;
@@ -309,14 +289,8 @@ in {
         default = "current";
         autoSetupRemote = true;
       };
-      gpg = {
-        format = "ssh";
-      };
       gpg.ssh.program = onePassSigningBackend;
-      credential = {
-        "https://github.com".helper = "!gh auth git-credential";
-        "git@github.com".helper = onePassSigningBackend;
-      };
+      credential."https://github.com".helper = "${lib.getExe pkgs.gh} auth git-credential";
       url = {
         "git@github.com:".insteadOf = "gh:";
         "https://github.com/".insteadOf = "http:";
@@ -326,9 +300,12 @@ in {
 
   programs.neovim = {
     enable = true;
-    package = pkgs.neovim-unwrapped;
+    defaultEditor = true;
     viAlias = true;
     vimAlias = true;
+    # Adopt the 26.05 provider defaults without changing home.stateVersion.
+    withPython3 = false;
+    withRuby = false;
   };
 
   programs.fd = {
@@ -380,7 +357,7 @@ in {
         retrunk = ["rebase" "-d" "trunk()"];
         open = ["log" "-r" "open()"];
 
-        sandwich = [ "rebase" "-B" "megamerge()" "-A" "trunk()" "-r"];
+        sandwich = ["rebase" "-B" "megamerge()" "-A" "trunk()" "-r"];
       };
       templates = {
         git_push_bookmark = "\"allancalix/push-\" ++ change_id.short()";
@@ -390,8 +367,6 @@ in {
       };
       git = {
         private-commits = "blacklist()";
-        colocate = true;
-        subprocess = true;
       };
       signing = {
         backend = "ssh";
@@ -417,20 +392,19 @@ in {
     enable = true;
     enableDefaultConfig = false;
 
-    includes = lib.optionals pkgs.stdenv.isDarwin [
+    includes = lib.optionals isDarwin [
       "~/.acx/ssh/config"
       "~/.orbstack/ssh/config"
     ];
 
     settings."*" = {
       IdentitiesOnly = true;
-      IdentityAgent = onePassPath;
+      IdentityAgent = ''"${onePassSocket}"'';
     };
   };
 
   programs.starship = {
     enable = true;
-    enableFishIntegration = true;
     settings = {
       scan_timeout = 10;
       add_newline = false;
@@ -504,11 +478,16 @@ in {
 
   programs.zoxide = {
     enable = true;
-
-    enableFishIntegration = true;
   };
 
-    services.syncthing = {
+  programs.tealdeer = {
+    enable = true;
+    # Refresh on use instead of installing a background update service.
+    enableAutoUpdates = false;
+    settings.updates.auto_update = true;
+  };
+
+  services.syncthing = {
     enable = false;
 
     settings = {

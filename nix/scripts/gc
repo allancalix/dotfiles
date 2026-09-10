@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Cleans up the system by collecting garbage and removing docker containers and images.
+# Collects Nix garbage and removes stopped Docker containers and unused images.
 #
 # Usage: ,gc
 
-set -eou pipefail
+set -euo pipefail
 
-nix-collect-garbage
-docker rm $(docker ps -aq)
-docker rmi $(docker images -aq)
+nix store gc
+docker container prune --force
+docker image prune --all --force

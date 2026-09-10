@@ -1,5 +1,5 @@
 theme = tokyonight
-shell-integration-features = cursor
+shell-integration-features = cursor,ssh-terminfo
 confirm-close-surface = false
 
 font-thicken = true

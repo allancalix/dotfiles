@@ -1,70 +1,75 @@
 # dotfiles
-Contains configuration for my development machines that uses [home-manager] to manage installing applications and setting up configuration for those applications. Some applications that are setup using home manager in this repository include:
 
-- [Neovim](https://neovim.io/)
-- [Starship](https://starship.rs/)
-- [Fish](https://fishshell.com/)
+Home Manager configuration for Apple Silicon macOS and ARM64/x86-64 Linux, with Fish, Neovim, Ghostty, Git, and jj.
 
-## Initial setup
+## Build and apply
 
-1. Install [home-manager]
-2. Perform initial install and configure the system
-    ```bash
-    ./update.sh
-    ```
+Install Nix with flakes enabled and Home Manager, then run:
 
-## Updating the system configuration
-To update the system configuration just modify files under `./nix` and create a new generation with:
-
-```bash
+```sh
+nix flake check --no-build --all-systems
+nix build --no-link
 ./update.sh
 ```
 
-## How-to
+`nix build` builds the Home Manager generation without activating it. `update.sh` applies the configuration and can be invoked from any directory; extra arguments are forwarded to Home Manager:
 
-### Install programs for development
-
-```nix
-home.packages = with pkgs; [
-  ripgrep
-  fd
-  eza
-  gh
-]
+```sh
+./update.sh --dry-run
 ```
 
-### Install Vim plugins
+Home Manager selects `legacyPackages.<system>.homeConfigurations.allancalix` using `--flake .#allancalix`. The flake exposes the activation package as `packages.<system>.default` and as a check. Intel macOS is not exposed because the pinned unstable Nixpkgs no longer supports it.
 
-```nix
-programs.neovim = {
-  ...
-  plugins = with pkgs.vimPlugins; [
-    vim-surround
-    tabular
-    vim-commentary
-    hop-nvim
-}
+Update dependency pins explicitly, then review and rebuild:
+
+```sh
+nix flake update
+nix flake check --no-build --all-systems
+nix build --no-link
 ```
 
-### Define shell environment variables
+Keep `home.stateVersion` at its original value; it controls migration compatibility, not which package versions are installed. Adopt changed defaults individually.
 
-```nix
-home.sessionVariables = {
-  EDITOR = "nvim";
-  GIT_EDITOR = "nvim -u ~/.config/nvim/minimal.vim";
-  PAGER = "less -RFX";
-}
+## Configuration
+
+- `nix/home.nix`: packages, shell, Git/jj, SSH, and Home Manager options.
+- `nix/nvim`: LazyVim configuration and plugin specifications.
+- `nix/ghostty/config` and `nix/helix/config.toml`: application settings.
+- `nix/scripts`: packaged shell helpers with runtime dependencies declared in Home Manager.
+
+Prefer a Home Manager program module when it supplies configuration or integrations; otherwise add the package to `home.packages`. Flake-provided packages such as `plan` are passed directly through a module in `flake.nix`.
+
+Format the Nix files with:
+
+```sh
+nix fmt -- flake.nix nix/home.nix
 ```
 
-<!-- References -->
-[home-manager]: https://nix-community.github.io/home-manager/
+## Neovim plugins
 
-## Mac OS
-Mac system configuration is not managed by home-manager. The configuration is stored in the [script/macos](./script/macos) file and executed with the `./script/bootstrap` script.
+Add plugin specifications under `nix/nvim/lua/plugins/`; these are loaded by lazy.nvim. Language servers and formatters come from the shell/project environment; Mason is disabled.
+
+The Nix-managed configuration is read-only. On first launch, the checked-in `nix/nvim/lazy-lock.json` seeds a writable lockfile in Neovim's data directory. `:Lazy update` updates that writable copy; copy it back to this repository when intentionally updating the shared pins:
+
+```sh
+cp "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/lazy-lock.json" nix/nvim/lazy-lock.json
+```
+
+`:Lazy restore` restores the versions in the writable lockfile. To use newly checked-in pins on an existing installation, copy the repository lockfile to that data directory first.
+
+## Shell tools
+
+`tldr` is supplied by Tealdeer, which refreshes its cache on use. Ghostty installs terminfo during interactive SSH connections; `,ssh-init-term <host>` remains available for other terminals. `,gc` collects Nix garbage, stopped Docker containers, and unused images. It does not remove Home Manager generations or Docker volumes.
+
+Git uses `nvim --clean` for commit messages. Normal editing uses the full Neovim configuration.
+
+## macOS settings
+
+`./script/bootstrap` applies `script/macos` separately from Home Manager. It configures system preferences and restarts the affected UI processes; it is not part of `update.sh`.
 
 ## References
 
-People sharing how they setup and configure their systems has been incredibly inspirational. Below are some references to other setups that informed some choices made here.
-
-- [NixOS Configuration](https://github.com/mitchellh/nixos-config)
-- [Mathias Bynens' macOS Setup](https://mathiasbynens.github.io/dotfiles/macos/)
+- [Home Manager manual](https://nix-community.github.io/home-manager/)
+- [lazy.nvim lockfiles](https://lazy.folke.io/usage/lockfile)
+- [Ghostty SSH integration](https://ghostty.org/docs/features/ssh)
+- [Tealdeer](https://tealdeer-rs.github.io/tealdeer/)

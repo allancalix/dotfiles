@@ -16,21 +16,19 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+-- Seed the writable lockfile from the repository on first install.
+local lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json"
+if not vim.uv.fs_stat(lockfile) then
+  local seed = vim.fn.stdpath("config") .. "/lazy-lock.json"
+  assert(vim.uv.fs_copyfile(seed, lockfile))
+end
+
 require("lazy").setup({
-  -- Write lockfiles to the base ~/.config directory because ~/.config/nvim is only writeable by home-manager.
-  lockfile = vim.fn.stdpath("data") .. "/lazy-lock.json",
+  lockfile = lockfile,
   spec = {
     -- add LazyVim and import its plugins
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     { import = "plugins" },
-  },
-  defaults = {
-    -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
-    -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
-    lazy = false,
-    -- It's recommended to leave version=false for now, since a lot the plugin that support versioning,
-    -- have outdated releases, which may break your Neovim install.
-    version = false,
   },
   install = { colorscheme = { "tokyonight", "habamax" } },
   checker = {
