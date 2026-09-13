@@ -406,7 +406,7 @@ in {
   programs.starship = {
     enable = true;
     settings = {
-      scan_timeout = 10;
+      scan_timeout = 100;
       add_newline = false;
       line_break.disabled = true;
       cmd_duration.disabled = true;
