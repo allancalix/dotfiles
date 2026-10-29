@@ -35,7 +35,11 @@
         pkgs = pkgsFor.${system};
         modules = [
           ./nix/home.nix
-          {home.packages = [plan.packages.${system}.default];}
+          {
+            home.packages = [plan.packages.${system}.default];
+            # plan's Neovim plugin, pinned with the CLI by flake.lock.
+            xdg.dataFile."nvim/site/pack/nix/start/plan".source = "${plan}/nvim";
+          }
         ];
       });
   in {
@@ -48,6 +52,18 @@
     });
     checks = forAllSystems (system: {
       home = homes.${system}.activationPackage;
+    });
+    devShells = forAllSystems (system: let
+      pkgs = pkgsFor.${system};
+    in {
+      default = pkgs.mkShell {
+        packages = [
+          pkgs.alejandra
+          pkgs.lua-language-server
+          pkgs.nixd
+          pkgs.stylua
+        ];
+      };
     });
     formatter = forAllSystems (system: pkgsFor.${system}.alejandra);
   };

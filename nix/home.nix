@@ -33,6 +33,9 @@
     if isDarwin
     then "/Applications/1Password.app/Contents/MacOS/op-ssh-sign"
     else "/opt/1Password/op-ssh-sign";
+  # Where this repository is cloned. Neovim's config links here (not the Nix store) so
+  # vim.pack can write nvim-pack-lock.json back into the repo.
+  dotfilesDir = "${config.home.homeDirectory}/acx/src/github.com/allancalix/dotfiles";
 in {
   xdg.enable = true;
 
@@ -112,6 +115,9 @@ in {
     pkgs.watchexec
     pkgs.helix
     pkgs.uv
+
+    # Builds Neovim treesitter parsers. Language servers and formatters come from project dev shells.
+    pkgs.tree-sitter
   ];
 
   programs.fish = {
@@ -233,7 +239,10 @@ in {
 
   xdg.configFile."helix/config.toml".source = ./helix/config.toml;
 
-  xdg.configFile."nvim".source = ./nvim;
+  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/nix/nvim";
+  # programs.neovim would generate nvim/init.lua (provider flags only); init.lua lives in the
+  # repo and disables the providers itself.
+  xdg.configFile."nvim/init.lua".enable = lib.mkForce false;
 
   xdg.configFile."ghostty/config".source = ./ghostty/config;
 

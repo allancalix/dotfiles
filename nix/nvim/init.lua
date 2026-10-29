@@ -1,12 +1,12 @@
-vim.opt.swapfile = false
+-- Neovim 0.12+ configuration built on the native plugin manager (vim.pack), LSP client
+-- (vim.lsp.config/enable), completion ('autocomplete'), and message UI (ui2).
+vim.loader.enable()
 
-require("config.lazy")
+vim.g.mapleader = ","
+vim.g.maplocalleader = "\\"
 
-vim.filetype.add({ extension = { ncl = "nickel" } })
-
--- Keybindings
-vim.keymap.set("n", "<leader>w", "<cmd>w<cr>", { desc = "Write buffer" })
-vim.keymap.set("n", "<leader>q", "<cmd>qa!<cr>", { desc = "Quit all" })
-vim.keymap.set("n", "<leader>fe", "<cmd>Oil<cr>", { desc = "File explorer (Oil)" })
-vim.keymap.set("i", "jj", "<esc>")
-vim.keymap.set("n", "<leader>cw", [[<cmd>%s/[ \t]*$//g<cr>]], { desc = "Strip trailing whitespace" })
+require("config.options")
+require("config.plugins")
+require("config.lsp")
+require("config.keymaps")
+require("config.autocmds")

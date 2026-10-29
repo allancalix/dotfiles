@@ -33,7 +33,7 @@ Keep `home.stateVersion` at its original value; it controls migration compatibil
 ## Configuration
 
 - `nix/home.nix`: packages, shell, Git/jj, SSH, and Home Manager options.
-- `nix/nvim`: LazyVim configuration and plugin specifications.
+- `nix/nvim`: Neovim configuration (native `vim.pack`, LSP, and completion; no distribution).
 - `nix/ghostty/config` and `nix/helix/config.toml`: application settings.
 - `nix/scripts`: packaged shell helpers with runtime dependencies declared in Home Manager.
 
@@ -45,17 +45,19 @@ Format the Nix files with:
 nix fmt -- flake.nix nix/home.nix
 ```
 
-## Neovim plugins
+## Neovim
 
-Add plugin specifications under `nix/nvim/lua/plugins/`; these are loaded by lazy.nvim. Language servers and formatters come from the shell/project environment; Mason is disabled.
+The configuration targets Neovim 0.12 built-ins: `vim.pack` for plugins, `vim.lsp.config`/`vim.lsp.enable` with server definitions from nvim-lspconfig, `'autocomplete'` with the LSP omnifunc for completion, and the ui2 message UI. Entry points live in `nix/nvim/lua/config/`; plugins are listed and configured in `plugins.lua`.
 
-The Nix-managed configuration is read-only. On first launch, the checked-in `nix/nvim/lazy-lock.json` seeds a writable lockfile in Neovim's data directory. `:Lazy update` updates that writable copy; copy it back to this repository when intentionally updating the shared pins:
+`~/.config/nvim` links to `nix/nvim` in this checkout (an out-of-store symlink, so edits apply without `update.sh`), and `vim.pack` writes `nix/nvim/nvim-pack-lock.json` back into the repository. `home.nix` assumes the checkout is at `~/acx/src/github.com/allancalix/dotfiles`; change `dotfilesDir` if it lives elsewhere.
 
-```sh
-cp "${XDG_DATA_HOME:-$HOME/.local/share}/nvim/lazy-lock.json" nix/nvim/lazy-lock.json
-```
+- Update plugins: `:lua vim.pack.update()`, review the confirmation buffer, `:write` to apply, then commit the lockfile.
+- Add a plugin: append it to `vim.pack.add()` and restart. Remove one: delete it from the list, then `:lua vim.pack.del({ "name" })`.
+- New machine: the first launch installs the pinned revisions from the lockfile.
 
-`:Lazy restore` restores the versions in the writable lockfile. To use newly checked-in pins on an existing installation, copy the repository lockfile to that data directory first.
+`plan.nvim` comes from the `plan` flake input (installed by Home Manager into the `nix` pack) so it stays in step with the CLI.
+
+Language servers and formatters come from each project's dev shell; servers that are not on `PATH` are skipped. Only `tree-sitter` (for building parsers) is installed globally. This repository's dev shell (`.envrc`, `nix develop`) provides lua-language-server, stylua, nixd, and alejandra.
 
 ## Shell tools
 
@@ -70,6 +72,6 @@ Git uses `nvim --clean` for commit messages. Normal editing uses the full Neovim
 ## References
 
 - [Home Manager manual](https://nix-community.github.io/home-manager/)
-- [lazy.nvim lockfiles](https://lazy.folke.io/usage/lockfile)
+- [vim.pack](https://neovim.io/doc/user/pack.html#vim.pack)
 - [Ghostty SSH integration](https://ghostty.org/docs/features/ssh)
 - [Tealdeer](https://tealdeer-rs.github.io/tealdeer/)
